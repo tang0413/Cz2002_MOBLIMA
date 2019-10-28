@@ -25,17 +25,4 @@ public class Login
 		this.password = password;
 	}
 	
-	public boolean login()
-	{
-		Scanner sc = new Scanner(System.in);
-		System.out.println("StaffId : ");
-		this.userId = sc.nextLine();
-		System.out.println("Password : ");
-		this.password = sc.nextLine();
-		
-		if(this.userId.equals("Admin") && this.password.equals("Password"))
-			return true;
-		else
-			return false;
-	}
 }
