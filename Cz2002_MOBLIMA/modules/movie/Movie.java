@@ -1,6 +1,7 @@
+package movie;
 import java.sql.Date;
 
-public class Movie 
+public class Movie
 {
 	private String movieId;
 	private String movieTItle;
