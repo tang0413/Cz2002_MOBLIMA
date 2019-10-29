@@ -1,5 +1,4 @@
 package control;
-import java.util.Scanner;
 
 public class LoginProcess 
 {
