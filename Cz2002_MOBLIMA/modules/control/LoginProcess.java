@@ -25,4 +25,12 @@ public class LoginProcess
 		this.password = password;
 	}
 	
+	public boolean loginCheck()
+	{
+		if(this.userId.equals(userId) && this.password.equals(password))
+			return true;
+		else
+			return false;
+	}
+	
 }
