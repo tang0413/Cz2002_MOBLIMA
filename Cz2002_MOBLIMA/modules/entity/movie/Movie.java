@@ -1,4 +1,4 @@
-package movie;
+package entity.movie;
 import java.sql.Date;
 
 public class Movie
