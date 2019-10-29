@@ -1,8 +1,9 @@
-package root;
+import root.App;
 
 public class RunApp {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		App app = new App();
+//		app.run();
 	}
 }
