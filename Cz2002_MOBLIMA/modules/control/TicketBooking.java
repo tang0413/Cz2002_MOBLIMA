@@ -1,6 +1,6 @@
 package control;
 
-public class Booking 
+public class TicketBooking 
 {
 	private String TID;
 	private String movieTitle;

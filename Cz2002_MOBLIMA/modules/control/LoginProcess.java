@@ -1,7 +1,7 @@
 package control;
 import java.util.Scanner;
 
-public class Login 
+public class LoginProcess 
 {
 	private String userId;
 	private String password;
