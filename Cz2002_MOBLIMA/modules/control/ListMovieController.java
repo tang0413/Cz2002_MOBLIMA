@@ -31,6 +31,8 @@ public class ListMovieController extends BaseController{
             if (choice == movieList.size()+1){
                 return;
             } else {
+                ListMovieInfoController movieInfo = new ListMovieInfoController(console, choice, movieList.get(choice - 1));
+                movieInfo.enter();
                 //display info controller (choice);
             }
         }
