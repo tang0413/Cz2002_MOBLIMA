@@ -1,10 +1,16 @@
 package modules.control;
 
 import modules.boundary.Console;
-import modules.entity.AdminList;
-import modules.control.StaffMenuController;
+import modules.entity.Admin;
+import modules.data.DataBase;
 
-public class LoginProcessController extends BaseController{
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
+public class LoginProcessController extends BaseController {
+	protected ArrayList<Admin> adminList;
+	private static final String FILENAME = "AdminList.txt";
+
 	public LoginProcessController(Console inheritedConsole) {
 		super(inheritedConsole);
 		logText = "Login Process";
@@ -12,18 +18,34 @@ public class LoginProcessController extends BaseController{
 
 	@Override
 	public void enter() {
-		while (true){
+		while (true) {
 			this.console.logText(logText);
 			String username = this.console.getStr("Your username");
 			String password = this.console.getStr("Your password");
-			if (AdminList.auth(username, password)){
-				StaffMenuController staffMenu = new StaffMenuController(this.console);
-				staffMenu.enter();
-				return; //for now
-			} else {
-				this.console.logWarning("Invalid Credential!");
-				//TODO: provide an option to exit
+			try {
+				adminList = DataBase.readAdminList(FILENAME);
+			} catch (FileNotFoundException e) {
+				System.out.println("exception");
+			}
+			if (validate(adminList, username, password)) {
+				if (validate(adminList,username,password)){
+					StaffMenuController staffMenu = new StaffMenuController(this.console);
+					staffMenu.enter();
+					return; //for now
+				} else {
+					this.console.logWarning("Invalid Credential!");
+					//TODO: provide an option to exit
+				}
 			}
 		}
+	}
+
+	private Boolean validate(ArrayList<Admin> adminList, String username, String password) {
+		for (Admin a : adminList) {
+			if (a.auth(username, password)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

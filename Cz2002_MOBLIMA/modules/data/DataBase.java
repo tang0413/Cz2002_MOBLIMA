@@ -1,14 +1,17 @@
 package modules.data;
 
 import modules.entity.Admin;
+import modules.entity.BaseEntity;
 
 import java.io.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.lang.reflect.Constructor;
 
 public class DataBase {
     private static final String SEPARATOR = "|";
@@ -17,14 +20,11 @@ public class DataBase {
     //TODO: Changed the absolute path to relative
     public static ArrayList readAdminList(String filename) throws FileNotFoundException {
         //TODO: make it more general so that we don't have to write readAdminList, readCinemaList, readMovieList...
-        ArrayList stringArray = (ArrayList)read(DIR + filename);
-        ArrayList alr = new ArrayList<Admin>();// to store Professors data
-
+        ArrayList stringArray = (ArrayList)readFile(DIR + filename);
+        ArrayList alr = new ArrayList<Admin>();
         for (int i = 0 ; i < stringArray.size() ; i++) {
             String st = (String)stringArray.get(i);
-            // get individual 'fields' of the string separated by SEPARATOR
             StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
-
             int  id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);	// first token value
             String  username = star.nextToken().trim().split(VALUESEPARATOR)[1];	// second token value
             String  password = star.nextToken().trim().split(VALUESEPARATOR)[1];	// third token value
@@ -35,7 +35,7 @@ public class DataBase {
         return alr ;
     }
 
-    public static List read(String fileName) throws FileNotFoundException {
+    public static List readFile(String fileName) throws FileNotFoundException {
         List data = new ArrayList() ;
         Path currentDir = Paths.get(".");
         Scanner scanner = new Scanner(new FileInputStream(fileName));
