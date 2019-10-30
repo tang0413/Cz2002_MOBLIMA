@@ -37,9 +37,15 @@ public class Console {
                 this.log(">> " + label + " (number): ");
                 int num = sc.nextInt();
                 sc.nextLine();
-                return num;
+                if (num >= lowerBound & num <= upperBound) {
+                    return num;
+                } else {
+                    throw new InputMismatchException("OutOfRange");
+                }
             } catch (InputMismatchException e) {
-                sc.nextLine();
+                if (e.getMessage() != "OutOfRange"){
+                    sc.nextLine();
+                }
                 this.logWarning("Invalid input! Please try again.");
             }
         }
