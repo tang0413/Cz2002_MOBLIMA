@@ -8,7 +8,7 @@ public class App {
 		Console console = new Console();
 		console.logText("Welcome to our movie system! Version: " + version);
 		UserSelecting user = new UserSelecting(console);
-		user.run(); //not implemented now.
+		user.enter(); //not implemented now.
 		console.logText("Thank you for using our APP!");
 		console.destoryScanner();
 	}

@@ -1,4 +1,6 @@
 package modules.data;
 
 public class DataBase {
+    // getAllMovie, getAllCinema, ....
+    // setMovie, setBooking, ...
 }

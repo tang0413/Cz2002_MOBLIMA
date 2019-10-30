@@ -9,7 +9,7 @@ public class UserSelecting extends BaseController{
     }
 
     @Override
-    public void run() {
+    public void enter() {
         this.console.log("inside UserSelecting");
     }
 }
