@@ -14,7 +14,7 @@ public class ListMovieController extends BaseController{
         logText = "Here are the ongoing movies";
         logMenu = new ArrayList<String>();
         try{
-            movieList = DataBase.readMovieList(FILENAME);
+            movieList = DataBase.readList(FILENAME, Movie.class);
             for (Movie m: movieList){
                 logMenu.add(m.getName());
             }

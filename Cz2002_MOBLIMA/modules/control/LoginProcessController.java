@@ -24,8 +24,8 @@ public class LoginProcessController extends BaseController {
 			String username = this.console.getStr("Your username");
 			String password = this.console.getStr("Your password");
 			try {
-				adminList = DataBase.readAdminList(FILENAME);
-			} catch (FileNotFoundException e) {
+				adminList = DataBase.readList(FILENAME, Admin.class);
+			} catch (Exception e) {
 				System.out.println("exception");
 			}
 			if (validate(adminList, username, password)) {

@@ -39,7 +39,7 @@ public class ListMovieInfoController extends BaseController {
     public String getMovieCast(){
         ArrayList<String> castList = new ArrayList<String>();
         try{
-            ArrayList<Actor> wholeActorList = DataBase.readActorList(FILENAME);
+            ArrayList<Actor> wholeActorList = DataBase.readList(FILENAME, Actor.class);
             for (Actor a: wholeActorList){
                 if (a.getInMovie().contains(Integer.toString(this.movieId))){
                     castList.add(a.getName());
