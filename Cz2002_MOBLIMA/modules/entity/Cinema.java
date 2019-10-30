@@ -1,8 +1,5 @@
-package entity;
+package modules.entity;
 
-public class Cinema 
-{
-	private String cinemaId;
-	private String cinemaLocation;
-	private String cinemaAppen;
+public class Cinema {
+
 }

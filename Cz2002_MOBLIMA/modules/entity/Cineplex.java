@@ -1,4 +1,4 @@
-package entity;
+package modules.entity;
 
 public class Cineplex {
 
