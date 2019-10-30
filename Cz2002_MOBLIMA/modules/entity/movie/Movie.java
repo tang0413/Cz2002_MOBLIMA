@@ -3,6 +3,8 @@ package modules.entity.movie;
 import modules.entity.BaseEntity;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Movie extends BaseEntity {
     private static DecimalFormat df = new DecimalFormat("0.00");
@@ -17,6 +19,15 @@ public class Movie extends BaseEntity {
         this.description = description;
         this.totalScore = totalScore;
         this.numOfPeople = numOfPeople;
+        this.rating = df.format(totalScore/numOfPeople);
+    }
+
+    public Movie(ArrayList<String> paramList) {
+        super(Integer.parseInt(paramList.get(0)));
+        this.name = paramList.get(1);
+        this.description = paramList.get(2);
+        this.totalScore = Double.parseDouble(paramList.get(3));
+        this.numOfPeople = Integer.parseInt(paramList.get(4));
         this.rating = df.format(totalScore/numOfPeople);
     }
 
