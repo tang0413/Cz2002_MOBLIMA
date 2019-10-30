@@ -3,6 +3,7 @@ package modules.data;
 
 import modules.entity.Admin;
 import modules.entity.BaseEntity;
+import modules.entity.movie.Movie;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -32,6 +33,23 @@ public class DataBase {
             Admin admin = new Admin(id, username, password);
             // add to Professors list
             alr.add(admin) ;
+        }
+        return alr ;
+    }
+    public static ArrayList readMovieList(String filename) throws FileNotFoundException {
+        //TODO: make it more general so that we don't have to write readAdminList, readCinemaList, readMovieList...
+        ArrayList stringArray = (ArrayList)readFile(DIR + filename);
+        ArrayList alr = new ArrayList<Movie>();
+        for (int i = 0 ; i < stringArray.size() ; i++) {
+            String st = (String)stringArray.get(i);
+            StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
+            int  id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
+            String  name = star.nextToken().trim().split(VALUESEPARATOR)[1];
+            String  descprition = star.nextToken().trim().split(VALUESEPARATOR)[1];
+            Double  totalScore = Double.parseDouble(star.nextToken().trim().split(VALUESEPARATOR)[1]);
+            int numOfPersonRating = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
+            Movie movie = new Movie(id, name, descprition,totalScore, numOfPersonRating);
+            alr.add(movie) ;
         }
         return alr ;
     }

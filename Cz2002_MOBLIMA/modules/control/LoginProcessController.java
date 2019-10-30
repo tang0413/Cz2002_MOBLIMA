@@ -37,7 +37,6 @@ public class LoginProcessController extends BaseController {
 				if (!tryAgain()){
 					return;
 				};
-				//TODO: provide an option to exit
 			}
 		}
 	}
