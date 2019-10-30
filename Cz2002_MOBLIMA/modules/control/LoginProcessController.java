@@ -2,6 +2,7 @@ package modules.control;
 
 import modules.boundary.Console;
 import modules.entity.AdminList;
+import modules.control.StaffMenuController;
 
 public class LoginProcessController extends BaseController{
 	public LoginProcessController(Console inheritedConsole) {
@@ -16,12 +17,12 @@ public class LoginProcessController extends BaseController{
 			String username = this.console.getStr("Your username");
 			String password = this.console.getStr("Your password");
 			if (AdminList.auth(username, password)){
-				this.console.logText("logged in!");
-				//do sth here, enter the next controller
+				StaffMenuController staffMenu = new StaffMenuController(this.console);
+				staffMenu.enter();
 				return; //for now
 			} else {
-				this.console.logText("Invalid Credential!");
-				return;
+				this.console.logWarning("Invalid Credential!");
+				//TODO: provide an option to exit
 			}
 		}
 	}
