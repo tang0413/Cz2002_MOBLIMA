@@ -28,14 +28,15 @@ public class LoginProcessController extends BaseController {
 				System.out.println("exception");
 			}
 			if (validate(adminList, username, password)) {
-				if (validate(adminList,username,password)){
 					StaffMenuController staffMenu = new StaffMenuController(this.console);
 					staffMenu.enter();
 					return; //for now
-				} else {
-					this.console.logWarning("Invalid Credential!");
-					//TODO: provide an option to exit
-				}
+			} else {
+				this.console.logWarning("Invalid Credential!");
+				if (!tryAgain()){
+					return;
+				};
+				//TODO: provide an option to exit
 			}
 		}
 	}
@@ -45,6 +46,14 @@ public class LoginProcessController extends BaseController {
 			if (a.auth(username, password)) {
 				return true;
 			}
+		}
+		return false;
+	}
+
+	private Boolean tryAgain() {
+		String tryAgain = this.console.getStr("Try again?[y/n]");
+		if (tryAgain.equals("y")){
+			return true;
 		}
 		return false;
 	}
