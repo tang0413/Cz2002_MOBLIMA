@@ -1,4 +1,6 @@
 package modules.entity.movie;
+//package entity.movie;
+
 import java.sql.Date;
 
 public class Movie

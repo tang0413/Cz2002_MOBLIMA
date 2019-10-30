@@ -1,4 +1,5 @@
 package modules.entity;
+//package entity;
 
 public class Admin extends BaseEntity{
     private String username;
