@@ -3,6 +3,7 @@ package modules.data;
 
 import modules.entity.Admin;
 import modules.entity.BaseEntity;
+import modules.entity.Cineplex;
 import modules.entity.movie.Actor;
 import modules.entity.movie.Movie;
 
@@ -66,6 +67,21 @@ public class DataBase {
             ArrayList<String> inMovie = new ArrayList<String>( Arrays.asList(splittedInMovie) );
             Actor actor = new Actor(id, name, inMovie);
             alr.add(actor) ;
+        }
+        return alr ;
+    }
+
+    public static ArrayList readCineList(String filename) throws FileNotFoundException {
+        //TODO: make it more general so that we don't have to write readAdminList, readCinemaList, readMovieList...
+        ArrayList stringArray = (ArrayList)readFile(DIR + filename);
+        ArrayList alr = new ArrayList<Cineplex>();
+        for (int i = 0 ; i < stringArray.size() ; i++) {
+            String st = (String)stringArray.get(i);
+            StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
+            int  id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
+            String  cineplexname = star.nextToken().trim().split(VALUESEPARATOR)[1];
+            Cineplex cineplex = new Cineplex(id, cineplexname);
+            alr.add(cineplex) ;
         }
         return alr ;
     }
