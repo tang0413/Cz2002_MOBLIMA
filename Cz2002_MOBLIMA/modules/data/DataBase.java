@@ -16,7 +16,7 @@ public class DataBase {
     private static final String DIR = "/Users/zhangxinyi/DMAL/Cz2002_MOBLIMA/Cz2002_MOBLIMA/dataFiles/";
     //TODO: Changed the absolute path to relative
     public static ArrayList readAdminList(String filename) throws FileNotFoundException {
-        // read String from text file
+        //TODO: make it more general so that we don't have to write readAdminList, readCinemaList, readMovieList...
         ArrayList stringArray = (ArrayList)read(DIR + filename);
         ArrayList alr = new ArrayList<Admin>();// to store Professors data
 
@@ -25,9 +25,9 @@ public class DataBase {
             // get individual 'fields' of the string separated by SEPARATOR
             StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
 
-            int  id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);	// first token
-            String  username = star.nextToken().trim().split(VALUESEPARATOR)[1];	// second token
-            String  password = star.nextToken().trim().split(VALUESEPARATOR)[1];	// third token
+            int  id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);	// first token value
+            String  username = star.nextToken().trim().split(VALUESEPARATOR)[1];	// second token value
+            String  password = star.nextToken().trim().split(VALUESEPARATOR)[1];	// third token value
             Admin admin = new Admin(id, username, password);
             // add to Professors list
             alr.add(admin) ;
