@@ -1,0 +1,2 @@
+id=1|name=test1|descrption=this is movie1|totalScore=10|numOfPersonRating=2
+id=2|name=test2|descrption=this is movie2|totalScore=10|numOfPersonRating=3

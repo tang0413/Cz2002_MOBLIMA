@@ -2,12 +2,16 @@ package modules.control;
 
 import modules.boundary.Console;
 
+import java.util.ArrayList;
+
 public class UserSelectingController extends BaseController{
     public UserSelectingController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = new String("Please choose your user category");
-        logMenu = new String[]{"Staff", "Customer", "Quit"};
-
+        logMenu = new ArrayList<String>();
+        logMenu.add("Staff");
+        logMenu.add("Customer");
+        logMenu.add("Quit");
     }
     @Override
     public void enter() {
@@ -22,7 +26,8 @@ public class UserSelectingController extends BaseController{
                     login.enter();
                     break;
                 case 2:
-                    // do sth here
+                    UserMenuController user = new UserMenuController(console);
+                    user.enter();
                     break;
                 case 3:
                     return;

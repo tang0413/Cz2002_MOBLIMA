@@ -1,5 +1,6 @@
 package modules.boundary;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -23,7 +24,7 @@ public class Console {
         System.out.println(outputMsg);
         System.out.println(repeated);
     }
-    public void logMenu(String[] menuItems) {
+    public void logMenu(ArrayList<String> menuItems) {
         int i = 1;
         for (String str : menuItems) {
             System.out.println(i + ". " + str);

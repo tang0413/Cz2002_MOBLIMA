@@ -1,10 +1,13 @@
 package modules.control;
 
 import modules.boundary.Console;
+
+import java.util.ArrayList;
+
 public abstract class BaseController {
     protected Console console;
     protected String logText;
-    protected String[] logMenu;
+    protected ArrayList<String> logMenu;
 
     public BaseController(Console inheritedConsole) {
         console = inheritedConsole;
