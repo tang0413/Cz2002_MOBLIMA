@@ -1,1 +1,3 @@
-id=1|directorname=Happy
+id=1|directorname=Happy|inMovie=1,2
+id=1|directorname=Sad|inMovie=1
+id=1|directorname=Angry|inMovie=2
