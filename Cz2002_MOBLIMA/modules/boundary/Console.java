@@ -24,14 +24,14 @@ public class Console {
         System.out.println(repeated);
     }
     public void logMenu(String[] menuItems) {
-        int i = 0;
+        int i = 1;
         for (String str : menuItems) {
-            System.out.println(i + ": " + str);
+            System.out.println(i + ". " + str);
             i ++;
         }
         System.out.println(" ");
     }
-    public int getInt(String label) {
+    public int getInt(String label, int lowerBound, int upperBound) {
         while (true) {
             try {
                 this.log(">> " + label + " (number): ");
