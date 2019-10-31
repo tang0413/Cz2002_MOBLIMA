@@ -64,24 +64,6 @@ public class DataBase {
         return alr;
     }
 
-    public static ArrayList readReviewList(String filename) throws FileNotFoundException {
-        //TODO: Remove this method, use readList instead
-        ArrayList stringArray = (ArrayList) readFile(DIR + filename);
-        ArrayList alr = new ArrayList<Review>();
-        for (int i = 0; i < stringArray.size(); i++) {
-            String st = (String) stringArray.get(i);
-            StringTokenizer star = new StringTokenizer(st, SEPARATOR);    // pass in the string to the string tokenizer using delimiter ","
-            int id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
-            String name = star.nextToken().trim().split(VALUESEPARATOR)[1];
-            int movieId = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
-            int userId = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
-
-            Review review = new Review(id, name, movieId, userId);
-            alr.add(review);
-        }
-        return alr;
-    }
-
     public static ArrayList readList(String filename, Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         ArrayList stringArray = (ArrayList)readFile(DIR + filename);
         ArrayList alr = new ArrayList<>();

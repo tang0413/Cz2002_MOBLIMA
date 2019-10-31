@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 public class Movie extends BaseEntity {
     private static final String CASTFILENAME = "ActorList.txt";
+    private static final String REVIEWFILENAME = "ReviewList.txt";
     private static DecimalFormat df = new DecimalFormat("0.0");
     private String name;
     private String description;
@@ -31,13 +32,7 @@ public class Movie extends BaseEntity {
         super(Integer.parseInt(paramList.get(0)));
         this.name = paramList.get(1);
         this.description = paramList.get(2);
-        this.totalScore = Double.parseDouble(paramList.get(3));
-        this.numOfPeople = Integer.parseInt(paramList.get(4));
-        if (numOfPeople > 1){
-            this.rating = df.format(totalScore/numOfPeople);
-        } else {
-            this.rating = "N.A.";
-        }
+        this.rating = findRating();
         this.castList = findCast();
     }
 
@@ -83,6 +78,26 @@ public class Movie extends BaseEntity {
         } catch(Exception e){
         }
         return castList;
+    }
+
+    private String findRating(){
+        Double totalScore = 0.0;
+        int numberOfPeople = 0;
+        try{
+            ArrayList<Review> wholeReviewList = DataBase.readList(REVIEWFILENAME, Review.class);
+            for (Review a: wholeReviewList){
+                if (a.getMovieId() == this.id){
+                    totalScore += Double.valueOf(a.getRating());
+                    numberOfPeople ++;
+                }
+            }
+        } catch(Exception e){
+        }
+        if (numberOfPeople > 1){
+            return df.format(totalScore/numberOfPeople);
+        } else {
+            return "N.A.";
+        }
     }
 
 }

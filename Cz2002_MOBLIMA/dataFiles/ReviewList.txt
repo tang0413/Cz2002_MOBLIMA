@@ -1,0 +1,3 @@
+id=1|rating=4|review=not a bad movie|movieId=1|userId=1
+id=2|rating=5|review=a good movie|movieId=1|userId=2
+id=3|rating=5|review=good|movieId=2|userId=3
