@@ -27,6 +27,7 @@ public class Movie extends BaseEntity {
 //    }
 
     public Movie(ArrayList<String> paramList) {
+        //TODO get the ratings from review class
         super(Integer.parseInt(paramList.get(0)));
         this.name = paramList.get(1);
         this.description = paramList.get(2);

@@ -3,6 +3,7 @@ package modules.entity.movie;
 import modules.entity.BaseEntity;
 
 public class Review extends BaseEntity {
+    //TODO include the ratings as well
     private String review;
     private int movieId;
     private int userId;
