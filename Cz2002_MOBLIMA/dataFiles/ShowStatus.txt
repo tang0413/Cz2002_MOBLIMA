@@ -1,4 +1,0 @@
-id=1|statusname=Coming Soon
-id=2|statusname=Preview
-id=3|statusname=Now Showing
-id=4|statusname=End of Showing

@@ -7,6 +7,7 @@ import modules.entity.MovieGoner;
 import java.util.ArrayList;
 
 public class Review extends BaseEntity {
+    //id=3|rating=5|review=good|movieId=2|userId=3
     private static final String MOVIEGONERFILENAME = "MoviegonerList.txt";
     private int rating;
     private String review;
@@ -59,4 +60,8 @@ public class Review extends BaseEntity {
         return complexRecord;
     }
 
+    @Override
+    public String StringlizeEntity() {
+        return "id=" + this.id + "|rating=" + this.rating + "|review=" + this.review + "|movieId=" + this.movieId + "|userId=" + this.userId;
+    }
 }

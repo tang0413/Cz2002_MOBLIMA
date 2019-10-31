@@ -19,6 +19,11 @@ public class MovieGoner extends BaseEntity{
         return name;
     }
 
+    @Override
+    public String StringlizeEntity() {
+        return "id=" + this.id + "|name=" + this.name + "|phone=" + this.phone + "|email=" + this.email;
+    }
+
     public int getId() {
         return id;
     }

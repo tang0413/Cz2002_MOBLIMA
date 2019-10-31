@@ -3,6 +3,7 @@ package modules.entity;
 import java.util.ArrayList;
 
 public class Admin extends BaseEntity{
+    //id=2|username=admin|password=password
     private String username;
     private String password;
 //    public Admin(int id, String username, String password){
@@ -21,5 +22,10 @@ public class Admin extends BaseEntity{
         } else {
             return false;
         }
+    }
+
+    @Override
+    public String StringlizeEntity() {
+        return "id=" + this.id + "|username=" + this.username + "|password=" + this.password;
     }
 }

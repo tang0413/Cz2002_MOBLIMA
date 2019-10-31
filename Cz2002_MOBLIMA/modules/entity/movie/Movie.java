@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Movie extends BaseEntity implements Comparable{
+    private static final String FILENAME = "MovieList.txt";
     private static final String DIRECTORFILENAME = "DirectorList.txt";
     private static final String CASTFILENAME = "ActorList.txt";
     private static final String REVIEWFILENAME = "ReviewList.txt";
@@ -17,6 +18,9 @@ public class Movie extends BaseEntity implements Comparable{
     private ArrayList<String> castList;
     private ArrayList<String> directorList;
     private ArrayList<String> review = new ArrayList<String>();
+    private String status;
+    private String type;
+    private String cat;
 
 //    public Movie(int id, String name, String description, Double totalScore, int numOfPeople ) {
 //        super(id);
@@ -32,6 +36,9 @@ public class Movie extends BaseEntity implements Comparable{
         super(Integer.parseInt(paramList.get(0)));
         this.name = paramList.get(1);
         this.description = paramList.get(2);
+        this.status = paramList.get(3);
+        this.type = paramList.get(4);
+        this.cat = paramList.get(5);
         this.rating = findRatingAndSetReview();
         this.castList = findPeople(CASTFILENAME, Actor.class);
         this.directorList =  findPeople(DIRECTORFILENAME, Director.class);
@@ -66,6 +73,14 @@ public class Movie extends BaseEntity implements Comparable{
 
     public ArrayList<String> getReview(){
         return this.review;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public boolean equals(Object o) {
@@ -121,4 +136,17 @@ public class Movie extends BaseEntity implements Comparable{
         }
     }
 
+    public void setId(int id){
+        this.id = id;
+        try{
+            DataBase.setData(FILENAME, this);
+        } catch (Exception e){
+        }    //TODO for every set
+    }
+
+    @Override
+    public String StringlizeEntity() {
+        return "id=" + this.id + "|name=" + this.name + "|description=" + this.description + "|status=" + this.status + "|type=" + this.type + "|cat=" + this.cat;
+        //TODO make it a standard method
+    }
 }

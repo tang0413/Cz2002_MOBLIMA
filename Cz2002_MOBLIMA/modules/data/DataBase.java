@@ -10,6 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.regex.Pattern;
 
 public class DataBase {
     private static final String SEPARATOR = "|";
@@ -29,21 +30,6 @@ public class DataBase {
             alr.add(cineplex) ;
         }
         return alr ;
-    }
-
-    public static ArrayList readStatusList(String filename) throws FileNotFoundException {
-        //TODO: Remove this method, use readList instead
-        ArrayList stringArray = (ArrayList) readFile(DIR + filename);
-        ArrayList alr = new ArrayList<ShowStatus>();
-        for (int i = 0; i < stringArray.size(); i++) {
-            String st = (String) stringArray.get(i);
-            StringTokenizer star = new StringTokenizer(st, SEPARATOR);    // pass in the string to the string tokenizer using delimiter ","
-            int id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
-            String name = star.nextToken().trim().split(VALUESEPARATOR)[1];
-            ShowStatus showStatus = new ShowStatus(id, name);
-            alr.add(showStatus);
-        }
-        return alr;
     }
 
     public static ArrayList readList(String filename, Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
@@ -76,7 +62,28 @@ public class DataBase {
         return data;
     }
 
-    public static void setData(String fileName, BaseEntity entityToUpdate) throws FileNotFoundException {
+    public static void setData(String fileName, BaseEntity entityToUpdate) throws IOException {
+        try {
+            String idString = "id=" + entityToUpdate.getId();
+            ArrayList originalFile = (ArrayList)readFile(DIR + fileName);
+            Boolean found = false;
+            for (int i = 0 ; i < originalFile.size() ; i++) {
+                String st = (String)originalFile.get(i);
+                if (st.matches("^" + idString + "\\|.*")){
+                    found = true;
+                    originalFile.set(i, entityToUpdate.StringlizeEntity());
+                }
+            }
+            if (!found){
+                originalFile.add(entityToUpdate.StringlizeEntity());
+            }
+            PrintWriter out = new PrintWriter(new FileWriter(DIR + fileName));
+            for (int i =0; i < originalFile.size() ; i++) {
+                out.println((String)originalFile.get(i));
+            }
+            out.close();
+        } catch (Exception e){
+        }
         //TODO: update the entry accordingly if id exist. if no then insert new
     }
 

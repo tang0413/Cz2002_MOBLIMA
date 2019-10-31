@@ -28,4 +28,9 @@ public class MoviePeople extends BaseEntity {
     public String getName() {
         return name;
     }
+
+    @Override
+    public String StringlizeEntity() {
+        return "id=" + this.id + "|name=" + this.name + "|inMovie=" + this.inMovie; //TODO: chonvertType
+    }
 }
