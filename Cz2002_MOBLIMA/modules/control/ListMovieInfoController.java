@@ -27,7 +27,7 @@ public class ListMovieInfoController extends BaseController {
         this.console.log("Name: " + movie.getName());
         this.console.log("Rating: " + movie.getRating());
         this.console.log("Description: " + movie.getDescription());
-        this.console.log("Cast: " + getMovieCast());
+        this.console.log("Cast: " + movie.getCast());
         this.console.logMenu(logMenu);
         int choice = this.console.getInt("Enter index to proceed", 1, 3);
         if (choice == 3){
@@ -36,18 +36,19 @@ public class ListMovieInfoController extends BaseController {
 
     }
 
-    public String getMovieCast(){
-        ArrayList<String> castList = new ArrayList<String>();
-        try{
-            ArrayList<Actor> wholeActorList = DataBase.readList(FILENAME, Actor.class);
-            for (Actor a: wholeActorList){
-                if (a.getInMovie().contains(Integer.toString(this.movieId))){
-                    castList.add(a.getName());
-                }
-            }
-        } catch(Exception e){
-        }
-        String res = String.join(",", castList);
-        return res;
-    }
+//    public String getMovieCast(){
+//        //moved to movie entity as part of the attributes
+//        ArrayList<String> castList = new ArrayList<String>();
+//        try{
+//            ArrayList<Actor> wholeActorList = DataBase.readList(FILENAME, Actor.class);
+//            for (Actor a: wholeActorList){
+//                if (a.getInMovie().contains(Integer.toString(this.movieId))){
+//                    castList.add(a.getName());
+//                }
+//            }
+//        } catch(Exception e){
+//        }
+//        String res = String.join(",", castList);
+//        return res;
+//    }
 }

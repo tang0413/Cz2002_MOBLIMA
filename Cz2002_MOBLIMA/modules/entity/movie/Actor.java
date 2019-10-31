@@ -8,11 +8,11 @@ import java.util.Arrays;
 public class Actor extends BaseEntity {
     private String name;
     private ArrayList<String> inMovie;
-    public Actor(int id, String name, ArrayList<String> inMovie) {
-        super(id);
-        this.name = name;
-        this.inMovie = inMovie;
-    }
+//    public Actor(int id, String name, ArrayList<String> inMovie) {
+//        super(id);
+//        this.name = name;
+//        this.inMovie = inMovie;
+//    }
 
     public Actor(ArrayList<String> paramList) {
         super(Integer.parseInt(paramList.get(0)));
