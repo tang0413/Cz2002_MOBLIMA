@@ -17,8 +17,7 @@ import java.lang.reflect.Constructor;
 public class DataBase {
     private static final String SEPARATOR = "|";
     private static final String VALUESEPARATOR = "=";
-    private static final String DIR = "/Users/zhangxinyi/DMAL/Cz2002_MOBLIMA/Cz2002_MOBLIMA/dataFiles/";
-    //TODO: Changed the absolute path to relative
+    private static final String DIR = "Cz2002_MOBLIMA/dataFiles/";
 
     public static ArrayList readCineList(String filename) throws FileNotFoundException {
         ArrayList stringArray = (ArrayList)readFile(DIR + filename);
@@ -84,7 +83,6 @@ public class DataBase {
         }
         return alr;
     }
-
 
     public static ArrayList readList(String filename, Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         ArrayList stringArray = (ArrayList)readFile(DIR + filename);
