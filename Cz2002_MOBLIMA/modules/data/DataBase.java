@@ -17,6 +17,7 @@ public class DataBase {
     private static final String DIR = "Cz2002_MOBLIMA/dataFiles/";
 
     public static ArrayList readCineList(String filename) throws FileNotFoundException {
+        //TODO: Remove this method, use readList instead
         ArrayList stringArray = (ArrayList)readFile(DIR + filename);
         ArrayList alr = new ArrayList<Cineplex>();
         for (int i = 0 ; i < stringArray.size() ; i++) {
@@ -31,7 +32,7 @@ public class DataBase {
     }
 
     public static ArrayList readDirectorList(String filename) throws FileNotFoundException {
-        //TODO: make it more general so that we don't have to write readAdminList, readCinemaList, readMovieList...
+        //TODO: Remove this method, use readList instead
         ArrayList stringArray = (ArrayList)readFile(DIR + filename);
         ArrayList alr = new ArrayList<Director>();
         for (int i = 0 ; i < stringArray.size() ; i++) {
@@ -49,7 +50,7 @@ public class DataBase {
     }
 
     public static ArrayList readStatusList(String filename) throws FileNotFoundException {
-        //TODO: make it more general so that we don't have to write readAdminList, readCinemaList, readMovieList...
+        //TODO: Remove this method, use readList instead
         ArrayList stringArray = (ArrayList) readFile(DIR + filename);
         ArrayList alr = new ArrayList<ShowStatus>();
         for (int i = 0; i < stringArray.size(); i++) {
@@ -64,7 +65,7 @@ public class DataBase {
     }
 
     public static ArrayList readReviewList(String filename) throws FileNotFoundException {
-        //TODO: make it more general so that we don't have to write readAdminList, readCinemaList, readMovieList...
+        //TODO: Remove this method, use readList instead
         ArrayList stringArray = (ArrayList) readFile(DIR + filename);
         ArrayList alr = new ArrayList<Review>();
         for (int i = 0; i < stringArray.size(); i++) {
@@ -86,7 +87,7 @@ public class DataBase {
         ArrayList alr = new ArrayList<>();
         for (int i = 0 ; i < stringArray.size() ; i++) {
             String st = (String)stringArray.get(i);
-            StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
+            StringTokenizer star = new StringTokenizer(st , SEPARATOR);
             ArrayList<String> paramList = new ArrayList<>();
             while (star.hasMoreElements()){
                 paramList.add(star.nextToken().trim().split(VALUESEPARATOR)[1]);
@@ -95,6 +96,7 @@ public class DataBase {
         }
         return alr ;
     }
+
     public static List readFile(String fileName) throws FileNotFoundException {
         List data = new ArrayList() ;
         Path currentDir = Paths.get(".");
@@ -109,6 +111,12 @@ public class DataBase {
         }
         return data;
     }
-    // getAllMovie, getAllCinema, ....
-    // setMovie, setBooking, ...
+
+    public static void setData(String fileName, BaseEntity entityToUpdate) throws FileNotFoundException {
+        //TODO: update the entry accordingly if id exist. if no then insert new
+    }
+
+    public static void deleteData(String fileName, BaseEntity entityToDelete) throws FileNotFoundException {
+        //TODO: delete the entry accordingly if id exist
+    }
 }
