@@ -9,9 +9,9 @@ public abstract class BaseEntity {
     }
 
     public static int getNewId(){
-        return maxId+1; //TODO to be tested
+        return maxId+1; //TODO to be tested， for adding new records to table
     }
-    public abstract String StringlizeEntity();
+    public abstract String StringlizeEntity(); //WARNING: include the ones in db only!!
 
     public int getId() {
         return id;

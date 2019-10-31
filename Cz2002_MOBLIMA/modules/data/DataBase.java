@@ -84,10 +84,25 @@ public class DataBase {
             out.close();
         } catch (Exception e){
         }
-        //TODO: update the entry accordingly if id exist. if no then insert new
     }
 
     public static void deleteData(String fileName, BaseEntity entityToDelete) throws FileNotFoundException {
-        //TODO: delete the entry accordingly if id exist
+        //TODO test this function
+        try {
+        String idString = "id=" + entityToDelete.getId();
+        ArrayList originalFile = (ArrayList)readFile(DIR + fileName);
+        for (int i = 0 ; i < originalFile.size() ; i++) {
+            String st = (String)originalFile.get(i);
+            if (st.matches("^" + idString + "\\|.*")){
+                originalFile.remove(i);
+            }
+        }
+        PrintWriter out = new PrintWriter(new FileWriter(DIR + fileName));
+        for (int i =0; i < originalFile.size() ; i++) {
+            out.println((String)originalFile.get(i));
+        }
+        out.close();
+        } catch (Exception e){
+        }
     }
 }
