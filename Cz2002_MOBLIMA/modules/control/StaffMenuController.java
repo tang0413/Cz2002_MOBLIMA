@@ -9,7 +9,7 @@ public class StaffMenuController extends BaseController {
         super(inheritedConsole);
         logText = "Please choose from the following options";
         logMenu = new ArrayList<String>();
-        logMenu.add("Quit");
+        logMenu.add("Log off");
     }
 
     @Override

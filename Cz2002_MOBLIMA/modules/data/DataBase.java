@@ -31,24 +31,6 @@ public class DataBase {
         return alr ;
     }
 
-    public static ArrayList readDirectorList(String filename) throws FileNotFoundException {
-        //TODO: Remove this method, use readList instead
-        ArrayList stringArray = (ArrayList)readFile(DIR + filename);
-        ArrayList alr = new ArrayList<Director>();
-        for (int i = 0 ; i < stringArray.size() ; i++) {
-            String st = (String)stringArray.get(i);
-            StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
-            int  id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
-            String  name = star.nextToken().trim().split(VALUESEPARATOR)[1];
-            String rawInMovie = star.nextToken().trim().split(VALUESEPARATOR)[1];
-            String splittedInMovie[] = rawInMovie.split(",");
-            ArrayList<String> inMovie = new ArrayList<String>( Arrays.asList(splittedInMovie) );
-            Director director = new Director(id, name, inMovie);
-            alr.add(director) ;
-        }
-        return alr ;
-    }
-
     public static ArrayList readStatusList(String filename) throws FileNotFoundException {
         //TODO: Remove this method, use readList instead
         ArrayList stringArray = (ArrayList) readFile(DIR + filename);

@@ -5,9 +5,9 @@ import modules.entity.BaseEntity;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Movie extends BaseEntity implements Comparable{
+    private static final String DIRECTORFILENAME = "DirectorList.txt";
     private static final String CASTFILENAME = "ActorList.txt";
     private static final String REVIEWFILENAME = "ReviewList.txt";
     private static DecimalFormat df = new DecimalFormat("0.0");
@@ -15,7 +15,9 @@ public class Movie extends BaseEntity implements Comparable{
     private String description;
     private String rating;
     private ArrayList<String> castList;
+    private ArrayList<String> directorList;
     private ArrayList<String> review = new ArrayList<String>();
+
 //    public Movie(int id, String name, String description, Double totalScore, int numOfPeople ) {
 //        super(id);
 //        this.name = name;
@@ -31,7 +33,8 @@ public class Movie extends BaseEntity implements Comparable{
         this.name = paramList.get(1);
         this.description = paramList.get(2);
         this.rating = findRatingAndSetReview();
-        this.castList = findCast();
+        this.castList = findPeople(CASTFILENAME, Actor.class);
+        this.directorList =  findPeople(DIRECTORFILENAME, Director.class);
     }
 
     //TODO: add set, add dependency to cast and directors.....
@@ -53,6 +56,11 @@ public class Movie extends BaseEntity implements Comparable{
 
     public String getCast(){
         String res = String.join(",", this.castList);
+        return res;
+    }
+
+    public String getDirector(){
+        String res = String.join(",", this.directorList);
         return res;
     }
 
@@ -78,18 +86,18 @@ public class Movie extends BaseEntity implements Comparable{
         return 2;
     }
 
-    private ArrayList<String> findCast(){
-        ArrayList<String> castList = new ArrayList<String>();
+    private ArrayList<String> findPeople(String fileName, Class<? extends MoviePeople> classObj){
+        ArrayList<String> peopleList = new ArrayList<String>();
         try{
-            ArrayList<Actor> wholeActorList = DataBase.readList(CASTFILENAME, Actor.class);
-            for (Actor a: wholeActorList){
+            ArrayList<MoviePeople> wholeMoviePeopleList = DataBase.readList(fileName, classObj);
+            for (MoviePeople a: wholeMoviePeopleList){
                 if (a.getInMovie().contains(Integer.toString(this.id))){
-                    castList.add(a.getName());
+                    peopleList.add(a.getName());
                 }
             }
         } catch(Exception e){
         }
-        return castList;
+        return peopleList;
     }
 
     private String findRatingAndSetReview(){

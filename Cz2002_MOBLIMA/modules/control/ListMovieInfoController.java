@@ -27,6 +27,7 @@ public class ListMovieInfoController extends BaseController {
         this.console.log("Name: " + movie.getName());
         this.console.log("Rating: " + movie.getRating());
         this.console.log("Description: " + movie.getDescription());
+        this.console.log("Director: " + movie.getDirector());
         this.console.log("Cast: " + movie.getCast());
         this.console.log(""); //TODO: can reuse logwithseperator and need director
         this.console.logMenu(logMenu);
