@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 public class Movie extends BaseEntity {
     private static final String CASTFILENAME = "ActorList.txt";
-    private static DecimalFormat df = new DecimalFormat("0.00");
+    private static DecimalFormat df = new DecimalFormat("0.0");
     private String name;
     private String description;
     private Double totalScore;
@@ -32,7 +32,11 @@ public class Movie extends BaseEntity {
         this.description = paramList.get(2);
         this.totalScore = Double.parseDouble(paramList.get(3));
         this.numOfPeople = Integer.parseInt(paramList.get(4));
-        this.rating = df.format(totalScore/numOfPeople);
+        if (numOfPeople > 1){
+            this.rating = df.format(totalScore/numOfPeople);
+        } else {
+            this.rating = "N.A.";
+        }
         this.castList = findCast();
     }
 
