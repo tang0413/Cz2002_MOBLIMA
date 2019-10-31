@@ -28,7 +28,7 @@ public class ListMovieInfoController extends BaseController {
         this.console.log("Rating: " + movie.getRating());
         this.console.log("Description: " + movie.getDescription());
         this.console.log("Cast: " + movie.getCast());
-        this.console.log("");
+        this.console.log(""); //TODO: can reuse logwithseperator and need director
         this.console.logMenu(logMenu);
         int choice = this.console.getInt("Enter index to proceed", 1, 3);
         switch (choice) {

@@ -22,6 +22,7 @@ public class ListMovieReviewController extends BaseController {
             this.console.logText(logText);
             ArrayList<String> reviews = this.movie.getReview();
             this.console.logWithSeparator(reviews, "|");
+            //TODO: need to handle "no review" case
             this.console.logMenu(logMenu);
             int choice = this.console.getInt("Enter index to proceed", 1, 2);
             switch (choice){
