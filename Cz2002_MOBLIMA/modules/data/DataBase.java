@@ -1,6 +1,7 @@
 package modules.data;
 //package data;
 
+import modules.entity.Admin;
 import modules.entity.BaseEntity;
 import modules.entity.Cineplex;
 import modules.entity.movie.*;
@@ -13,6 +14,7 @@ import java.nio.file.Paths;
 import java.util.regex.Pattern;
 
 public class DataBase {
+    private static HashMap<String, ArrayList> bufferList= new HashMap<>();
     private static final String SEPARATOR = "|";
     private static final String VALUESEPARATOR = "=";
     private static final String DIR = "Cz2002_MOBLIMA/dataFiles/";
@@ -33,6 +35,10 @@ public class DataBase {
     }
 
     public static ArrayList readList(String filename, Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        String listName= filename.substring(0 , filename.indexOf("."));
+        if (bufferList.containsKey(listName)){
+            return bufferList.get(listName);
+        }
         ArrayList stringArray = (ArrayList)readFile(DIR + filename);
         ArrayList alr = new ArrayList<>();
         for (int i = 0 ; i < stringArray.size() ; i++) {
@@ -44,10 +50,11 @@ public class DataBase {
             }
             alr.add(classObject.getConstructor(ArrayList.class).newInstance(paramList)) ;
         }
+        bufferList.put(listName, alr);
         return alr ;
     }
 
-    public static List readFile(String fileName) throws FileNotFoundException {
+    private static List readFile(String fileName) throws FileNotFoundException {
         List data = new ArrayList() ;
         Path currentDir = Paths.get(".");
         Scanner scanner = new Scanner(new FileInputStream(fileName));
@@ -63,6 +70,7 @@ public class DataBase {
     }
 
     public static void setData(String fileName, BaseEntity entityToUpdate) throws IOException {
+        String listName= fileName.substring(0 , fileName.indexOf("."));
         try {
             String idString = "id=" + entityToUpdate.getId();
             ArrayList originalFile = (ArrayList)readFile(DIR + fileName);
@@ -77,31 +85,37 @@ public class DataBase {
             if (!found){
                 originalFile.add(entityToUpdate.StringlizeEntity());
             }
-            PrintWriter out = new PrintWriter(new FileWriter(DIR + fileName));
-            for (int i =0; i < originalFile.size() ; i++) {
-                out.println((String)originalFile.get(i));
-            }
-            out.close();
+            writeFile(fileName, originalFile);
+            bufferList.put(listName, originalFile);
         } catch (Exception e){
         }
     }
 
     public static void deleteData(String fileName, BaseEntity entityToDelete) throws FileNotFoundException {
         //TODO test this function
+        String listName= fileName.substring(0 , fileName.indexOf("."));
         try {
-        String idString = "id=" + entityToDelete.getId();
-        ArrayList originalFile = (ArrayList)readFile(DIR + fileName);
-        for (int i = 0 ; i < originalFile.size() ; i++) {
-            String st = (String)originalFile.get(i);
-            if (st.matches("^" + idString + "\\|.*")){
-                originalFile.remove(i);
+            String idString = "id=" + entityToDelete.getId();
+            ArrayList originalFile = (ArrayList)readFile(DIR + fileName);
+            for (int i = 0 ; i < originalFile.size() ; i++) {
+                String st = (String)originalFile.get(i);
+                if (st.matches("^" + idString + "\\|.*")){
+                    originalFile.remove(i);
+                }
             }
+            writeFile(fileName, originalFile);
+            bufferList.put(listName, originalFile);
+        } catch (Exception e){
         }
-        PrintWriter out = new PrintWriter(new FileWriter(DIR + fileName));
-        for (int i =0; i < originalFile.size() ; i++) {
-            out.println((String)originalFile.get(i));
-        }
-        out.close();
+    }
+
+    private static void writeFile(String fileName, ArrayList content) throws FileNotFoundException {
+        try {
+            PrintWriter out = new PrintWriter(new FileWriter(DIR + fileName));
+            for (int i =0; i < content.size() ; i++) {
+                out.println((String)content.get(i));
+            }
+            out.close();
         } catch (Exception e){
         }
     }
