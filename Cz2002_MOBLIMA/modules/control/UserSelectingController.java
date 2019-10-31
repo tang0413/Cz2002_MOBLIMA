@@ -15,7 +15,6 @@ public class UserSelectingController extends BaseController{
     }
     @Override
     public void enter() {
-        //TODO: this is for demo only. not actual process.
         while (true) {
             this.console.logText(logText);
             this.console.logMenu(logMenu);
