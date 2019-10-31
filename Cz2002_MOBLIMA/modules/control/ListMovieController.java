@@ -3,6 +3,7 @@ package modules.control;
 import modules.boundary.Console;
 import modules.data.DataBase;
 import modules.entity.movie.Movie;
+import modules.utils.Sorting;
 
 import java.util.ArrayList;
 
@@ -22,6 +23,28 @@ public class ListMovieController extends BaseController{
         }
         logMenu.add("Back");
     }
+
+    public ListMovieController(Console inheritedConsole, int sortOption) {
+        super(inheritedConsole);
+        if (sortOption == 2){
+            logText = "Here are sorted movies by user rating";
+        } else {
+            logText = "Here are sorted movies by ticket sales";
+        }
+        logMenu = new ArrayList<String>();
+        try{
+            movieList = DataBase.readList(FILENAME, Movie.class);
+            Movie[] array = movieList.toArray(new Movie[movieList.size()]);
+            Sorting.insertionSort(array); //TODO: hard code to be sorting ratings. need to sadd sales methods
+            for (Movie m: array){
+                logMenu.add(m.getName());
+            }
+        } catch (Exception e){
+            System.out.print(e);
+        }
+        logMenu.add("Back");
+    }
+
     @Override
     public void enter() {
         while (true) {

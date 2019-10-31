@@ -7,7 +7,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Movie extends BaseEntity {
+public class Movie extends BaseEntity implements Comparable{
     private static final String CASTFILENAME = "ActorList.txt";
     private static final String REVIEWFILENAME = "ReviewList.txt";
     private static DecimalFormat df = new DecimalFormat("0.0");
@@ -58,6 +58,24 @@ public class Movie extends BaseEntity {
 
     public ArrayList<String> getReview(){
         return this.review;
+    }
+
+    public boolean equals(Object o) {
+        if(o.getClass() == this.getClass()) {
+            Movie s = (Movie)o;
+            return (this.rating.equals(s.getRating()) && this.name.equals(s.getName()));
+        }
+        return false;
+    }
+    public int compareTo(Object o) {
+        if(o.getClass() == this.getClass()) {
+            Movie s = (Movie)o;
+            if(this.rating.equals(s.getRating()))
+                return this.name.compareTo(s.getName());
+            else
+                return this.rating.compareTo(s.getRating());
+        }
+        return 2;
     }
 
     private ArrayList<String> findCast(){
