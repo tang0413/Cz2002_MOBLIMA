@@ -75,9 +75,6 @@ public class Movie extends BaseEntity {
         try{
             ArrayList<Actor> wholeActorList = DataBase.readList(CASTFILENAME, Actor.class);
             for (Actor a: wholeActorList){
-                ArrayList<String> b = a.getInMovie();
-                String c = Integer.toString(this.id);
-                Boolean d = b.contains(c);
                 if (a.getInMovie().contains(Integer.toString(this.id))){
                     castList.add(a.getName());
                 }
