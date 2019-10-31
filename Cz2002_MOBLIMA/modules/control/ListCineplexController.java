@@ -17,7 +17,7 @@ public class ListCineplexController extends BaseController {
         try {
             cineplexList = DataBase.readCineList(FILENAME);
             for (Cineplex c : cineplexList) {
-                logMenu.add(c.getCinplexName());
+                logMenu.add(c.getCineplexName());
             }
         } catch (Exception e) {
         }
@@ -29,11 +29,11 @@ public class ListCineplexController extends BaseController {
         {
             this.console.logText(logText);
             this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to see cinplex details",1,cineplexList.size()+1);
+            int choice = this.console.getInt("Enter index to see cineplex details",1,cineplexList.size()+1);
             if (choice == cineplexList.size()+1){
                 return;
             } else {
-                ListCinplexInfoController cineplexInfo = new ListCinplexInfoController(console, choice, cineplexList.get(choice - 1));
+                ListCineplexInfoController cineplexInfo = new ListCineplexInfoController(console, choice, cineplexList.get(choice - 1));
                 cineplexInfo.enter();
                 //display info controller (choice)
             }

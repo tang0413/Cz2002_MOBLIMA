@@ -2,15 +2,15 @@ package modules.entity;
 
 public class Cineplex extends BaseEntity{
     private int id;
-    private String cinplexName;
-    public Cineplex (int id, String cinplexName)
+    private String cineplexName;
+    public Cineplex (int id, String cineplexName)
     {
         super(id);
-        this.cinplexName = cinplexName;
+        this.cineplexName = cineplexName;
     }
 
     public int getId() { return id; }
 
-    public String getCinplexName() { return cinplexName; }
+    public String getCineplexName() { return cineplexName; }
 
 }

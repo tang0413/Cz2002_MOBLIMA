@@ -1,8 +1,6 @@
 package modules.data;
 //package data;
 
-import jdk.net.SocketFlow;
-import modules.entity.Admin;
 import modules.entity.BaseEntity;
 import modules.entity.Cineplex;
 import modules.entity.movie.*;
@@ -12,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.lang.reflect.Constructor;
 
 public class DataBase {
     private static final String SEPARATOR = "|";

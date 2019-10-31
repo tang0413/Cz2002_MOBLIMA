@@ -5,10 +5,10 @@ import modules.entity.Cineplex;
 
 import java.util.ArrayList;
 
-public class ListCinplexInfoController extends BaseController {
+public class ListCineplexInfoController extends BaseController {
     private int cineplexId;
     private Cineplex cineplex;
-    public ListCinplexInfoController(Console inheritedConsole, int cineplexId, Cineplex cineplex) {
+    public ListCineplexInfoController(Console inheritedConsole, int cineplexId, Cineplex cineplex) {
         super(inheritedConsole);
         this.cineplexId = cineplexId;
         this.cineplex = cineplex;
@@ -19,8 +19,8 @@ public class ListCinplexInfoController extends BaseController {
 
     @Override
     public void enter() {
-        this.console.logText("This is the basic information of " + cineplex.getCinplexName());
-        this.console.log("Cineplex Name:" + cineplex.getCinplexName());
+        this.console.logText("This is the basic information of " + cineplex.getCineplexName());
+        this.console.log("Cineplex Name:" + cineplex.getCineplexName());
         this.console.log("");
         this.console.logMenu(logMenu);
         int choice = this.console.getInt("Enter index to proceed",1,2);
