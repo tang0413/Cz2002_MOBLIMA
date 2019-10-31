@@ -13,24 +13,29 @@ public class UserMenuController extends BaseController {
         logMenu.add("Search movie");
         logMenu.add("View booking history");
         logMenu.add("Movie ranking");
-        logMenu.add("Quit");
+        logMenu.add("Back");
     }
 
     @Override
     public void enter() {
-        this.console.logText(logText);
-        this.console.logMenu(logMenu);
-        int choice = this.console.getInt("Enter index to proceed", 1, 4);
-        switch (choice) {
-            //TODO finish the whole menu
-            case 1:
-                ListMovieController ls = new ListMovieController(this.console);
-                ls.enter();
-                break;
-            case 4:
-                MovieRankingController rank = new MovieRankingController(this.console);
-                rank.enter();
-                break;
+        while (true) {
+            this.console.logText(logText);
+            this.console.logMenu(logMenu);
+            int choice = this.console.getInt("Enter index to proceed", 1, 5);
+            switch (choice) {
+                //TODO finish the whole menu
+                case 1:
+                    ListMovieController ls = new ListMovieController(this.console);
+                    ls.enter();
+                    break;
+                case 4:
+                    MovieRankingController rank = new MovieRankingController(this.console);
+                    rank.enter();
+                    break;
+                case 5:
+                    return;
+            }
+
         }
     }
 }
