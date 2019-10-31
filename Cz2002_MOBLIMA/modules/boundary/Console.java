@@ -3,6 +3,7 @@ package modules.boundary;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 public class Console {
     private Scanner sc;
@@ -29,6 +30,16 @@ public class Console {
         for (String str : menuItems) {
             System.out.println(i + ". " + str);
             i ++;
+        }
+        System.out.println(" ");
+    }
+    public void logWithSeparator(ArrayList<String> records, String separator) {
+        for (String str : records) {
+            StringTokenizer star = new StringTokenizer(str , separator);
+            System.out.println(" ");
+            while(star.hasMoreElements()){
+                System.out.println(star.nextToken().trim());
+            }
         }
         System.out.println(" ");
     }

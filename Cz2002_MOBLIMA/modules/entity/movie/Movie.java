@@ -13,10 +13,9 @@ public class Movie extends BaseEntity {
     private static DecimalFormat df = new DecimalFormat("0.0");
     private String name;
     private String description;
-    private Double totalScore;
     private String rating;
-    private int numOfPeople;
     private ArrayList<String> castList;
+    private ArrayList<String> review = new ArrayList<String>();
 //    public Movie(int id, String name, String description, Double totalScore, int numOfPeople ) {
 //        super(id);
 //        this.name = name;
@@ -32,20 +31,11 @@ public class Movie extends BaseEntity {
         super(Integer.parseInt(paramList.get(0)));
         this.name = paramList.get(1);
         this.description = paramList.get(2);
-        this.rating = findRating();
+        this.rating = findRatingAndSetReview();
         this.castList = findCast();
     }
 
     //TODO: add set, add dependency to cast and directors.....
-
-    public Double getTotalScore() {
-        return totalScore;
-    }
-
-    public int getNumOfPeople() {
-        return numOfPeople;
-    }
-
     public int getId(){
         return id;
     }
@@ -66,6 +56,11 @@ public class Movie extends BaseEntity {
         String res = String.join(",", this.castList);
         return res;
     }
+
+    public ArrayList<String> getReview(){
+        return this.review;
+    }
+
     private ArrayList<String> findCast(){
         ArrayList<String> castList = new ArrayList<String>();
         try{
@@ -80,13 +75,14 @@ public class Movie extends BaseEntity {
         return castList;
     }
 
-    private String findRating(){
+    private String findRatingAndSetReview(){
         Double totalScore = 0.0;
         int numberOfPeople = 0;
         try{
             ArrayList<Review> wholeReviewList = DataBase.readList(REVIEWFILENAME, Review.class);
             for (Review a: wholeReviewList){
                 if (a.getMovieId() == this.id){
+                    this.review.add(a.getReview());
                     totalScore += Double.valueOf(a.getRating());
                     numberOfPeople ++;
                 }

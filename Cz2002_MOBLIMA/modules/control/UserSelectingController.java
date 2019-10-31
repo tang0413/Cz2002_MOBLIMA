@@ -19,7 +19,7 @@ public class UserSelectingController extends BaseController{
         while (true) {
             this.console.logText(logText);
             this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Your Choice", 1, 3);
+            int choice = this.console.getInt("Enter index to proceed", 1, 3);
             switch (choice) {
                 case 1:
                     LoginProcessController login = new LoginProcessController(console);
