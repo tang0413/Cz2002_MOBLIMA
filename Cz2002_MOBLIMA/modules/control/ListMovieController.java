@@ -7,21 +7,16 @@ import modules.utils.Sorting;
 
 import java.util.ArrayList;
 
-public class ListMovieController extends BaseController{
-    protected ArrayList<Movie> movieList;
+public class ListMovieController extends BaseController{ //TODO: experiment with refreshing list;
+    private ArrayList<Movie> movieList = new ArrayList<>();
     private static final String FILENAME = "MovieList.txt";
     public ListMovieController(Console inheritedConsole) {
         super(inheritedConsole);
-        logText = "Here are the ongoing movies";
-        logMenu = new ArrayList<String>();
-        try{
-            movieList = DataBase.readList(FILENAME, Movie.class);
-            for (Movie m: movieList){
-                logMenu.add(m.getName());
-            }
-        } catch (Exception e){
-        }
-        logMenu.add("Back");
+        logText = "Here are all movies";
+    }
+
+    @Override
+    public void enter() {
     }
 
     public ListMovieController(Console inheritedConsole, int sortOption) {
@@ -31,33 +26,50 @@ public class ListMovieController extends BaseController{
         } else {
             logText = "Here are sorted movies by ticket sales";
         }
-        logMenu = new ArrayList<String>();
-        try{
-            movieList = DataBase.readList(FILENAME, Movie.class);
-            Movie[] array = movieList.toArray(new Movie[movieList.size()]);
-            Sorting.insertionSort(array); //TODO: hard code to be sorting ratings. need to add by-sales methods
-            for (Movie m: array){
-                logMenu.add(m.getName());
-            }
-        } catch (Exception e){
-            System.out.print(e);
-        }
-        logMenu.add("Back");
     }
 
-    @Override
-    public void enter() {
+    public void enter(Boolean isAdmin, int sortOption) {
         while (true) {
+            try{
+                movieList = DataBase.readList(FILENAME, Movie.class); //TODO this won't update the other entities. need to change more in db
+            } catch (Exception e){
+            }
+            this.constructMovieList(movieList, sortOption);
             this.console.logText(logText);
             this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to see movie details", 1, movieList.size()+1);
+            int choice = this.console.getInt("Enter index to proceed", 1, movieList.size()+1);
             if (choice == movieList.size()+1){
                 return;
             } else {
-                ListMovieInfoController movieInfo = new ListMovieInfoController(console, choice, movieList.get(choice - 1));
-                movieInfo.enter();
+                if (isAdmin){
+                    UpdateMovieController update = new UpdateMovieController(console);
+                    update.enter(choice);
+                } else {
+                    ListMovieInfoController movieInfo = new ListMovieInfoController(console, choice, movieList.get(choice - 1));
+                    movieInfo.enter();
+                }
                 //display info controller (choice);
             }
         }
+    }
+
+    private void constructMovieList(ArrayList<Movie> movieList, int sortOption){
+        logMenu = new ArrayList<>();
+        switch (sortOption){
+            case 0:
+            case 1://TODO by sales
+                for (Movie m: movieList){
+                    logMenu.add(m.getName());
+                }
+                break;
+            case 2:
+                Movie[] array = movieList.toArray(new Movie[movieList.size()]);
+                Sorting.insertionSort(array); //TODO: hard code to be sorting ratings. need to add by-sales methods
+                for (Movie m: array){
+                    logMenu.add(m.getName());
+                }
+                break;
+        }
+        logMenu.add("Back");
     }
 }

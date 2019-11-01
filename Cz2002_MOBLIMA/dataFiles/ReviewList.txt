@@ -28,3 +28,5 @@ id=27|rating=3|review=test|movieId=1|userId=1
 id=28|rating=1|review=errrr|movieId=1|userId=1
 id=57|rating=1|review=wer|movieId=1|userId=1
 id=30|rating=3|review=oo|movieId=1|userId=3
+id=31|rating=5|review=first test|movieId=4|userId=1
+id=32|rating=4|review=second|movieId=4|userId=2
