@@ -35,7 +35,7 @@ public class ListMovieController extends BaseController{
         try{
             movieList = DataBase.readList(FILENAME, Movie.class);
             Movie[] array = movieList.toArray(new Movie[movieList.size()]);
-            Sorting.insertionSort(array); //TODO: hard code to be sorting ratings. need to sadd sales methods
+            Sorting.insertionSort(array); //TODO: hard code to be sorting ratings. need to add by-sales methods
             for (Movie m: array){
                 logMenu.add(m.getName());
             }

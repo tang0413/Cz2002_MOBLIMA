@@ -141,7 +141,7 @@ public class Movie extends BaseEntity implements Comparable{
         try{
             DataBase.setData(FILENAME, this);
         } catch (Exception e){
-        }    //TODO for every set
+        }    //TODO should have setID. this one for test only, need to be deleted
     }
 
     @Override

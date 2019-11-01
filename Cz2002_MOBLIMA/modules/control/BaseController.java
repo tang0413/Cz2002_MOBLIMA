@@ -13,5 +13,5 @@ public abstract class BaseController {
         console = inheritedConsole;
     }
 
-    public abstract void enter();
+    public abstract void enter(); //TODO to update real data without restart, turn void into all possible changed objs. Too troublesome
 }

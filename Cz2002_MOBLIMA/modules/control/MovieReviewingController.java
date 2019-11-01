@@ -60,7 +60,7 @@ public class MovieReviewingController extends BaseController{
                     try{
                         TimeUnit.SECONDS.sleep(4);
                     } catch (Exception e){
-                    }
+                    } //TODO can make into another controller
                     return;
                 }
                 return;
@@ -85,7 +85,7 @@ public class MovieReviewingController extends BaseController{
                 break;
             }
         }
-        //TODO revover all normal constructor for entities. passing string only is stupid.
+        //TODO recover all normal constructor for entities. passing string only is stupid.
         ArrayList<String> reviewData = new ArrayList<>();
         reviewData.add(Integer.toString(Review.getNewId()));
         reviewData.add(Integer.toString(rating));

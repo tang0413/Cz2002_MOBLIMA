@@ -66,7 +66,7 @@ public class Review extends BaseEntity {
     }
 
     public static int getNewId(){
-        return maxId+1; //TODO to be tested， for adding new records to table
+        return maxId+1; //TODO add for all entities
     }
 
     @Override

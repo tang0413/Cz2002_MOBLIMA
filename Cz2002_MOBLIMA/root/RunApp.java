@@ -11,7 +11,7 @@ public class RunApp {
 
 	public static void restart(){
 		DataBase.clearBuffer();
-		app = null;
+		app = null; //TODO not sure if is destroy other objs as well
 		app = new App();
 		app.run();
 	}

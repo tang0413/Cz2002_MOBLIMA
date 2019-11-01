@@ -16,7 +16,7 @@ public class ListMovieInfoController extends BaseController {
         this.movieId = movieId;
         this.movie= movie;
         logMenu = new ArrayList<String>();
-        logMenu.add("Check Reviews"); //TODO: if inside bookings, can make review and rating
+        logMenu.add("Check Reviews");
         logMenu.add("Proceed to booking");
         logMenu.add("Back");
     }
@@ -27,9 +27,11 @@ public class ListMovieInfoController extends BaseController {
             this.console.logText("This is the basic information of " + movie.getName());
             this.console.log("Name: " + movie.getName());
             this.console.log("Rating: " + movie.getRating());
+            this.console.log("Type: " + movie.getType());
             this.console.log("Description: " + movie.getDescription());
             this.console.log("Director: " + movie.getDirector());
-            this.console.log("Cast: " + movie.getCast());
+            this.console.log("Type: " + movie.getType());
+            this.console.log("Status: " + movie.getStatus());
             this.console.log(""); //TODO: can reuse logwithseperator and need director
             this.console.logMenu(logMenu);
             int choice = this.console.getInt("Enter index to proceed", 1, 3);
@@ -44,7 +46,6 @@ public class ListMovieInfoController extends BaseController {
                     break;
                 case 3:
                     return;
-                //TODO finish whole function
             }
         }
     }
