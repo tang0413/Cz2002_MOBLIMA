@@ -18,13 +18,18 @@ public class MovieGoner extends BaseEntity{
     public String getName() {
         return name;
     }
+    public int getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     @Override
     public String StringlizeEntity() {
         return "id=" + this.id + "|name=" + this.name + "|phone=" + this.phone + "|email=" + this.email;
     }
 
-    public int getId() {
-        return id;
-    }
+
 }

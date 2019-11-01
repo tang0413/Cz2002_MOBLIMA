@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 public class Console {
     private Scanner sc;
     private final String ANSI_RED = "\u001B[31m";
+    public  final String ANSI_CYAN = "\u001B[36m";
     private final String ANSI_RESET = "\u001B[0m";
     private final Pattern EMAILPATTERN = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$");
     private String styleChar = "+";
@@ -23,6 +24,9 @@ public class Console {
 
     public void logWarning(String outputMsg) {
         System.out.println(ANSI_RED + outputMsg + ANSI_RESET);
+    }
+    public void logReminder(String outputMsg) {
+        System.out.println(ANSI_CYAN + outputMsg + ANSI_RESET);
     }
 
     public void logText(String outputMsg) {

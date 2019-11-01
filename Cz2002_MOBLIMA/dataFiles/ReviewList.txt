@@ -1,3 +1,9 @@
 id=1|rating=4|review=not a bad movie|movieId=1|userId=1
 id=2|rating=5|review=a good movie|movieId=2|userId=2
 id=3|rating=5|review=good|movieId=2|userId=3
+id=4|rating=3|review=I think it's good lah|movieId=1|userId=1
+id=5|rating=5|review=verrry good!|movieId=1|userId=2
+id=6|rating=5|review=Best movie I|movieId=1|userId=3
+id=7|rating=1|review=I changed my mind, it is a bad movie|movieId=1|userId=1
+id=8|rating=1|review=no I don't like it|movieId=2|userId=1
+id=9|rating=5|review=first comment!|movieId=3|userId=1

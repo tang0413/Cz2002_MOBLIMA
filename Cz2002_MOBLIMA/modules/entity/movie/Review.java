@@ -7,19 +7,23 @@ import modules.entity.MovieGoner;
 import java.util.ArrayList;
 
 public class Review extends BaseEntity {
+    private static int maxId = 0; //TODO add for all entities
     //id=3|rating=5|review=good|movieId=2|userId=3
     private static final String MOVIEGONERFILENAME = "MoviegonerList.txt";
+    private static ArrayList<MovieGoner> wholeUserList; //TODO in other similar place, do it in this way;
     private int rating;
     private String review;
     private int movieId;
     private int userId;
     private String userName;
+
 //    public Review(int id, int rating, String review, int movieId, int userId) {
 //        super (id);
 //        this.rating = rating;
 //        this.review = review;
 //        this.movieId = movieId;
 //        this.userId = userId;
+//        maxId++;
 //    }
 
     public Review(ArrayList<String> paramList) {
@@ -29,13 +33,14 @@ public class Review extends BaseEntity {
         this.movieId = Integer.parseInt(paramList.get(3));
         this.userId = Integer.parseInt(paramList.get(4));
         this.userName = getReviewer();
+        maxId++;
     }
 
     private String getReviewer(){
         try{
-            ArrayList<MovieGoner> wholeUserList = DataBase.readList(MOVIEGONERFILENAME, MovieGoner.class);
+            wholeUserList= DataBase.readList(MOVIEGONERFILENAME, MovieGoner.class);
             for (MovieGoner a: wholeUserList){
-                if (a.getId() == this.id){
+                if (a.getId() == this.userId){
                     return a.getName();
                 }
             }
@@ -58,6 +63,10 @@ public class Review extends BaseEntity {
     public String getReview() {
         String complexRecord = "username: " + this.userName + "|" + "rating: " + this.rating + "|" + "review: " + this.review;
         return complexRecord;
+    }
+
+    public static int getNewId(){
+        return maxId+1; //TODO to be tested， for adding new records to table
     }
 
     @Override

@@ -26,12 +26,15 @@ public class ListMovieReviewController extends BaseController {
             this.console.logMenu(logMenu);
             int choice = this.console.getInt("Enter index to proceed", 1, 2);
             switch (choice){
+                case 1:
+                    MovieReviewingController mvReview = new MovieReviewingController(this.console, this.movie);
+                    mvReview.enter();
+                    //TODO put user review and rating controller here.
+                    break;
                 case 2:
                     return;
                     //TODO: finish whole function
             }
         }
-
-
     }
 }
