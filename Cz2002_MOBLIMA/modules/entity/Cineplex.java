@@ -17,8 +17,6 @@ public class Cineplex extends BaseEntity{
 
     public int getId() { return id; }
 
-    public void setCineplexName(String name) { this.cineplexName=cineplexName;}
-
     public String getCineplexName() { return cineplexName; }
 
 }
