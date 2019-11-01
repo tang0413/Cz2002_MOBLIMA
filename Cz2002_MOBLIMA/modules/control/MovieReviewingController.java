@@ -6,6 +6,8 @@ import modules.entity.Admin;
 import modules.entity.MovieGoner;
 import modules.entity.movie.Movie;
 import modules.entity.movie.Review;
+import root.App;
+import root.RunApp;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -50,11 +52,16 @@ public class MovieReviewingController extends BaseController{
             }
             if (hasThisUser){
                 if(makeReview()){
-                    this.console.logReminder("Commented successfully! Re-enter the system to see the change!");
+                    AppRestartController restart = new AppRestartController(this.console);
+                    restart.enter();
+                } else {
+                    this.console.log("");
+                    this.console.logWarning("Failed to comment! Returning to previous page now...");
                     try{
-                        TimeUnit.SECONDS.sleep(5);
+                        TimeUnit.SECONDS.sleep(4);
                     } catch (Exception e){
                     }
+                    return;
                 }
                 return;
             } else {
@@ -89,6 +96,7 @@ public class MovieReviewingController extends BaseController{
         try{
             DataBase.setData(REVIEWFILENAME, this.newReview);
         } catch (Exception e){
+            return false;
         }
         return true;
     }

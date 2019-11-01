@@ -54,6 +54,10 @@ public class DataBase {
         return alr ;
     }
 
+    public static void clearBuffer(){
+        bufferList = new HashMap<>();
+    }
+
     private static List readFile(String fileName) throws FileNotFoundException {
         List data = new ArrayList() ;
         Path currentDir = Paths.get(".");
