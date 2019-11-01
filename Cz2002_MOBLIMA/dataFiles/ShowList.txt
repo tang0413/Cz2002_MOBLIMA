@@ -1,0 +1,2 @@
+id=1|movieId=1|cineplexId=1|cinemaname=a|time=14:30|date=14/12/2019
+id=2|movieId=2|cineplexId=1|cinemaname=b|time=14:30|date=14/12/2019
