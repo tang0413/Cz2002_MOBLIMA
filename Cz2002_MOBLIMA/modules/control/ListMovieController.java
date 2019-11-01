@@ -31,7 +31,7 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
     public void enter(Boolean isAdmin, int sortOption) {
         while (true) {
             try{
-                movieList = DataBase.readList(FILENAME, Movie.class); //TODO this won't update the other entities. need to change more in db
+                movieList = DataBase.readList(FILENAME, Movie.class);
             } catch (Exception e){
             }
             this.constructMovieList(movieList, sortOption);

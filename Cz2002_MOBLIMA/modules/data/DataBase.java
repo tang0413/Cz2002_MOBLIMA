@@ -90,7 +90,7 @@ public class DataBase {
                 originalFile.add(entityToUpdate.StringlizeEntity());
             }
             writeFile(fileName, originalFile);
-            bufferList.put(listName, originalFile);
+            clearBuffer(); //TODO no need to every entity
         } catch (Exception e){
         }
     }
@@ -108,7 +108,7 @@ public class DataBase {
                 }
             }
             writeFile(fileName, originalFile);
-            bufferList.put(listName, originalFile);
+            clearBuffer(); //TODO no need to every entity
         } catch (Exception e){
         }
     }
