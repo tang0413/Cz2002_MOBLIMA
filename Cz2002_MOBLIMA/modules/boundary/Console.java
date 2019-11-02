@@ -45,6 +45,17 @@ public class Console {
         System.out.println(" ");
     }
 
+    public void logMenu(ArrayList<String> menuItems, Boolean withOutIndex) {
+        if (withOutIndex){
+            for (String str : menuItems) {
+                System.out.println(str);
+            }
+            System.out.println(" ");
+        } else {
+            logMenu(menuItems);
+        }
+    }
+
     public void logWithSeparator(ArrayList<String> records, String separator) {
         for (String str : records) {
             StringTokenizer star = new StringTokenizer(str , separator);

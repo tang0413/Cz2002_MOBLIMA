@@ -6,7 +6,7 @@ import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
-public class UpdateMovieController extends BaseController {
+public class UpdateMovieController extends BaseController { //TODO to be reused by passing index from ListMovieInfoController
     private static final String FILENAME = "MovieList.txt";
     public UpdateMovieController(Console inheritedConsole) {
         super(inheritedConsole);

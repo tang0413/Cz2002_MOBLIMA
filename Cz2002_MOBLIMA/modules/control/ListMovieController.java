@@ -34,26 +34,21 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
                 movieList = DataBase.readList(FILENAME, Movie.class);
             } catch (Exception e){
             }
-            this.constructMovieList(movieList, sortOption);
+            this.constructLogMenu(movieList, sortOption);
             this.console.logText(logText);
             this.console.logMenu(logMenu);
             int choice = this.console.getInt("Enter index to proceed", 1, movieList.size()+1);
             if (choice == movieList.size()+1){
                 return;
             } else {
-                if (isAdmin){
-                    UpdateMovieController update = new UpdateMovieController(console);
-                    update.enter(choice);
-                } else {
-                    ListMovieInfoController movieInfo = new ListMovieInfoController(console, choice, movieList.get(choice - 1));
-                    movieInfo.enter();
-                }
-                //display info controller (choice);
+                ListMovieInfoController movieInfo = new ListMovieInfoController(console, choice -1);
+                movieInfo.enter(isAdmin);
             }
+                //display info controller (choice);
         }
     }
 
-    private void constructMovieList(ArrayList<Movie> movieList, int sortOption){
+    private void constructLogMenu(ArrayList<Movie> movieList, int sortOption){
         logMenu = new ArrayList<>();
         switch (sortOption){
             case 0:

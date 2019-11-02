@@ -8,62 +8,79 @@ import modules.data.DataBase;
 import java.util.ArrayList;
 
 public class ListMovieInfoController extends BaseController {
-    private int movieId;
-    private Movie movie;
-    private static final String FILENAME = "ActorList.txt";
-    public ListMovieInfoController(Console inheritedConsole, int movieId, Movie movie) {
+    private int moviePosition;
+    private static final String FILENAME = "MovieList.txt";
+    public ListMovieInfoController(Console inheritedConsole, int movieId) {
         super(inheritedConsole);
-        this.movieId = movieId;
-        this.movie= movie;
-        logMenu = new ArrayList<String>();
-        logMenu.add("Check Reviews");
-        logMenu.add("Proceed to booking");
-        logMenu.add("Back");
+        this.moviePosition = movieId;
     }
 
-    @Override
-    public void enter() {
+    public void enter(Boolean isAdmin) {
         while (true){
-            this.console.logText("This is the basic information of " + movie.getName());
-            this.console.log("Name: " + movie.getName());
-            this.console.log("Rating: " + movie.getRating());
-            this.console.log("Type: " + movie.getType());
-            this.console.log("Description: " + movie.getDescription());
-            this.console.log("Director: " + movie.getDirector());
-            this.console.log("Cast: " + movie.getCast());
-            this.console.log("Type: " + movie.getType());
-            this.console.log("Status: " + movie.getStatus());
-            this.console.log(""); //TODO: can reuse logwithseperator and need director
-            this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to proceed", 1, 3);
-            switch (choice) {
-                case 1:
-                    ListMovieReviewController review = new ListMovieReviewController(console, this.movie);
-                    review.enter();
-                    break;
-                case 2:
-                    ListAvailableCineplexController available = new ListAvailableCineplexController(console, this.movie);
-                    available.enter();
-                    break;
-                case 3:
-                    return;
+            try{
+                ArrayList<Movie> movieList = DataBase.readList(FILENAME, Movie.class);
+                Movie chosenMovie = movieList.get(moviePosition);
+                constructLogInfo(isAdmin, chosenMovie);
+                int choice = this.console.getInt("Enter index to proceed", 1, 3);
+                switch (choice) {
+                    case 1:
+                        if (isAdmin){
+                            //TODO
+                            break;
+                        } else {
+                            ListMovieReviewController review = new ListMovieReviewController(console, chosenMovie);
+                            review.enter();
+                            break;
+                        }
+                    case 2:
+                        if (isAdmin){
+                            //TODO
+                            break;
+                        } else {
+                            ListAvailableCineplexController available = new ListAvailableCineplexController(console, chosenMovie);
+                            available.enter();
+                            break;
+                        }
+                    case 3:
+                        if (isAdmin){
+                            //TODO
+                            break;
+                        } else {
+                            return;
+                        }
+
+                }
+            } catch (Exception e){
             }
         }
     }
 
-//    public String getMovieCast(){
-//        //moved to movie entity as part of the attributes
-//        ArrayList<String> castList = new ArrayList<String>();
-//        try{
-//            ArrayList<Actor> wholeActorList = DataBase.readList(FILENAME, Actor.class);
-//            for (Actor a: wholeActorList){
-//                if (a.getInMovie().contains(Integer.toString(this.movieId))){
-//                    castList.add(a.getName());
-//                }
-//            }
-//        } catch(Exception e){
-//        }
-//        String res = String.join(",", castList);
-//        return res;
-//    }
+    @Override
+    public void enter() {
+
+    }
+
+    private void constructLogInfo(Boolean isAdmin, Movie movie){
+        logMenu = new ArrayList<>();
+        logMenu.add("Name: " + movie.getName());
+        logMenu.add("Rating: " + movie.getRating());
+        logMenu.add("Type: " + movie.getType());
+        logMenu.add("Description: " + movie.getDescription());
+        logMenu.add("Director: " + movie.getDirector());
+        logMenu.add("Cast: " + movie.getCast());
+        logMenu.add("Status: " + movie.getStatus());
+        if (isAdmin) {
+            this.console.logText("Choose from the following attributes of: " + movie.getName());
+            logMenu.remove(1);
+            this.console.logMenu(logMenu);
+        } else {
+            this.console.logText("Below is the detailed information of: " + movie.getName());
+            this.console.logMenu(logMenu, true);
+            logMenu = new ArrayList<>();
+            logMenu.add("Check Reviews");
+            logMenu.add("Proceed to booking");
+            logMenu.add("Back");
+            this.console.logMenu(logMenu);
+        }
+    }
 }
