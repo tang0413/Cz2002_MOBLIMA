@@ -7,7 +7,6 @@ import modules.entity.MovieGoner;
 import java.util.ArrayList;
 
 public class Review extends BaseEntity {
-    private static int maxId = 0; //TODO add for all entities
     //id=3|rating=5|review=good|movieId=2|userId=3
     private static ArrayList<MovieGoner> wholeUserList; //TODO in other similar place, do it in this way;
     private int rating;
@@ -22,7 +21,6 @@ public class Review extends BaseEntity {
 //        this.review = review;
 //        this.movieId = movieId;
 //        this.userId = userId;
-//        maxId++;
 //    }
 
     public Review(ArrayList<String> paramList) {
@@ -32,7 +30,6 @@ public class Review extends BaseEntity {
         this.movieId = Integer.parseInt(paramList.get(3));
         this.userId = Integer.parseInt(paramList.get(4));
         this.userName = getReviewer();
-        maxId++;
     }
 
     private String getReviewer(){
@@ -62,10 +59,6 @@ public class Review extends BaseEntity {
     public String getReview() {
         String complexRecord = "username: " + this.userName + "|" + "rating: " + this.rating + "|" + "review: " + this.review;
         return complexRecord;
-    }
-
-    public static int getNewId(){
-        return maxId+1; //TODO add for all entities
     }
 
     @Override

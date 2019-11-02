@@ -6,20 +6,9 @@ import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
-public class UpdateMovieController extends BaseController { //TODO to be reused by passing index from ListMovieInfoController
+public class UpdateMovieController extends BaseController { //TODO to be reused by passing index from ListMovieInfoController, needs to be updated
     public UpdateMovieController(Console inheritedConsole) {
         super(inheritedConsole);
-        logText = "Please choose the attribute you want to edit";
-        logMenu = new ArrayList<String>();
-        logMenu.add("Movie Name");
-        logMenu.add("Rating");
-        logMenu.add("Type");
-        logMenu.add("Description");
-        logMenu.add("Director");
-        logMenu.add("Cast");
-        logMenu.add("Type");
-        logMenu.add("Status");
-        logMenu.add("Back");
     }
 
     @Override

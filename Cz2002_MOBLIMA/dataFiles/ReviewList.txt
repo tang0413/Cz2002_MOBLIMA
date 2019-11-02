@@ -23,13 +23,20 @@ id=22|rating=1|review=should appear now|movieId=3|userId=1
 id=23|rating=1|review=tttt|movieId=3|userId=2
 id=24|rating=5|review=checking|movieId=3|userId=2
 id=25|rating=3|review=checking...|movieId=3|userId=1
-id=51|rating=5|review=test as 5|movieId=1|userId=3
+id=26|rating=5|review=test as 5|movieId=1|userId=3
 id=27|rating=3|review=test|movieId=1|userId=1
 id=28|rating=1|review=errrr|movieId=1|userId=1
-id=57|rating=1|review=wer|movieId=1|userId=1
+id=29|rating=1|review=wer|movieId=1|userId=1
 id=30|rating=3|review=oo|movieId=1|userId=3
 id=31|rating=5|review=first test|movieId=4|userId=1
 id=32|rating=4|review=second|movieId=4|userId=2
 id=33|rating=3|review=third|movieId=4|userId=3
 id=34|rating=3|review=should be able to see|movieId=1|userId=3
 id=35|rating=5|review=hopefully!|movieId=4|userId=1
+id=36|rating=5|review=increase 3!|movieId=2|userId=2
+id=37|rating=1|review=increase 1|movieId=1|userId=3
+id=38|rating=5|review=increase ++|movieId=2|userId=3
+id=39|rating=4|review=test test|movieId=4|userId=1
+id=40|rating=3|review=should be 40|movieId=2|userId=3
+id=41|rating=5|review=should be 41|movieId=1|userId=1
+id=42|rating=5|review=should be 42|movieId=1|userId=1

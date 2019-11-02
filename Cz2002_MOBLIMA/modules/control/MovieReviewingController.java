@@ -90,7 +90,7 @@ public class MovieReviewingController extends BaseController{
         }
         //TODO recover all normal constructor for entities. passing string only is stupid.
         ArrayList<String> reviewData = new ArrayList<>();
-        reviewData.add(Integer.toString(Review.getNewId()));
+        reviewData.add(Integer.toString(DataBase.getNewId(Review.class)));
         reviewData.add(Integer.toString(rating));
         reviewData.add(review);
         reviewData.add(Integer.toString(this.movie.getId()));

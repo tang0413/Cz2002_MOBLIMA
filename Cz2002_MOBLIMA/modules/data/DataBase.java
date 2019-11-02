@@ -1,20 +1,17 @@
 package modules.data;
-//package data;
 
-import modules.entity.Admin;
 import modules.entity.BaseEntity;
 import modules.entity.Cineplex;
-import modules.entity.movie.*;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.regex.Pattern;
 
 public class DataBase {
     private static HashMap<String, ArrayList> bufferList= new HashMap<>();
+    private static HashMap<Class, Integer> bufferMaxIdList = new HashMap<>();
     private static final String SEPARATOR = "|";
     private static final String VALUESEPARATOR = "=";
     private static final String DIR = "Cz2002_MOBLIMA/dataFiles/";
@@ -51,6 +48,7 @@ public class DataBase {
             alr.add(classObject.getConstructor(ArrayList.class).newInstance(paramList)) ;
         }
         bufferList.put(listName, alr);
+        bufferMaxIdList.put(classObject, alr.size());
         return alr ;
     }
 
@@ -111,6 +109,11 @@ public class DataBase {
             clearBuffer(); //TODO no need to every entity
         } catch (Exception e){
         }
+    }
+
+    public static int getNewId(Class<? extends BaseEntity> classObj){
+        bufferMaxIdList.put(classObj, bufferMaxIdList.get(classObj) + 1);
+        return bufferMaxIdList.get(classObj);
     }
 
     private static void writeFile(String fileName, ArrayList content) throws FileNotFoundException {
