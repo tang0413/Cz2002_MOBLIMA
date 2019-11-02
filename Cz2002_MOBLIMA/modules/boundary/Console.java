@@ -1,9 +1,6 @@
 package modules.boundary;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 import java.util.regex.Pattern;
 
 public class Console {
@@ -12,6 +9,7 @@ public class Console {
     public  final String ANSI_CYAN = "\u001B[36m";
     private final String ANSI_RESET = "\u001B[0m";
     private final Pattern EMAILPATTERN = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$");
+    private final List<String> movieStatusList = Arrays.asList("Coming Soon", "Preview", "Now Showing", "End Of Showing");
     private String styleChar = "+";
 
     public Console() {
@@ -90,6 +88,19 @@ public class Console {
     public String getStr(String title) {
         this.log(">> " + title + ": ");
         return sc.nextLine();
+    }
+
+    public String getMovieType(String title){
+        this.logReminder("Status: " + Arrays.toString(movieStatusList.toArray()));
+        while (true){
+            this.log(">> " + title + ": ");
+            String userEnteredValue = sc.nextLine();
+            if(movieStatusList.contains(userEnteredValue)){
+                return userEnteredValue;
+            } else {
+                this.logWarning("Invalid input! Please try again.");
+            }
+        }
     }
 
     public String getEmail() {

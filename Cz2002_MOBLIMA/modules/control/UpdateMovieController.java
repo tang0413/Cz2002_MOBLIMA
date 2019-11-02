@@ -49,7 +49,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
          newMovieParam.add(Integer.toString(newMovieId));
          newMovieParam.add(this.console.getStr("Movie Name"));
          newMovieParam.add(this.console.getStr("Description"));
-         newMovieParam.add(this.console.getStr("Status")); //TODO add checking
+         newMovieParam.add(this.console.getMovieType("Status"));
          newMovieParam.add(this.console.getStr("Movie Type"));
          newMovieParam.add(this.console.getStr("Category"));//TODO add checking
          this.console.logReminder("Please separate names by ',' with no space");
@@ -96,7 +96,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 alterCast(newValue, movieToChange.getId());
                 break;
             case 7:
-                newValue = this.console.getStr("Please enter a new status");//TODO need to check
+                newValue = this.console.getMovieType("Please enter a new status");
                 movieToChange.setStatus(newValue);
                 break;
         }
