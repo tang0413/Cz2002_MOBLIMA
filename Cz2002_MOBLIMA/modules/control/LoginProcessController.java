@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class LoginProcessController extends BaseController {
 	protected ArrayList<Admin> adminList;
-	private static final String FILENAME = "AdminList.txt";
 
 	public LoginProcessController(Console inheritedConsole) {
 		super(inheritedConsole);
@@ -24,7 +23,7 @@ public class LoginProcessController extends BaseController {
 			String username = this.console.getStr("Your username");
 			String password = this.console.getStr("Your password");
 			try {
-				adminList = DataBase.readList(FILENAME, Admin.class);
+				adminList = DataBase.readList(ADMINFILENAME, Admin.class);
 			} catch (Exception e) {
 				System.out.println("exception");
 			}

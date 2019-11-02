@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class MovieReviewingController extends BaseController{
-    private static final String FILENAME = "MoviegonerList.txt"; //TODO no need to define one when needed
-    private static final String REVIEWFILENAME = "ReviewList.txt";
     //TODO only the users that have watched can do review. take email to find userID, and then find book record, check movie id
     //TODO see if he made a review before
     //enter email to get user, rate, review;
@@ -36,7 +34,7 @@ public class MovieReviewingController extends BaseController{
             ArrayList<MovieGoner> wholeUserList = new ArrayList<>();
             MovieGoner user ;
             try {
-                wholeUserList = DataBase.readList(FILENAME, MovieGoner.class);
+                wholeUserList = DataBase.readList(MOVIEGONERFILENAME, MovieGoner.class);
             } catch (Exception e) {
                 System.out.println("exception");
             }
@@ -52,8 +50,14 @@ public class MovieReviewingController extends BaseController{
             }
             if (hasThisUser){
                 if(makeReview()){
-                    AppRestartController restart = new AppRestartController(this.console);
-                    restart.enter();
+//                    AppRestartController restart = new AppRestartController(this.console);
+//                    restart.enter();
+                    this.console.logReminder("Updated successfully! Returning to the previous page...");
+                    try{
+                        TimeUnit.SECONDS.sleep(4);
+                    } catch (Exception e){
+                    }
+                    return;
                 } else {
                     this.console.log("");
                     this.console.logWarning("Failed to comment! Returning to previous page now...");
@@ -63,7 +67,6 @@ public class MovieReviewingController extends BaseController{
                     } //TODO can make into another controller
                     return;
                 }
-                return;
             } else {
                 this.console.logWarning("No such user found!"); //TODO refine language
                 String choice = this.console.getStr("Try again?[y/n]");

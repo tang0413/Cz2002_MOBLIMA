@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class ListMovieInfoController extends BaseController {
     private int moviePosition;
-    private static final String FILENAME = "MovieList.txt";
     public ListMovieInfoController(Console inheritedConsole, int movieId) {
         super(inheritedConsole);
         this.moviePosition = movieId;
@@ -18,7 +17,7 @@ public class ListMovieInfoController extends BaseController {
     public void enter(Boolean isAdmin) {
         while (true){
             try{
-                ArrayList<Movie> movieList = DataBase.readList(FILENAME, Movie.class);
+                ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
                 Movie chosenMovie = movieList.get(moviePosition);
                 constructLogInfo(isAdmin, chosenMovie);
                 int choice = this.console.getInt("Enter index to proceed", 1, 3);
@@ -28,7 +27,7 @@ public class ListMovieInfoController extends BaseController {
                             //TODO
                             break;
                         } else {
-                            ListMovieReviewController review = new ListMovieReviewController(console, chosenMovie);
+                            ListMovieReviewController review = new ListMovieReviewController(console, moviePosition);
                             review.enter();
                             break;
                         }

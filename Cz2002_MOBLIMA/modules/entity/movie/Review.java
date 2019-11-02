@@ -9,7 +9,6 @@ import java.util.ArrayList;
 public class Review extends BaseEntity {
     private static int maxId = 0; //TODO add for all entities
     //id=3|rating=5|review=good|movieId=2|userId=3
-    private static final String MOVIEGONERFILENAME = "MoviegonerList.txt";
     private static ArrayList<MovieGoner> wholeUserList; //TODO in other similar place, do it in this way;
     private int rating;
     private String review;

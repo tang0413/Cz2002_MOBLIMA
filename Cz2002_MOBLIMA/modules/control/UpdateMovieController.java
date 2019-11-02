@@ -7,7 +7,6 @@ import modules.entity.movie.Movie;
 import java.util.ArrayList;
 
 public class UpdateMovieController extends BaseController { //TODO to be reused by passing index from ListMovieInfoController
-    private static final String FILENAME = "MovieList.txt";
     public UpdateMovieController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = "Please choose the attribute you want to edit";
@@ -31,7 +30,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
     public void enter(int index) {
         while (true){
             try{
-                ArrayList<Movie> movieList = DataBase.readList(FILENAME, Movie.class);
+                ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
                 Movie chosenMovie = movieList.get(index);
                 int choice = this.console.getInt("Enter index to proceed", 1, 9);
                 switch (choice) {
@@ -42,8 +41,6 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 }
             } catch (Exception e){
             }
-
-
         }
     }
 }

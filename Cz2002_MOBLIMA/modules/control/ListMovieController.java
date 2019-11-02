@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class ListMovieController extends BaseController{ //TODO: experiment with refreshing list;
     private ArrayList<Movie> movieList = new ArrayList<>();
-    private static final String FILENAME = "MovieList.txt";
     public ListMovieController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = "Here are all movies";
@@ -31,7 +30,7 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
     public void enter(Boolean isAdmin, int sortOption) {
         while (true) {
             try{
-                movieList = DataBase.readList(FILENAME, Movie.class);
+                movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
             } catch (Exception e){
             }
             this.constructLogMenu(movieList, sortOption);

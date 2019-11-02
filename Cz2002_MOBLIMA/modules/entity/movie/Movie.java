@@ -7,10 +7,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Movie extends BaseEntity implements Comparable{
-    private static final String FILENAME = "MovieList.txt";
-    private static final String DIRECTORFILENAME = "DirectorList.txt";
-    private static final String CASTFILENAME = "ActorList.txt";
-    private static final String REVIEWFILENAME = "ReviewList.txt";
     private static DecimalFormat df = new DecimalFormat("0.0");
     private String name;
     private String description;
@@ -139,7 +135,7 @@ public class Movie extends BaseEntity implements Comparable{
     public void setId(int id){
         this.id = id;
         try{
-            DataBase.setData(FILENAME, this);
+            DataBase.setData(MOVIEFILENAME, this);
         } catch (Exception e){
         }    //TODO should have setID. this one for test only, need to be deleted
     }

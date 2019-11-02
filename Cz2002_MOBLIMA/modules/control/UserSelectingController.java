@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class UserSelectingController extends BaseController{
     public UserSelectingController(Console inheritedConsole) {
         super(inheritedConsole);
-        logText = new String("Please choose your user category");
+        logText = "Please choose your user category";
         logMenu = new ArrayList<String>();
         logMenu.add("Staff");
         logMenu.add("Customer");

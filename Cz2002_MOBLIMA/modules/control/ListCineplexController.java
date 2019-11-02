@@ -9,13 +9,13 @@ import java.util.ArrayList;
 
 public class ListCineplexController extends BaseController {
     protected ArrayList<Cineplex> cineplexList;
-    private static final String FILENAME = "CineplexList.txt";
+
     public ListCineplexController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = "Here are the Cineplex";
         logMenu = new ArrayList<String>();
         try {
-            cineplexList = DataBase.readCineList(FILENAME);
+            cineplexList = DataBase.readCineList(CINEPLEXFILENAME);
             for (Cineplex c : cineplexList) {
                 logMenu.add(c.getCineplexName());
             }
