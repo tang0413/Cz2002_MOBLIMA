@@ -1,16 +1,14 @@
 package modules.control;
 
 import modules.boundary.Console;
-import modules.entity.BaseEntity;
 
 import java.util.ArrayList;
 
 public class MovieRankingController extends BaseController {
-    private int option;
     public MovieRankingController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = "Please indicate the sorting option";
-        logMenu = new ArrayList<String>();
+        logMenu = new ArrayList<>();
         logMenu.add("By ticket sales");
         logMenu.add("By user rating");
         logMenu.add("Back");
