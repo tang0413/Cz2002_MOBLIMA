@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class UpdateMovieController extends BaseController { //TODO to be reused by passing index from ListMovieInfoController, needs to be updated
@@ -32,13 +33,8 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                     return;
                 }
                 Movie chosenMovie = movieList.get(MovieIndex);
-                int choice = this.console.getInt("Enter index to proceed", 1, 9);
-                switch (choice) {
-                    case 1:
-                        break; //TODO: call method inside. no need to create new controller
-                    case 9:
-                        return;
-                }
+                alterMovie(chosenMovie, actionChoice);
+                return;
             } catch (Exception e){
                 this.console.log(e.getMessage());
                 return;
@@ -60,18 +56,55 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
          String DirectorList = this.console.getStr("Director(s)");
          String Cast = this.console.getStr("Cast(s)");
          try{
-             alterCastAndDirector(DirectorList, Cast, newMovieId);
+             alterDirector(DirectorList, newMovieId);
+             alterCast(Cast, newMovieId);
              Movie newMovie = new Movie(newMovieParam);
              DataBase.setData(MOVIEFILENAME, newMovie);
-             this.console.logReminder("Updated successfully! Returning to the previous page...");
-             TimeUnit.SECONDS.sleep(4);
-             return;
+             autoReturn();
          } catch (Exception e){
              this.console.log(e.getMessage());
          }
     }
 
-    private void alterCastAndDirector(String DirectorList, String Cast, int newMovieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private void alterMovie(Movie movieToChange, int actionChoice) throws IOException, InterruptedException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        String newValue;
+        switch(actionChoice){ //TODO get rid of this stupid method!!!!
+            case 1:
+                newValue = this.console.getStr("Please enter a new Name");
+                movieToChange.setName(newValue);
+                break;
+            case 2:
+                newValue = this.console.getStr("Please enter a new type");
+                movieToChange.setType(newValue);
+                break;
+            case 3:
+                newValue = this.console.getStr("Please enter a new category (Movie Rating)");
+                movieToChange.setCat(newValue);
+                break;
+            case 4:
+                newValue = this.console.getStr("Please enter a new description");
+                movieToChange.setDescription(newValue);
+                break;
+            case 5:
+                this.console.logReminder("Please separate names by ',' with no space");
+                newValue = this.console.getStr("Please enter new director(s) to be added");//TODO so far can only add
+                alterDirector(newValue, movieToChange.getId());
+                break;
+            case 6:
+                this.console.logReminder("Please separate names by ',' with no space");
+                newValue = this.console.getStr("Please enter new cast to be added");
+                alterCast(newValue, movieToChange.getId());
+                break;
+            case 7:
+                newValue = this.console.getStr("Please enter a new status");//TODO need to check
+                movieToChange.setStatus(newValue);
+                break;
+        }
+        DataBase.setData(MOVIEFILENAME, movieToChange);
+        autoReturn();
+    }
+
+    private void alterDirector(String DirectorList, int newMovieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String splittedInMovie[] = DirectorList.split(",");
         ArrayList<String> directorNames= new ArrayList<>( Arrays.asList(splittedInMovie));
         ArrayList<Director> currentDirectorList = DataBase.readList(DIRECTORFILENAME, Director.class);
@@ -91,7 +124,10 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 DataBase.setData(DIRECTORFILENAME, newDirector);
             }
         }
-        splittedInMovie = Cast.split(","); //TODO get rid off this similar code
+    }
+
+    private void alterCast(String Cast, int newMovieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        String splittedInMovie[] = Cast.split(","); //TODO get rid off this similar code
         ArrayList<String> castNames= new ArrayList<>( Arrays.asList(splittedInMovie));
         ArrayList<Actor> currentCastList = DataBase.readList(CASTFILENAME, Actor.class);
         for (Actor a :currentCastList){
@@ -110,5 +146,11 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 DataBase.setData(CASTFILENAME, newActor);
             }
         }
+    }
+
+    private void autoReturn() throws InterruptedException {
+        this.console.logReminder("Updated successfully! Returning to the previous page...");
+        TimeUnit.SECONDS.sleep((long)2.5);
+        return;
     }
 }

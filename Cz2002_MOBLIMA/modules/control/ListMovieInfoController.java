@@ -8,7 +8,7 @@ import modules.utils.Sorting;
 
 import java.util.ArrayList;
 
-public class ListMovieInfoController extends BaseController {
+public class ListMovieInfoController extends BaseController {//TODO can be combined with listMovie in the future
     private int sortOption;
     private int moviePosition;
     public ListMovieInfoController(Console inheritedConsole, int movieId, int sortOption) {
@@ -21,7 +21,7 @@ public class ListMovieInfoController extends BaseController {
         while (true){
             try{
                 ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
-                Movie chosenMovie = movieList.get(moviePosition);
+                Movie chosenMovie = movieList.get(moviePosition); //TODO repeated code
                 if (this.sortOption == 2){
                     Movie[] array = movieList.toArray(new Movie[movieList.size()]);
                     Sorting.selectionSortReverse(array);
@@ -30,34 +30,33 @@ public class ListMovieInfoController extends BaseController {
                     //TODO finish by sale ranking
                 }
                 constructLogInfo(isAdmin, chosenMovie);
-                int choice = this.console.getInt("Enter index to proceed", 1, 3);
+                int choice = this.console.getInt("Enter index to proceed", 1, logMenu.size());
                 switch (choice) {
                     case 1:
-                        if (isAdmin){
-                            //TODO
-                            break;
-                        } else {
+                        if (!isAdmin){
                             ListMovieReviewController review = new ListMovieReviewController(console, moviePosition);
                             review.enter();
                             break;
                         }
                     case 2:
-                        if (isAdmin){
-                            //TODO
-                            break;
-                        } else {
+                        if (!isAdmin){
                             ListAvailableCineplexController available = new ListAvailableCineplexController(console, chosenMovie);
                             available.enter();
                             break;
                         }
                     case 3:
-                        if (isAdmin){
-                            //TODO
-                            break;
-                        } else {
+                        if (!isAdmin){
                             return;
                         }
-
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                        UpdateMovieController update = new UpdateMovieController(this.console);
+                        update.enter(choice, moviePosition);
+                        break;
+                    case 8:
+                        return;
                 }
             } catch (Exception e){
             }

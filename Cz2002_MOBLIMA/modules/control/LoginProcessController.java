@@ -13,7 +13,7 @@ public class LoginProcessController extends BaseController {
 
 	public LoginProcessController(Console inheritedConsole) {
 		super(inheritedConsole);
-		logText = "Login Process";
+		logText = "Please enter your username and email";
 	}
 
 	@Override

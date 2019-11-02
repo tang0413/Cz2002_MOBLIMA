@@ -9,8 +9,8 @@ public class UserSelectingController extends BaseController{
         super(inheritedConsole);
         logText = "Please choose your user category";
         logMenu = new ArrayList<String>();
-        logMenu.add("Staff");
-        logMenu.add("Customer");
+        logMenu.add("Admin Entry");
+        logMenu.add("Common User Entry");
         logMenu.add("Quit");
     }
     @Override

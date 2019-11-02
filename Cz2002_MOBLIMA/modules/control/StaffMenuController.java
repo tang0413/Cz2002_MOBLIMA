@@ -23,7 +23,7 @@ public class StaffMenuController extends BaseController {
         while(true){
             this.console.logText(logText);
             this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to proceed", 1, 6);
+            int choice = this.console.getInt("Enter index to proceed", 1, logMenu.size());
             switch (choice) {
                 case 1:
                     ListMovieController list = new ListMovieController(this.console);

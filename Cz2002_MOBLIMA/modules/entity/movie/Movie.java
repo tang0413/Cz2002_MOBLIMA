@@ -148,6 +148,27 @@ public class Movie extends BaseEntity implements Comparable{
         }    //TODO should have setID. this one for test only, need to be deleted
     }
 
+    public void setName(String newName){
+        this.name = newName;
+    }
+
+    public void setType(String newType){
+        this.type = newType;
+    }
+
+    public void setCat(String newCat){
+        this.cat = newCat;
+    }
+
+    public void setDescription(String newDescription){
+        this.description = newDescription;
+    }
+
+    public void setStatus(String newStatus){
+        this.status = newStatus;
+    }
+
+
     @Override
     public String StringlizeEntity() {
         return "id=" + this.id + "|name=" + this.name + "|description=" + this.description + "|status=" + this.status + "|type=" + this.type + "|cat=" + this.cat;

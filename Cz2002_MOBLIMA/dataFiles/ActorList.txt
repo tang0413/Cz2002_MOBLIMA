@@ -7,3 +7,9 @@ id=6|name=Bai|inMovie=6
 id=7|name=Bush|inMovie=6
 id=8|name=John|inMovie=7
 id=9|name=Newman|inMovie=7
+id=10|name=Dong|inMovie=8
+id=11|name=Zhang|inMovie=8
+id=12|name=Han|inMovie=8
+id=13|name=Horton|inMovie=2
+id=14|name=Tony|inMovie=2
+id=15|name=Gabrel|inMovie=2
