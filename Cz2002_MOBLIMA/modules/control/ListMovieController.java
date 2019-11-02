@@ -40,7 +40,7 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
             if (choice == movieList.size()+1){
                 return;
             } else {
-                ListMovieInfoController movieInfo = new ListMovieInfoController(console, choice -1);
+                ListMovieInfoController movieInfo = new ListMovieInfoController(console, choice -1, sortOption);
                 movieInfo.enter(isAdmin);
             }
                 //display info controller (choice);
@@ -58,7 +58,7 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
                 break;
             case 2:
                 Movie[] array = movieList.toArray(new Movie[movieList.size()]);
-                Sorting.insertionSort(array); //TODO: hard code to be sorting ratings. need to add by-sales methods
+                Sorting.selectionSortReverse(array); //TODO: hard code to be sorting ratings. need to add by-sales methods
                 for (Movie m: array){
                     logMenu.add(m.getName());
                 }

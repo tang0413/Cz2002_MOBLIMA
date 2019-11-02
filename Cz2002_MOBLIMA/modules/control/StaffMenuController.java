@@ -14,6 +14,7 @@ public class StaffMenuController extends BaseController {
         logMenu.add("Update Show Info");
         logMenu.add("Create New Show");
         logMenu.add("System Configuration");
+        logMenu.add("Movie ranking");
         logMenu.add("Log off");
     }
 
@@ -33,6 +34,10 @@ public class StaffMenuController extends BaseController {
                     update.enter(0, 0);
                     break;
                 case 6:
+                    MovieRankingController rank = new MovieRankingController(this.console);
+                    rank.enter(); //TODO but to do so, staff will also be able to book movie
+                    break;
+                case 7:
                     return;
             }
         }

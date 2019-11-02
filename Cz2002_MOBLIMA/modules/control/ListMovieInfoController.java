@@ -4,14 +4,17 @@ import modules.boundary.Console;
 import modules.entity.movie.Actor;
 import modules.entity.movie.Movie;
 import modules.data.DataBase;
+import modules.utils.Sorting;
 
 import java.util.ArrayList;
 
 public class ListMovieInfoController extends BaseController {
+    private int sortOption;
     private int moviePosition;
-    public ListMovieInfoController(Console inheritedConsole, int movieId) {
+    public ListMovieInfoController(Console inheritedConsole, int movieId, int sortOption) {
         super(inheritedConsole);
         this.moviePosition = movieId;
+        this.sortOption = sortOption;
     }
 
     public void enter(Boolean isAdmin) {
@@ -19,6 +22,13 @@ public class ListMovieInfoController extends BaseController {
             try{
                 ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
                 Movie chosenMovie = movieList.get(moviePosition);
+                if (this.sortOption == 2){
+                    Movie[] array = movieList.toArray(new Movie[movieList.size()]);
+                    Sorting.selectionSortReverse(array);
+                    chosenMovie = array[moviePosition];
+                } else if (this.sortOption == 1){
+                    //TODO finish by sale ranking
+                }
                 constructLogInfo(isAdmin, chosenMovie);
                 int choice = this.console.getInt("Enter index to proceed", 1, 3);
                 switch (choice) {

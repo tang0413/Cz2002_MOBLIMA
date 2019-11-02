@@ -95,8 +95,12 @@ public class Movie extends BaseEntity implements Comparable{
             Movie s = (Movie)o;
             if(this.rating.equals(s.getRating()))
                 return this.name.compareTo(s.getName());
-            else
+            else {
+                if (this.rating.equals("N.A.")){
+                    return -1;
+                }
                 return this.rating.compareTo(s.getRating());
+            }
         }
         return 2;
     }
