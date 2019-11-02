@@ -19,18 +19,22 @@ public class StaffMenuController extends BaseController {
 
     @Override
     public void enter() {
-        this.console.logText(logText);
-        this.console.logMenu(logMenu);
-        int choice = this.console.getInt("Enter index to proceed", 1, 6);
-        switch (choice) {
-            case 1:
-//                UpdateMovieController updateMv = new UpdateMovieController(this.console);
-//                updateMv.run();
-                ListMovieController list = new ListMovieController(this.console);
-                list.enter(true, 0);
-                break;
-            case 6:
-                return;
+        while(true){
+            this.console.logText(logText);
+            this.console.logMenu(logMenu);
+            int choice = this.console.getInt("Enter index to proceed", 1, 6);
+            switch (choice) {
+                case 1:
+                    ListMovieController list = new ListMovieController(this.console);
+                    list.enter(true, 0);
+                    break;
+                case 2:
+                    UpdateMovieController update = new UpdateMovieController(this.console);
+                    update.enter(0, 0);
+                    break;
+                case 6:
+                    return;
+            }
         }
     }
 }

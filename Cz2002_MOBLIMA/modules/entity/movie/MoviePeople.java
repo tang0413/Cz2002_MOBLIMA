@@ -1,5 +1,6 @@
 package modules.entity.movie;
 
+import modules.data.DataBase;
 import modules.entity.BaseEntity;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class MoviePeople extends BaseEntity {
 
     @Override
     public String StringlizeEntity() {
-        return "id=" + this.id + "|name=" + this.name + "|inMovie=" + this.inMovie; //TODO: chonvertType!
+        String reinMovieString = String.join(",", this.inMovie);
+        return "id=" + this.id + "|name=" + this.name + "|inMovie=" + reinMovieString; //TODO: chonvertType!
     }
 }

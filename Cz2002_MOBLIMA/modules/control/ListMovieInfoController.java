@@ -64,6 +64,7 @@ public class ListMovieInfoController extends BaseController {
         logMenu.add("Name: " + movie.getName());
         logMenu.add("Rating: " + movie.getRating());
         logMenu.add("Type: " + movie.getType());
+        logMenu.add("Category: " + movie.getCat());
         logMenu.add("Description: " + movie.getDescription());
         logMenu.add("Director: " + movie.getDirector());
         logMenu.add("Cast: " + movie.getCast());
@@ -71,6 +72,7 @@ public class ListMovieInfoController extends BaseController {
         if (isAdmin) {
             this.console.logText("Choose from the following attributes of: " + movie.getName());
             logMenu.remove(1);
+            logMenu.add("Back");
             this.console.logMenu(logMenu);
         } else {
             this.console.logText("Below is the detailed information of: " + movie.getName());

@@ -40,3 +40,6 @@ id=39|rating=4|review=test test|movieId=4|userId=1
 id=40|rating=3|review=should be 40|movieId=2|userId=3
 id=41|rating=5|review=should be 41|movieId=1|userId=1
 id=42|rating=5|review=should be 42|movieId=1|userId=1
+id=43|rating=3|review=FIrest comment~|movieId=6|userId=1
+id=44|rating=5|review=hey, not bad!|movieId=5|userId=3
+id=45|rating=4|review=me again|movieId=5|userId=1

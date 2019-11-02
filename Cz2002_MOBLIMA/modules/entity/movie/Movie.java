@@ -79,6 +79,10 @@ public class Movie extends BaseEntity implements Comparable{
         return type;
     }
 
+    public String getCat() {
+        return cat;
+    }
+
     public boolean equals(Object o) {
         if(o.getClass() == this.getClass()) {
             Movie s = (Movie)o;

@@ -1,5 +1,9 @@
 id=1|castname=Jackie|inMovie=1,2
 id=2|castname=Tom|inMovie=2
-id=3|castname=David|inMovie=1
-id=4|castname=Jack|inMovie=3
-id=5|castname=Tommy|inMovie=4
+id=3|name=David|inMovie=1,4,5
+id=4|name=Jack|inMovie=3,4
+id=5|name=Chen|inMovie=5
+id=6|name=Bai|inMovie=6
+id=7|name=Bush|inMovie=6
+id=8|name=John|inMovie=7
+id=9|name=Newman|inMovie=7

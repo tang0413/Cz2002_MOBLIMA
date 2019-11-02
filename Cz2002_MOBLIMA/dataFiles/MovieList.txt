@@ -1,4 +1,7 @@
 id=1|name=test1|descrption=this is movie1|status=Now Showing|type=3D|cat=PG13
 id=2|name=test2|descrption=this is movie2|status=Preview|type=Horror|cat=PG13
 id=3|name=test3|descrption=this is movie3|status=Coming Soon|type=Comedy|cat=PG13
-id=4|name=test4|descrption=this is movie4|status=Preview|type=Comedy|cat=PG13
+id=4|name=test5|description=this is movie 5|status=Preview|type=Horror|cat=PG13
+id=5|name=test6|description=this is movie6|status=Coming Soon|type=Comedy|cat=PG15
+id=6|name=test7|description=this is movie 7|status=Preview|type=Comedy|cat=PG15
+id=7|name=test8|description=this is movie 8|status=End of Showing|type=Horror|cat=N.A.
