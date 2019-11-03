@@ -3,7 +3,7 @@ package modules.control;
 import modules.boundary.Console;
 import modules.data.DataBase;
 import modules.entity.Cineplex;
-import modules.entity.ShowTime;
+import modules.entity.Show;
 import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ import java.util.ArrayList;
 public class ListShowTimeInfoController extends BaseController {
     private Movie movie;
     private Cineplex cineplex;
-    private ShowTime showtime;
+    private Show showtime;
     private int moviePosition;
     private int cineplexPosition;
     private int showtimePosition;
     private static final String MOVIEFILENAME = "MovieList.txt";
     private static final String CINEFILENAME = "CineplexList.txt";
     private static final String SHOWTIMEFILENAME = "ShowList.txt";
-    private ArrayList<ShowTime> showTimeList = new ArrayList<>();
+    private ArrayList<Show> showList = new ArrayList<>();
 
     public ListShowTimeInfoController(Console inheritedConsole, int showtimePosition, Movie mv, Cineplex ci)
     {
@@ -34,11 +34,11 @@ public class ListShowTimeInfoController extends BaseController {
             try{
                 ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
                 ArrayList<Cineplex> cineplexesList = DataBase.readList(CINEFILENAME, Cineplex.class);
-                ArrayList<ShowTime> showTimeList = DataBase.readList(SHOWTIMEFILENAME, ShowTime.class);
+                ArrayList<Show> showList = DataBase.readList(SHOWTIMEFILENAME, Show.class);
                 Movie chosenMovie = movieList.get(moviePosition);
                 Cineplex chosenCineplex = cineplexesList.get(cineplexPosition);
-                ShowTime chosenShowTime = showTimeList.get(showtimePosition);
-                constuctLogIno(chosenMovie, chosenCineplex, chosenShowTime);
+                Show chosenShow = showList.get(showtimePosition);
+                constuctLogIno(chosenMovie, chosenCineplex, chosenShow);
                 int choice = this.console.getInt("Enter index to proceed", 1, 3);
                 if (choice == 1){
                     /*ListSeatsController seat = new ListSeatsController(console, chosenMovie, chosenCineplex, chosenShowTime);
@@ -51,7 +51,7 @@ public class ListShowTimeInfoController extends BaseController {
         }
     }
 
-    private void constuctLogIno(Movie movie, Cineplex cineplex, ShowTime showtime)
+    private void constuctLogIno(Movie movie, Cineplex cineplex, Show showtime)
     {
         logMenu = new ArrayList<>();
         logMenu.add("Movie Name:" + movie.getName());

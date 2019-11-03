@@ -4,7 +4,7 @@ import modules.data.DataBase;
 
 import java.util.ArrayList;
 
-public class ShowTime extends BaseEntity {
+public class Show extends BaseEntity {
     //id=1|movieId=1|cineplexId=1|cinemaname=a|time=14:30|date=14/12/2019
     private int id;
     private int movieId;
@@ -13,7 +13,7 @@ public class ShowTime extends BaseEntity {
     private String time;
     private String date;
     private  static final String SHOWTIMEFILENAME = "ShowList.txt";
-    public ShowTime (ArrayList<String> paramList)
+    public Show(ArrayList<String> paramList)
     {
         super(Integer.parseInt(paramList.get(0)));
         this.movieId = (Integer.parseInt(paramList.get(1)));
