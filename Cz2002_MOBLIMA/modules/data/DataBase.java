@@ -165,15 +165,21 @@ public class DataBase {
     }
 
     /**
-     * This is used to get a new id to help instantiate a specific class
-     * @param classObjThe class of the objects to be created e.g. Movie.class
-     * @return
+     * This is used to get a new id to help instantiate a new object of a specific class
+     * @param classObj The class of the objects to be created e.g. Movie.class
+     * @return a new Id as integer
      */
     public static int getNewId(Class<? extends BaseEntity> classObj){
         bufferMaxIdList.put(classObj, bufferMaxIdList.get(classObj) + 1);
         return bufferMaxIdList.get(classObj);
     }
 
+    /**
+     * This is used by setData and deleteData to write to files
+     * @param fileName The filename to change e.g. MovieList.txt
+     * @param content A ArrayList of string that will be written into the file
+     * @throws FileNotFoundException
+     */
     private static void writeFile(String fileName, ArrayList content) throws FileNotFoundException {
         try {
             PrintWriter out = new PrintWriter(new FileWriter(DIR + fileName));
