@@ -39,7 +39,7 @@ public class ListShowTimeController extends BaseController {
                 return;
             else
             {
-                ListShowTimeInfoController showInfo = new ListShowTimeInfoController(console,choice, this.movie, this.cineplex);
+                ListShowTimeInfoController showInfo = new ListShowTimeInfoController(console, choice, this.movie, this.cineplex);
                 showInfo.enter();
             }
         }
@@ -50,7 +50,7 @@ public class ListShowTimeController extends BaseController {
     {
         logMenu = new ArrayList<>();
         for(Show st : showList) {
-            if(st.getMovieId() == this.movie.getId() && st.getCineplexId() == (this.cineplex.getId()+1)) {
+            if(st.getMovieId() == this.movie.getId() && st.getCineplexId() == (this.cineplex.getId()+1)) { //TODO sytanx error getId
                 if (this.movie.getStatus().equals("Preview") || this.movie.getStatus().equals("Now Showing")) {
                     logMenu.add(st.getTime());
                 }

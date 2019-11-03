@@ -1,0 +1,8 @@
+id=1|type=Senior Citizens
+id=2|type=Students
+id=3|type=Mon Wed
+id=4|type=Thur
+id=5|type=Fri1
+id=6|type=Fri2
+id=7|type=Sat Sun
+id=8|

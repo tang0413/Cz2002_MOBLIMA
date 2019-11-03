@@ -1,4 +1,0 @@
-id=1|movieId=1|cineplexId=1|cinemaId=1
-id=2|movieId=1|cineplexId=2|cinemaId=2
-id=3|movieId=2|cineplexId=1|cinemaId=1
-id=4|movieId=2|cineplexId=2|cinemaId=2

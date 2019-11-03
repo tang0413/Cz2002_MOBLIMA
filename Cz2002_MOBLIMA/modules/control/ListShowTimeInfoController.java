@@ -17,11 +17,12 @@ public class ListShowTimeInfoController extends BaseController {
     private int showtimePosition;
     private ArrayList<Show> showList = new ArrayList<>();
 
-    public ListShowTimeInfoController(Console inheritedConsole, int showtimePosition, Movie mv, Cineplex ci)
+    public ListShowTimeInfoController(Console inheritedConsole, int showId, Movie mv, Cineplex ci)
     {
         super(inheritedConsole);
         this.movie = mv;
         this.cineplex = ci;
+        this.showtimePosition = showId;
         logText = "Here are the Show Time";
     }
 
@@ -38,8 +39,8 @@ public class ListShowTimeInfoController extends BaseController {
                 constuctLogIno(chosenMovie, chosenCineplex, chosenShow);
                 int choice = this.console.getInt("Enter index to proceed", 1, 3);
                 if (choice == 1){
-                    /*ListSeatsController seat = new ListSeatsController(console, chosenMovie, chosenCineplex, chosenShowTime);
-                    seat.enter();*/
+                    TicketController ticket = new TicketController(console, this.movie, this.cineplex, chosenShow);
+                    ticket.enter();
                 }
                 else
                     return;

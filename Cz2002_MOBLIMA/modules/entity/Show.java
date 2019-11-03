@@ -32,7 +32,7 @@ public class Show extends BaseEntity {
     public void setId(int id){
         this.id = id;
         try{
-            DataBase.setData(SHOWTIMEFILENAME,this);
+            DataBase.setData(SHOWFILENAME,this);
         }catch (Exception e){
         }
     }

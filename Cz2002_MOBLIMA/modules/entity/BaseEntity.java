@@ -29,8 +29,9 @@ public abstract class BaseEntity {
      * The name of the file which storing the needed information of Movie-goner
      */
     protected static final String MOVIEGONERFILENAME = "MoviegonerList.txt";
-    protected static final String SHOWTIMEFILENAME = "ShowList.txt";
+    protected static final String SHOWFILENAME = "ShowList.txt";
     protected static final String CINEPLEXFILENAME = "CineplexList.txt";
+    protected static final String TICKETFILENAME = "TicketList.txt";
 
     /**
      * The unique id for each object by class
