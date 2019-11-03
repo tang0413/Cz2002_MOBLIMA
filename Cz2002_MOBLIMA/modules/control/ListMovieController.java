@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 public class ListMovieController extends BaseController{ //TODO: experiment with refreshing list;
     private ArrayList<Movie> movieList = new ArrayList<>();
+    private static final String MOVIEFILENAME = "MovieList.txt";
+
     public ListMovieController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = "Here are all movies";
