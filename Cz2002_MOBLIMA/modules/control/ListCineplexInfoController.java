@@ -3,14 +3,13 @@ package modules.control;
 import modules.boundary.Console;
 import modules.data.DataBase;
 import modules.entity.Cineplex;
+import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
 public class ListCineplexInfoController extends BaseController {
     private int moviePosition;
     private int cineplexPosition;
-    private static final String MOVIEFILENAME = "MovieList.txt";
-    private static final String CINEFILENAME = "CineplexList.txt";
 
     public ListCineplexInfoController(Console inheritedConsole, int cineplexId, Movie mv) {
         super(inheritedConsole);
@@ -23,7 +22,7 @@ public class ListCineplexInfoController extends BaseController {
         while (true) {
             try {
                 ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
-                ArrayList<Cineplex> cineplexesList = DataBase.readList(CINEFILENAME, Cineplex.class);
+                ArrayList<Cineplex> cineplexesList = DataBase.readList(CINEPLEXFILENAME, Cineplex.class);
                 Movie chosenMovie = movieList.get(moviePosition-1);
                 Cineplex chosenCineplex = cineplexesList.get(cineplexPosition);
                 constructLogInfo(chosenMovie, chosenCineplex);

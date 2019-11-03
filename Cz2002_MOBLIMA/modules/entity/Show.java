@@ -12,7 +12,6 @@ public class Show extends BaseEntity {
     private String cinemaname;
     private String time;
     private String date;
-    private  static final String SHOWTIMEFILENAME = "ShowList.txt";
     public Show(ArrayList<String> paramList)
     {
         super(Integer.parseInt(paramList.get(0)));

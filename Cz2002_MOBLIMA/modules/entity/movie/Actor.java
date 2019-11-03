@@ -9,8 +9,6 @@ public class Actor extends MoviePeople {
     public Actor(ArrayList<String> paramList) {
         super(paramList);
     }
-    private static final String CASTFILENAME = "ActorList.txt";
-
 
     public Boolean addInMovie(int movieId){
         this.inMovie.add(Integer.toString(movieId));

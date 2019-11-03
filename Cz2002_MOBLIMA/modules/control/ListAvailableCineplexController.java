@@ -1,6 +1,8 @@
 package modules.control;
 
 import modules.boundary.Console;
+import modules.data.DataBase;
+import modules.entity.Cineplex;
 import modules.entity.movie.Movie;
 import modules.utils.Sorting;
 
@@ -10,7 +12,6 @@ public class ListAvailableCineplexController extends BaseController{
     private Movie movie;
     private int moviePosition;
     private ArrayList<Cineplex> cineplexList = new ArrayList<>();
-    private static final String CINEFILENAME = "CineplexList.txt";
 
     public ListAvailableCineplexController(Console inheritedConsole, Movie mv) {
         super(inheritedConsole);
@@ -22,7 +23,7 @@ public class ListAvailableCineplexController extends BaseController{
     public void enter()  {
         while (true){
             try{
-                cineplexList = DataBase.readList(CINEFILENAME, Cineplex.class);
+                cineplexList = DataBase.readList(CINEPLEXFILENAME, Cineplex.class);
             }catch (Exception e){
             }
             this.contructLogMenu(cineplexList);
@@ -35,11 +36,6 @@ public class ListAvailableCineplexController extends BaseController{
             {
                 ListCineplexInfoController cineInfo = new ListCineplexInfoController(console,choice-1, this.movie);
                 cineInfo.enter();
-            }
-//            this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to proceed", 1, 1);
-            if (choice == 1){
-                return;
             }
         }
     }

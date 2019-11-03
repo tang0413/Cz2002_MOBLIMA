@@ -15,9 +15,6 @@ public class ListShowTimeInfoController extends BaseController {
     private int moviePosition;
     private int cineplexPosition;
     private int showtimePosition;
-    private static final String MOVIEFILENAME = "MovieList.txt";
-    private static final String CINEFILENAME = "CineplexList.txt";
-    private static final String SHOWTIMEFILENAME = "ShowList.txt";
     private ArrayList<Show> showList = new ArrayList<>();
 
     public ListShowTimeInfoController(Console inheritedConsole, int showtimePosition, Movie mv, Cineplex ci)
@@ -33,7 +30,7 @@ public class ListShowTimeInfoController extends BaseController {
         while(true){
             try{
                 ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
-                ArrayList<Cineplex> cineplexesList = DataBase.readList(CINEFILENAME, Cineplex.class);
+                ArrayList<Cineplex> cineplexesList = DataBase.readList(CINEPLEXFILENAME, Cineplex.class);
                 ArrayList<Show> showList = DataBase.readList(SHOWTIMEFILENAME, Show.class);
                 Movie chosenMovie = movieList.get(moviePosition);
                 Cineplex chosenCineplex = cineplexesList.get(cineplexPosition);

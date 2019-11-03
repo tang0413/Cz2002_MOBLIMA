@@ -12,6 +12,7 @@ public abstract class BaseController {
     protected static final String REVIEWFILENAME = "ReviewList.txt";
     protected static final String CINEPLEXFILENAME = "CineplexList.txt";
     protected static final String ADMINFILENAME = "AdminList.txt";
+    protected static final String SHOWTIMEFILENAME = "ShowList.txt";
     protected Console console;
     protected String logText;
     protected ArrayList<String> logMenu;

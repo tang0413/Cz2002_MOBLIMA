@@ -6,6 +6,7 @@ public abstract class BaseEntity {
     protected static final String CASTFILENAME = "ActorList.txt";
     protected static final String REVIEWFILENAME = "ReviewList.txt";
     protected static final String MOVIEGONERFILENAME = "MoviegonerList.txt";
+    protected static final String SHOWTIMEFILENAME = "ShowList.txt";
     protected int id;
     public BaseEntity(int id){
         this.id = id;

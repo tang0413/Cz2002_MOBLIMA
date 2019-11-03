@@ -14,7 +14,6 @@ public class ListShowTimeController extends BaseController {
     private Show showtime;
     private int showPosition;
     private ArrayList<Show> showList = new ArrayList<>();
-    private static final String SHOWTIMEFILENAME = "ShowList.txt";
 
     public ListShowTimeController(Console inheritedConsole, Movie mv, Cineplex ci)
     {

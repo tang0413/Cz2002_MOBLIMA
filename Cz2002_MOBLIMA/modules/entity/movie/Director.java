@@ -9,8 +9,6 @@ public class Director extends MoviePeople {
     public Director(ArrayList<String> paramList) {
         super(paramList);
     }
-    private static final String DIRECTORFILENAME = "DirectorList.txt";
-
 
     public Boolean addInMovie(int movieId){
         this.inMovie.add(Integer.toString(movieId));
