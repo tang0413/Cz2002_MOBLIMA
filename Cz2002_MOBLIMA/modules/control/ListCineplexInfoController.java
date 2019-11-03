@@ -24,7 +24,7 @@ public class ListCineplexInfoController extends BaseController {
             try {
                 ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
                 ArrayList<Cineplex> cineplexesList = DataBase.readList(CINEFILENAME, Cineplex.class);
-                Movie chosenMovie = movieList.get(moviePosition);
+                Movie chosenMovie = movieList.get(moviePosition-1);
                 Cineplex chosenCineplex = cineplexesList.get(cineplexPosition);
                 constructLogInfo(chosenMovie, chosenCineplex);
                 int choice = this.console.getInt("Enter index to proceed", 1, 3);

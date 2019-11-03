@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class ListAvailableCineplexController extends BaseController{
     private Movie movie;
+    private int moviePosition;
     private ArrayList<Cineplex> cineplexList = new ArrayList<>();
     private static final String CINEFILENAME = "CineplexList.txt";
 
