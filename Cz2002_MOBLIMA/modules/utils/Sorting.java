@@ -1,5 +1,8 @@
 package modules.utils;
 
+/**
+ * This class is provided by lab4 manual and reused here for movie ranking function
+ */
 public class Sorting
 {
     //-----------------------------------------------------------------

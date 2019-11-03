@@ -3,30 +3,75 @@ package modules.boundary;
 import java.util.*;
 import java.util.regex.Pattern;
 
+/**
+ * This class is used to manage input and output through the console.
+ * It is instantiated when entering the app and passed down by controllers.
+ */
 public class Console {
+    /**
+     * Used to get input from user. It will not be closed until the end of program.
+     */
     private Scanner sc;
+    /**
+     * Change output message to red
+     */
     private final String ANSI_RED = "\u001B[31m";
+    /**
+     * Change output message to Cyan
+     */
     public  final String ANSI_CYAN = "\u001B[36m";
+    /**
+     * Reset the color of output message
+     */
     private final String ANSI_RESET = "\u001B[0m";
+    /**
+     * Regular expression to check the syntax of email
+     */
     private final Pattern EMAILPATTERN = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$");
+    /**
+     * All available movie status
+     */
     private final List<String> movieStatusList = Arrays.asList("Coming Soon", "Preview", "Now Showing", "End Of Showing");
+    /**
+     * Characters that surround the text repeatedly
+     */
     private String styleChar = "+";
 
+    /**
+     * Creates a new Console with a ueser input scanner
+     */
     public Console() {
         sc = new Scanner(System.in);
     }
 
+    /**
+     * Used to print out the most basic, non-styled message
+     * @param outputMsg The string message to print out as line in console
+     */
     public void log(String outputMsg) {
         System.out.println(outputMsg);
     }
 
+    /**
+     * Used to print out message in red color as warning
+     * @param outputMsg The string message to print out as line in console
+     */
     public void logWarning(String outputMsg) {
         System.out.println(ANSI_RED + outputMsg + ANSI_RESET);
     }
+
+    /**
+     * Used to print out message in cyan as a reminder
+     * @param outputMsg The string message to print out as line in console
+     */
     public void logReminder(String outputMsg) {
         System.out.println(ANSI_CYAN + outputMsg + ANSI_RESET);
     }
 
+    /**
+     * Used to print out message with styleChar surrounded on top and bottom
+     * @param outputMsg The string message to print out as line in console
+     */
     public void logText(String outputMsg) {
         String repeated = new String(new char[outputMsg.length()]).replace("\0", styleChar);
         System.out.println(repeated);
@@ -34,6 +79,10 @@ public class Console {
         System.out.println(repeated);
     }
 
+    /**
+     * Used to print out a ArrayList with auto-indexes as a menu for users to select from
+     * @param menuItems The ArrayList of String to be printed by sequence
+     */
     public void logMenu(ArrayList<String> menuItems) {
         int i = 1;
         for (String str : menuItems) {
@@ -43,6 +92,11 @@ public class Console {
         System.out.println(" ");
     }
 
+    /**
+     * Similar to logMenu, but print without or without index.
+     * @param menuItems The ArrayList of String to be printed by sequence
+     * @param withOutIndex if equals to false, will call logMenu instead
+     */
     public void logMenu(ArrayList<String> menuItems, Boolean withOutIndex) {
         if (withOutIndex){
             for (String str : menuItems) {
@@ -54,6 +108,12 @@ public class Console {
         }
     }
 
+    /**
+     * This is used to print an ArrayList of String in sequence, but each element broke into lines by separator
+     * Mainly used to printout movie reviews
+     * @param records The ArrayList of String to be printed by sequence
+     * @param separator The separator used to tokenize each elements of records
+     */
     public void logWithSeparator(ArrayList<String> records, String separator) {
         for (String str : records) {
             StringTokenizer star = new StringTokenizer(str , separator);
@@ -65,6 +125,13 @@ public class Console {
         System.out.println(" ");
     }
 
+    /**
+     * This is used to get an integer from users with a lowerBound and upperBound
+     * @param label The text to print out first as a instruction
+     * @param lowerBound The minimum accepted value
+     * @param upperBound The maximum accepted value
+     * @return the valid user input integer
+     */
     public int getInt(String label, int lowerBound, int upperBound) {
         while (true) {
             try {
@@ -85,11 +152,21 @@ public class Console {
         }
     }
 
+    /**
+     * This is used to get a non-checked string from the user
+     * @param title The text to print out first as a instruction
+     * @return the user input string
+     */
     public String getStr(String title) {
         this.log(">> " + title + ": ");
         return sc.nextLine();
     }
 
+    /**
+     * This is used to get a movie type from the user
+     * @param title The text to print out first as a instruction
+     * @return A valid user input movie type as string
+     */
     public String getMovieType(String title){
         this.logReminder("Status: " + Arrays.toString(movieStatusList.toArray()));
         while (true){
@@ -103,6 +180,10 @@ public class Console {
         }
     }
 
+    /**
+     * This is used to get a valid email from the user
+     * @return A valid user input email address as string
+     */
     public String getEmail() {
         this.log(">> " + "Please enter your email" + ": ");
         while (true){
@@ -115,6 +196,9 @@ public class Console {
         }
     }
 
+    /**
+     * Called when the App ends to close the scanner
+     */
     public void destoryScanner(){
         sc.close();
     }
