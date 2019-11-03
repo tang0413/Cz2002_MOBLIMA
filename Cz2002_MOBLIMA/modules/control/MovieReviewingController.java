@@ -12,20 +12,41 @@ import root.RunApp;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Represents a series of actions to get new review from the user and store them back to txt file
+ */
 public class MovieReviewingController extends BaseController{
     //TODO only the users that have watched can do review. take email to find userID, and then find book record, check movie id
     //TODO see if he made a review before
     //enter email to get user, rate, review;
+    /**
+     * This is the movie that the user is going to comment on
+     */
     private Movie movie;
+    /**
+     * This is the user who is making review
+     */
     private MovieGoner user;
+    /**
+     * This is the newly made review
+     */
     private Review newReview;
 
+    /**
+     * This is to instantiate a controller that is specifically for recording new reviews from the user
+     * @param inheritedConsole
+     * @param mv
+     */
     public MovieReviewingController(Console inheritedConsole, Movie mv) {
         super(inheritedConsole);
         this.movie = mv;
         this.logText = "Please fill in the following information to make review";
     }
 
+    /**
+     * This is to enter a series of process to get and store new reviews
+     * It includes a sub-process to get the user's name by userId
+     */
     @Override
     public void enter() {
         this.console.logText(logText);
@@ -77,6 +98,10 @@ public class MovieReviewingController extends BaseController{
         }
     }
 
+    /**
+     * This is to get the reviews from the user which consisting of rating score and comments
+     * @return true if the data is stored correctly. false if not.
+     */
     private Boolean makeReview() {
         int rating = this.console.getInt("Please enter your rating (1~5)", 1, 5);
         String review;
