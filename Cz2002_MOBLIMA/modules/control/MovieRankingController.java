@@ -23,7 +23,7 @@ public class MovieRankingController extends BaseController {
             switch (choice) {
                 case 2: //TODO: finish case 1
                     ListMovieController ls = new ListMovieController(this.console, choice);
-                    ls.enter(false, choice);
+                    ls.enter(false);
                     break;
                 case 3:
                     return;

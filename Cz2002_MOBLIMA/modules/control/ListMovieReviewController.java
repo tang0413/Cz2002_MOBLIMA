@@ -6,12 +6,16 @@ import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a series of actions to display all reviews of a movie and provide action options
+ */
 public class ListMovieReviewController extends BaseController {
-    private int moviePosition;
-    public ListMovieReviewController(Console inheritedConsole, int moviePosition) {
+
+    private int movieId;
+    public ListMovieReviewController(Console inheritedConsole, int movieId) {
         super(inheritedConsole);
-        this.moviePosition = moviePosition;
-        logMenu = new ArrayList<String>();
+        this.movieId = movieId;
+        logMenu = new ArrayList<>();
         logMenu.add("Make Review");
         logMenu.add("Back");
     }
@@ -20,8 +24,7 @@ public class ListMovieReviewController extends BaseController {
     public void enter() {
         while (true){
             try{
-                ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
-                Movie chosenMovie = movieList.get(moviePosition);
+                Movie chosenMovie = DataBase.getMovieById(movieId);
                 logText = "Here is the reviews of: " + chosenMovie.getName();
                 this.console.logText(logText);
                 ArrayList<String> reviews = chosenMovie.getReview();

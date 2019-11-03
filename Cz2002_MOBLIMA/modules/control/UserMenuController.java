@@ -25,8 +25,8 @@ public class UserMenuController extends BaseController {
             switch (choice) {
                 //TODO finish the whole menu
                 case 1:
-                    ListMovieController ls = new ListMovieController(this.console);
-                    ls.enter(false, 0);
+                    ListMovieController ls = new ListMovieController(this.console, 0);
+                    ls.enter(false);
                     break;
                 case 4:
                     MovieRankingController rank = new MovieRankingController(this.console);

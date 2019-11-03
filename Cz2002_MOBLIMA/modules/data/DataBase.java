@@ -2,6 +2,8 @@ package modules.data;
 
 import modules.entity.BaseEntity;
 import modules.entity.Cineplex;
+import modules.entity.movie.Movie;
+import modules.utils.Sorting;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
@@ -172,6 +174,17 @@ public class DataBase {
     public static int getNewId(Class<? extends BaseEntity> classObj){
         bufferMaxIdList.put(classObj, bufferMaxIdList.get(classObj) + 1);
         return bufferMaxIdList.get(classObj);
+    }
+
+    public static Movie getMovieById(int movieId) throws InvocationTargetException, FileNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+        ArrayList<Movie> movieList = readList("MovieList.txt", Movie.class);
+        Movie impossible = movieList.get(0); //TODO not likely to happen;
+        for (Movie m: movieList){
+            if (m.getId() == movieId){
+                return m;
+            }
+        }
+        return impossible;
     }
 
     /**

@@ -26,8 +26,8 @@ public class StaffMenuController extends BaseController {
             int choice = this.console.getInt("Enter index to proceed", 1, logMenu.size());
             switch (choice) {
                 case 1:
-                    ListMovieController list = new ListMovieController(this.console);
-                    list.enter(true, 0);
+                    ListMovieController list = new ListMovieController(this.console, 0);
+                    list.enter(true);
                     break;
                 case 2:
                     UpdateMovieController update = new UpdateMovieController(this.console);

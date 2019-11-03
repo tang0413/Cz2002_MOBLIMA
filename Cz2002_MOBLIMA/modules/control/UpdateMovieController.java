@@ -24,15 +24,14 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
 
     }
 
-    public void enter(int actionChoice, int MovieIndex) {
+    public void enter(int actionChoice, int movieId) {
         while (true){
             try{
-                ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
                 if (actionChoice == 0){
                     insetNewMovie();
                     return;
                 }
-                Movie chosenMovie = movieList.get(MovieIndex);
+                Movie chosenMovie = DataBase.getMovieById(movieId);
                 alterMovie(chosenMovie, actionChoice);
                 return;
             } catch (Exception e){

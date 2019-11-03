@@ -8,33 +8,32 @@ import modules.utils.Sorting;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a series of actions to displaying movie information details differently admin or customer
+ */
 public class ListMovieInfoController extends BaseController {//TODO can be combined with listMovie in the future
-    private int sortOption;
-    private int moviePosition;
-    public ListMovieInfoController(Console inheritedConsole, int movieId, int sortOption) {
+
+    private int movieID;
+
+    public ListMovieInfoController(Console inheritedConsole, int movieId) {
         super(inheritedConsole);
-        this.moviePosition = movieId;
-        this.sortOption = sortOption;
+        this.movieID = movieId;
     }
 
+    /**
+     * This is to enter a serious process to display the detailed information of the chosen list and provide action options
+     * @param isAdmin true if it's for admin use
+     */
     public void enter(Boolean isAdmin) {
         while (true){
             try{
-                ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
-                Movie chosenMovie = movieList.get(moviePosition); //TODO repeated code
-                if (this.sortOption == 2){
-                    Movie[] array = movieList.toArray(new Movie[movieList.size()]);
-                    Sorting.selectionSortReverse(array);
-                    chosenMovie = array[moviePosition];
-                } else if (this.sortOption == 1){
-                    //TODO finish by sale ranking
-                }
+                Movie chosenMovie = DataBase.getMovieById(this.movieID);
                 constructLogInfo(isAdmin, chosenMovie);
                 int choice = this.console.getInt("Enter index to proceed", 1, logMenu.size());
                 switch (choice) {
                     case 1:
                         if (!isAdmin){
-                            ListMovieReviewController review = new ListMovieReviewController(console, moviePosition);
+                            ListMovieReviewController review = new ListMovieReviewController(console, this.movieID);
                             review.enter();
                             break;
                         }
@@ -53,7 +52,7 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
                     case 6:
                     case 7:
                         UpdateMovieController update = new UpdateMovieController(this.console);
-                        update.enter(choice, moviePosition);
+                        update.enter(choice, this.movieID);
                         break;
                     case 8:
                         return;
@@ -64,10 +63,16 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
     }
 
     @Override
+    @Deprecated
     public void enter() {
 
     }
 
+    /**
+     * This is used to print movie details and action options
+     * @param isAdmin true if it's for admin use
+     * @param movie the exact movie object that the user has chosen
+     */
     private void constructLogInfo(Boolean isAdmin, Movie movie){
         logMenu = new ArrayList<>();
         logMenu.add("Name: " + movie.getName());
