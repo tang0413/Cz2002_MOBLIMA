@@ -4,7 +4,14 @@ import modules.boundary.Console;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a router page which provides all available Movie-goner action options
+ */
 public class UserMenuController extends BaseController {
+    /**
+     * This is to instantiate a controller with all Movie-goner action options in menu
+     * @param inheritedConsole the Console instance passed down from the previous controller
+     */
     public UserMenuController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = "Please choose from the following options";
@@ -16,6 +23,10 @@ public class UserMenuController extends BaseController {
         logMenu.add("Back");
     }
 
+    /**
+     * This is to enter a series of actions to allow the user to choose an action option from the menu
+     * The user will be redirected to the corresponding functional page after indicating the action option
+     */
     @Override
     public void enter() {
         while (true) {
@@ -25,8 +36,8 @@ public class UserMenuController extends BaseController {
             switch (choice) {
                 //TODO finish the whole menu
                 case 1:
-                    ListMovieController ls = new ListMovieController(this.console);
-                    ls.enter(false, 0);
+                    ListMovieController ls = new ListMovieController(this.console, 0);
+                    ls.enter(false);
                     break;
                 case 4:
                     MovieRankingController rank = new MovieRankingController(this.console);

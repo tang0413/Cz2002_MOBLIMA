@@ -5,6 +5,10 @@ import root.RunApp;
 
 import java.util.ArrayList;
 
+/**
+ * This class is deprecated. Ideally it's used to force the App to restart
+ */
+@Deprecated
 public class AppRestartController extends BaseController {
     public AppRestartController(Console inheritedConsole) {
         super(inheritedConsole);

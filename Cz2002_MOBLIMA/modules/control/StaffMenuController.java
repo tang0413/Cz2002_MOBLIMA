@@ -4,7 +4,14 @@ import modules.boundary.Console;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a router page which provides all available admin action options
+ */
 public class StaffMenuController extends BaseController {
+    /**
+     * This is to instantiate a controller with all admin action options in menu
+     * @param inheritedConsole the Console instance passed down from the previous controller
+     */
     public StaffMenuController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = "Please choose from the following options";
@@ -18,6 +25,10 @@ public class StaffMenuController extends BaseController {
         logMenu.add("Log off");
     }
 
+    /**
+     * This is to enter a series of actions to allow the user to choose an action option from the menu
+     * The user will be redirected to the corresponding functional page after indicating the action option
+     */
     @Override
     public void enter() {
         while(true){
@@ -26,8 +37,8 @@ public class StaffMenuController extends BaseController {
             int choice = this.console.getInt("Enter index to proceed", 1, logMenu.size());
             switch (choice) {
                 case 1:
-                    ListMovieController list = new ListMovieController(this.console);
-                    list.enter(true, 0);
+                    ListMovieController list = new ListMovieController(this.console, 0);
+                    list.enter(true);
                     break;
                 case 2:
                     UpdateMovieController update = new UpdateMovieController(this.console);
