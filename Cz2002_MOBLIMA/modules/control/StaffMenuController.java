@@ -45,8 +45,8 @@ public class StaffMenuController extends BaseController {
                     update.enter(0, 0);
                     break;
                 case 4:
-//                    UpdateShowController updateShow = new UpdateShowController(this.console);
-//                    updateShow.enter(0, 0);
+                    UpdateShowController updateShow = new UpdateShowController(this.console);
+                    updateShow.enter(0, 0);
                     break;
                 case 6:
                     MovieRankingController rank = new MovieRankingController(this.console);
