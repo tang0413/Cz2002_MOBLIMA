@@ -87,7 +87,6 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
      * @param sortOption 1 for sort by ticket sales and 2 for sort by user rating; 0 for no sorting requirement
      * @return the re-sorted movie list by sortOption
      */
-    //TODO change description
     private ArrayList constructLogMenu(ArrayList<Movie> movieList, int sortOption){
         ArrayList<Movie> newMovieList = new ArrayList<>();
         logMenu = new ArrayList<>();

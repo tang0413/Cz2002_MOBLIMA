@@ -176,15 +176,19 @@ public class DataBase {
         return bufferMaxIdList.get(classObj);
     }
 
-    public static Movie getMovieById(int movieId) throws InvocationTargetException, FileNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException {
+    /**
+     * This is used to get a movie object given its unique movieId
+     * @param movieId the id of the movie to be found
+     * @return the movie with id equals to movieId; if no such movie, exception will be thrown.
+     */
+    public static Movie getMovieById(int movieId) throws Exception {
         ArrayList<Movie> movieList = readList("MovieList.txt", Movie.class);
-        Movie impossible = movieList.get(0); //TODO not likely to happen;
         for (Movie m: movieList){
             if (m.getId() == movieId){
                 return m;
             }
         }
-        return impossible;
+        throw new Exception("No such movie!");
     }
 
     /**

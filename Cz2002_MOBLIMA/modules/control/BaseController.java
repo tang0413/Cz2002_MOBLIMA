@@ -4,6 +4,9 @@ import modules.boundary.Console;
 
 import java.util.ArrayList;
 
+/**
+ * This is the superclass of all classes under controller folder
+ */
 public abstract class BaseController {
     /**
      * The name of the file which storing the needed information of Movie

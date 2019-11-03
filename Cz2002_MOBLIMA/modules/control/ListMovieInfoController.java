@@ -13,15 +13,23 @@ import java.util.ArrayList;
  */
 public class ListMovieInfoController extends BaseController {//TODO can be combined with listMovie in the future
 
+    /**
+     * This is the id of the user chosen movie
+     */
     private int movieID;
 
+    /**
+     * This is to instantiate a controller with a specific movieID
+     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param movieId the id of the user chosen movie
+     */
     public ListMovieInfoController(Console inheritedConsole, int movieId) {
         super(inheritedConsole);
         this.movieID = movieId;
     }
 
     /**
-     * This is to enter a serious process to display the detailed information of the chosen list and provide action options
+     * This is to enter a series of process to display the detailed information of the chosen list and provide action options
      * @param isAdmin true if it's for admin use
      */
     public void enter(Boolean isAdmin) {
@@ -33,8 +41,7 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
                 switch (choice) {
                     case 1:
                         if (!isAdmin){
-                            ListMovieReviewController review = new ListMovieReviewController(console, this.movieID);
-                            review.enter();
+                            checkMovieReviews(chosenMovie);
                             break;
                         }
                     case 2:
@@ -62,6 +69,40 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
         }
     }
 
+    /**
+     * This is a sub-controller method which displays the detail review information
+     * @param chosenMovie the movie object that the user has chosen
+     */
+    private void checkMovieReviews(Movie chosenMovie){
+        try{
+            logText = "Here is the reviews of: " + chosenMovie.getName();
+            this.console.logText(logText);
+            ArrayList<String> reviews = chosenMovie.getReview();
+            if (reviews.size() >= 1){
+                this.console.logWithSeparator(reviews, "|");
+            } else {
+                this.console.log("");
+                this.console.log("Oops, no review for now!");
+                this.console.log("");
+            }
+            ArrayList<String> subLogMenu = new ArrayList<>();
+            subLogMenu.add("Make Review");
+            subLogMenu.add("Back");
+            this.console.logMenu(subLogMenu);
+            int choice = this.console.getInt("Enter index to proceed", 1, 2);
+            switch (choice){
+                case 1:
+                    MovieReviewingController mvReview = new MovieReviewingController(this.console, chosenMovie);
+                    mvReview.enter();
+                    break;
+                case 2:
+                    return;
+            }
+        } catch (Exception e){
+            this.console.log(e.getMessage());
+        }
+    }
+
     @Override
     @Deprecated
     public void enter() {
@@ -69,7 +110,7 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
     }
 
     /**
-     * This is used to print movie details and action options
+     * This is used to print movie details and action options. The menu and options will be different depending on the user category
      * @param isAdmin true if it's for admin use
      * @param movie the exact movie object that the user has chosen
      */
