@@ -55,7 +55,7 @@ public class MovieReviewingController extends BaseController{
             ArrayList<MovieGoner> wholeUserList = new ArrayList<>();
             MovieGoner user ;
             try {
-                wholeUserList = DataBase.readList(MOVIEGONERFILENAME, MovieGoner.class);
+                wholeUserList = DataBase.readList(MovieGoner.class);
             } catch (Exception e) {
                 System.out.println("exception");
             }
@@ -122,7 +122,7 @@ public class MovieReviewingController extends BaseController{
         reviewData.add(Integer.toString(this.user.getId()));
         this.newReview = new Review(reviewData);
         try{
-            DataBase.setData(REVIEWFILENAME, this.newReview);
+            DataBase.setData(this.newReview);
         } catch (Exception e){
             return false;
         }

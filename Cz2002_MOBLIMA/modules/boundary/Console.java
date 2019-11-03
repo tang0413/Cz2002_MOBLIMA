@@ -1,5 +1,9 @@
 package modules.boundary;
 
+import modules.data.DataBase;
+import modules.entity.BaseEntity;
+import modules.entity.movie.Movie;
+
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -179,6 +183,34 @@ public class Console {
             }
         }
     }
+
+    public int getMovieId(String title){
+        while (true){
+            int movieId = getInt("Movie ID", 1, DataBase.getMaxId(Movie.class));
+            try {
+                Movie chosenMovie = DataBase.getMovieById(movieId);
+                if (chosenMovie.getStatus().equals("End Of Showing")){
+                    logWarning("This movie is no longer available for showing!");
+                } else {
+                    return movieId;
+                }
+            } catch (Exception e){
+                logWarning("No such movie!");
+            }
+        }
+    }
+
+//    public int getObjId(String title, Class<? extends BaseEntity> classObj){
+//        while (true){
+//            int objId = getInt(title, 1, DataBase.getMaxId(classObj));
+//            try {
+//                DataBase.getObjById(classObj, objId);
+//                return objId;
+//            } catch (Exception e){
+//                logWarning("Invalid ID! Please re-enter");
+//            }
+//        }
+//    }
 
     /**
      * This is used to get a valid email from the user

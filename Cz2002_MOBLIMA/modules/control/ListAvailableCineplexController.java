@@ -23,7 +23,7 @@ public class ListAvailableCineplexController extends BaseController{
     public void enter()  {
         while (true){
             try{
-                cineplexList = DataBase.readList(CINEPLEXFILENAME, Cineplex.class);
+                cineplexList = DataBase.readList(Cineplex.class);
             }catch (Exception e){
             }
             this.contructLogMenu(cineplexList);

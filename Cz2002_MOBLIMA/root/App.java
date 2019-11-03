@@ -2,6 +2,7 @@ package root;
 
 import modules.boundary.Console;
 import modules.control.UserSelectingController;
+import modules.entity.movie.Movie;
 
 /**
  * Represents the whole MOBLIMA App

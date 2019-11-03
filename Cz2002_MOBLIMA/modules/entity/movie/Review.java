@@ -65,7 +65,7 @@ public class Review extends BaseEntity {
      */
     private String getReviewer(){
         try{
-            wholeUserList= DataBase.readList(MOVIEGONERFILENAME, MovieGoner.class);
+            wholeUserList= DataBase.readList(MovieGoner.class);
             for (MovieGoner a: wholeUserList){
                 if (a.getId() == this.userId){
                     return a.getName();

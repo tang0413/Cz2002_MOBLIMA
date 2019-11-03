@@ -28,7 +28,7 @@ public class ListShowTimeController extends BaseController {
     public void enter() {
         while(true){
             try{
-                showList = DataBase.readList(SHOWTIMEFILENAME, Show.class);
+                showList = DataBase.readList(Show.class);
             }catch (Exception e){
             }
             this.contructLogMenu(showList);

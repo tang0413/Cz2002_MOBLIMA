@@ -75,8 +75,8 @@ public class Movie extends BaseEntity implements Comparable{
         this.type = paramList.get(4);
         this.cat = paramList.get(5);
         this.rating = findRatingAndSetReview();
-        this.castList = findPeople(CASTFILENAME, Actor.class);
-        this.directorList =  findPeople(DIRECTORFILENAME, Director.class);
+        this.castList = findPeople(Actor.class);
+        this.directorList =  findPeople(Director.class);
     }
 
     /**
@@ -188,14 +188,13 @@ public class Movie extends BaseEntity implements Comparable{
 
     /**
      * This is used to find MoviePeople who participated in this particular movie
-     * @param fileName The filename to read
      * @param classObj The exact class of the people e.g. Actor.class or Director.class
      * @return the name list of all Directors or Cast
      */
-    private ArrayList<String> findPeople(String fileName, Class<? extends MoviePeople> classObj){
-        ArrayList<String> peopleList = new ArrayList<String>();
+    private ArrayList<String> findPeople(Class<? extends MoviePeople> classObj){
+        ArrayList<String> peopleList = new ArrayList<>();
         try{
-            ArrayList<MoviePeople> wholeMoviePeopleList = DataBase.readList(fileName, classObj);
+            ArrayList<MoviePeople> wholeMoviePeopleList = DataBase.readList(classObj);
             for (MoviePeople a: wholeMoviePeopleList){
                 if (a.getInMovie().contains(Integer.toString(this.id))){
                     peopleList.add(a.getName());
@@ -216,7 +215,7 @@ public class Movie extends BaseEntity implements Comparable{
         Double totalScore = 0.0;
         int numberOfPeople = 0;
         try{
-            ArrayList<Review> wholeReviewList = DataBase.readList(REVIEWFILENAME, Review.class);
+            ArrayList<Review> wholeReviewList = DataBase.readList(Review.class);
             for (Review a: wholeReviewList){
                 if (a.getMovieId() == this.id){
                     this.review.add(a.getReview());

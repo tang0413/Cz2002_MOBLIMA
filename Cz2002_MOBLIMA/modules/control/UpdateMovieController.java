@@ -75,7 +75,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
              alterDirector(DirectorList, newMovieId);
              alterCast(Cast, newMovieId);
              Movie newMovie = new Movie(newMovieParam);
-             DataBase.setData(MOVIEFILENAME, newMovie);
+             DataBase.setData(newMovie);
              autoReturn();
          } catch (Exception e){
              this.console.log(e.getMessage());
@@ -121,7 +121,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 movieToChange.setStatus(newValue);
                 break;
         }
-        DataBase.setData(MOVIEFILENAME, movieToChange);
+        DataBase.setData(movieToChange);
         autoReturn();
     }
 
@@ -133,7 +133,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
     private void alterDirector(String DirectorList, int movieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String splittedInMovie[] = DirectorList.split(",");
         ArrayList<String> directorNames= new ArrayList<>( Arrays.asList(splittedInMovie));
-        ArrayList<Director> currentDirectorList = DataBase.readList(DIRECTORFILENAME, Director.class);
+        ArrayList<Director> currentDirectorList = DataBase.readList(Director.class);
         for (Director d :currentDirectorList){
             if(directorNames.contains(d.getName())){
                 d.addInMovie(movieId);
@@ -147,7 +147,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 newDirectorParam.add(dName);
                 newDirectorParam.add(Integer.toString(movieId));
                 Director newDirector = new Director(newDirectorParam);
-                DataBase.setData(DIRECTORFILENAME, newDirector);
+                DataBase.setData(newDirector);
             }
         }
     }
@@ -160,7 +160,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
     private void alterCast(String Cast, int movieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String splittedInMovie[] = Cast.split(","); //TODO get rid off this similar code
         ArrayList<String> castNames= new ArrayList<>( Arrays.asList(splittedInMovie));
-        ArrayList<Actor> currentCastList = DataBase.readList(CASTFILENAME, Actor.class);
+        ArrayList<Actor> currentCastList = DataBase.readList(Actor.class);
         for (Actor a :currentCastList){
             if(castNames.contains(a.getName())){
                 a.addInMovie(movieId);
@@ -174,7 +174,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 newActorParam.add(aName);
                 newActorParam.add(Integer.toString(movieId));
                 Actor newActor = new Actor(newActorParam);
-                DataBase.setData(CASTFILENAME, newActor);
+                DataBase.setData(newActor);
             }
         }
     }

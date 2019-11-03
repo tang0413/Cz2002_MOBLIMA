@@ -7,3 +7,4 @@ id=6|name=Toy Story|description=this is movie 7|status=Preview|type=Comedy|cat=P
 id=7|name=test8|description=this is movie 8|status=End Of Showing|type=Horror|cat=N.A.
 id=8|name=test9|description=this is movie9|status=Preview|type=Action|cat=NC17
 id=9|name=Joker|description=Super Hero|status=Now Showing|type=Digital|cat=PG16
+id=10|name=Terminator|description=good movie|status=Now Showing|type=3D|cat=NC16
