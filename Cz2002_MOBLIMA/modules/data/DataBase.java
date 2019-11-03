@@ -9,11 +9,30 @@ import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * This class is used to read and write data from the txt files under dataFiles folder.
+ * All methods are static so easy to use whenever needed
+ */
 public class DataBase {
+    /**
+     * A HashMap to store the read and unchanged data to save efficiency
+     */
     private static HashMap<String, ArrayList> bufferList= new HashMap<>();
+    /**
+     * A HashMap to store the current maximum id of the entity classes e.g. Movie
+     */
     private static HashMap<Class, Integer> bufferMaxIdList = new HashMap<>();
+    /**
+     * A separator used to tokenize the records read from txt file
+     */
     private static final String SEPARATOR = "|";
+    /**
+     * A separator used to tokenize every equations inside the tokenized records e.g. id=1
+     */
     private static final String VALUESEPARATOR = "=";
+    /**
+     * The relative directory where all txt files are stored
+     */
     private static final String DIR = "Cz2002_MOBLIMA/dataFiles/";
 
     public static ArrayList readCineList(String filename) throws FileNotFoundException {
@@ -31,6 +50,18 @@ public class DataBase {
         return alr ;
     }
 
+    /**
+     * This is used to read data from the txt file
+     * Note if no file is changed since last read, it will check the bufferlist and return directly
+     * @param filename The filename to read data from e.g. MovieList.txt
+     * @param classObject The class of the objects to be created e.g. Movie.class
+     * @return an ArrayList of instantiated objects of specified class from a certain file
+     * @throws FileNotFoundException
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     */
     public static ArrayList readList(String filename, Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         String listName= filename.substring(0 , filename.indexOf("."));
         if (bufferList.containsKey(listName)){
@@ -52,10 +83,19 @@ public class DataBase {
         return alr ;
     }
 
+    /**
+     * This is to clear the bufferList when files are updated
+     */
     public static void clearBuffer(){
         bufferList = new HashMap<>();
     }
 
+    /**
+     * This is used to read data line by line from a file
+     * @param fileName The filename to read data from e.g. MovieList.txt
+     * @return An ArrayList of string
+     * @throws FileNotFoundException
+     */
     private static List readFile(String fileName) throws FileNotFoundException {
         List data = new ArrayList() ;
         Path currentDir = Paths.get(".");
@@ -71,6 +111,12 @@ public class DataBase {
         return data;
     }
 
+    /**
+     * This is used to save updated data back into files
+     * @param fileName The filename to change e.g. MovieList.txt
+     * @param entityToUpdate A object of BaseEntity or its subclasses, which is newly created or modified
+     * @throws IOException
+     */
     public static void setData(String fileName, BaseEntity entityToUpdate) throws IOException {
         String listName= fileName.substring(0 , fileName.indexOf("."));
         try {
@@ -93,6 +139,13 @@ public class DataBase {
         }
     }
 
+    /**
+     * This is used to delete one record from a txt file
+     * Not in use now
+     * @param fileName The filename to change e.g. MovieList.txt
+     * @param entityToDelete A object of BaseEntity or its subclasses, which is to be deleted from database
+     * @throws FileNotFoundException
+     */
     public static void deleteData(String fileName, BaseEntity entityToDelete) throws FileNotFoundException {
         //TODO test this function
         String listName= fileName.substring(0 , fileName.indexOf("."));
