@@ -16,7 +16,7 @@ public class Actor extends MoviePeople {
     public Boolean addInMovie(int movieId){
         this.inMovie.add(Integer.toString(movieId));
         try{
-            DataBase.setData(CASTFILENAME, this);
+            DataBase.setData(this);
             return true;
         } catch (Exception e){
             return false;

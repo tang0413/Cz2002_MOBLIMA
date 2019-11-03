@@ -44,6 +44,10 @@ public class StaffMenuController extends BaseController {
                     UpdateMovieController update = new UpdateMovieController(this.console);
                     update.enter(0, 0);
                     break;
+                case 4:
+                    UpdateShowController updateShow = new UpdateShowController(this.console);
+                    updateShow.enter(0, 0);
+                    break;
                 case 6:
                     MovieRankingController rank = new MovieRankingController(this.console);
                     rank.enter(); //TODO but to do so, staff will also be able to book movie

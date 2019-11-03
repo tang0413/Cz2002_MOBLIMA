@@ -16,7 +16,7 @@ public class Director extends MoviePeople {
     public Boolean addInMovie(int movieId){
         this.inMovie.add(Integer.toString(movieId));
         try{
-            DataBase.setData(DIRECTORFILENAME, this);
+            DataBase.setData(this);
             return true;
         } catch (Exception e){
             return false;

@@ -21,8 +21,8 @@ public class ListCineplexInfoController extends BaseController {
     public void enter() {
         while (true) {
             try {
-                ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
-                ArrayList<Cineplex> cineplexesList = DataBase.readList(CINEPLEXFILENAME, Cineplex.class);
+                ArrayList<Movie> movieList = DataBase.readList(Movie.class);
+                ArrayList<Cineplex> cineplexesList = DataBase.readList(Cineplex.class);
                 Movie chosenMovie = movieList.get(moviePosition-1);
                 Cineplex chosenCineplex = cineplexesList.get(cineplexPosition);
                 constructLogInfo(chosenMovie, chosenCineplex);

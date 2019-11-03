@@ -37,7 +37,7 @@ public class LoginProcessController extends BaseController {
 			String username = this.console.getStr("Your username");
 			String password = this.console.getStr("Your password");
 			try {
-				adminList = DataBase.readList(ADMINFILENAME, Admin.class);
+				adminList = DataBase.readList(Admin.class);
 			} catch (Exception e) {
 				System.out.println("exception");
 			}

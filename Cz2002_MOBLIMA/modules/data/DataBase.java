@@ -1,8 +1,10 @@
 package modules.data;
 
-import modules.entity.BaseEntity;
-import modules.entity.Cineplex;
+import modules.entity.*;
+import modules.entity.movie.Actor;
+import modules.entity.movie.Director;
 import modules.entity.movie.Movie;
+import modules.entity.movie.Review;
 import modules.utils.Sorting;
 
 import java.io.*;
@@ -24,6 +26,20 @@ public class DataBase {
      * A HashMap to store the current maximum id of the entity classes e.g. Movie
      */
     private static HashMap<Class, Integer> bufferMaxIdList = new HashMap<>();
+    private static HashMap<Class, String> fileList = new HashMap<>();
+    static {
+        fileList.put(Movie.class, "MovieList.txt");
+        fileList.put(MovieGoner.class, "MoviegonerList.txt");
+        fileList.put(Director.class, "DirectorList.txt");
+        fileList.put(Actor.class, "ActorList.txt");
+        fileList.put(Review.class, "ReviewList.txt");
+        fileList.put(Cineplex.class, "CineplexList.txt");
+        fileList.put(Cinema.class, "CinemaList.txt");
+        fileList.put(Show.class, "ShowList.txt");
+        fileList.put(Admin.class, "AdminList.txt");
+        fileList.put(Ticket.class, "TicketList.txt");
+
+    }
     /**
      * A separator used to tokenize the records read from txt file
      */
@@ -55,6 +71,33 @@ public class DataBase {
     /**
      * This is used to read data from the txt file
      * Note if no file is changed since last read, it will check the bufferlist and return directly
+     * @param classObject The class of the objects to be created e.g. Movie.class
+     * @return an ArrayList of instantiated objects of specified class from a certain file
+     */
+    public static ArrayList readList(Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        String className = classObject.getName();
+        if (bufferList.containsKey(className)){
+            return bufferList.get(className);
+        }
+        ArrayList stringArray = (ArrayList)readFile(DIR + fileList.get(classObject));
+        ArrayList alr = new ArrayList<>();
+        for (int i = 0 ; i < stringArray.size() ; i++) {
+            String st = (String)stringArray.get(i);
+            StringTokenizer star = new StringTokenizer(st , SEPARATOR);
+            ArrayList<String> paramList = new ArrayList<>();
+            while (star.hasMoreElements()){
+                paramList.add(star.nextToken().trim().split(VALUESEPARATOR)[1]);
+            }
+            alr.add(classObject.getConstructor(ArrayList.class).newInstance(paramList)) ;
+        }
+        bufferList.put(className, alr);
+        bufferMaxIdList.put(classObject, alr.size());
+        return alr ;
+    }
+
+    /**
+     * This is used to read data from the txt file
+     * Note if no file is changed since last read, it will check the bufferlist and return directly
      * @param filename The filename to read data from e.g. MovieList.txt
      * @param classObject The class of the objects to be created e.g. Movie.class
      * @return an ArrayList of instantiated objects of specified class from a certain file
@@ -64,6 +107,7 @@ public class DataBase {
      * @throws InvocationTargetException
      * @throws InstantiationException
      */
+    @Deprecated
     public static ArrayList readList(String filename, Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         String listName= filename.substring(0 , filename.indexOf("."));
         if (bufferList.containsKey(listName)){
@@ -115,10 +159,39 @@ public class DataBase {
 
     /**
      * This is used to save updated data back into files
+     * @param entityToUpdate A object of BaseEntity or its subclasses, which is newly created or modified
+     * @throws IOException
+     */
+    public static void setData(BaseEntity entityToUpdate) throws IOException {
+        String fileName = fileList.get(entityToUpdate.getClass());
+        String listName= entityToUpdate.getClass().getName();
+        try {
+            String idString = "id=" + entityToUpdate.getId();
+            ArrayList originalFile = (ArrayList)readFile(DIR + fileName);
+            Boolean found = false;
+            for (int i = 0 ; i < originalFile.size() ; i++) {
+                String st = (String)originalFile.get(i);
+                if (st.matches("^" + idString + "\\|.*")){
+                    found = true;
+                    originalFile.set(i, entityToUpdate.StringlizeEntity());
+                }
+            }
+            if (!found){
+                originalFile.add(entityToUpdate.StringlizeEntity());
+            }
+            writeFile(fileName, originalFile);
+            clearBuffer(); //TODO no need to every entity
+        } catch (Exception e){
+        }
+    }
+
+    /**
+     * This is used to save updated data back into files
      * @param fileName The filename to change e.g. MovieList.txt
      * @param entityToUpdate A object of BaseEntity or its subclasses, which is newly created or modified
      * @throws IOException
      */
+    @Deprecated
     public static void setData(String fileName, BaseEntity entityToUpdate) throws IOException {
         String listName= fileName.substring(0 , fileName.indexOf("."));
         try {
@@ -148,6 +221,7 @@ public class DataBase {
      * @param entityToDelete A object of BaseEntity or its subclasses, which is to be deleted from database
      * @throws FileNotFoundException
      */
+    @Deprecated
     public static void deleteData(String fileName, BaseEntity entityToDelete) throws FileNotFoundException {
         //TODO test this function
         String listName= fileName.substring(0 , fileName.indexOf("."));
@@ -172,8 +246,19 @@ public class DataBase {
      * @return a new Id as integer
      */
     public static int getNewId(Class<? extends BaseEntity> classObj){
-        bufferMaxIdList.put(classObj, bufferMaxIdList.get(classObj) + 1);
+        bufferMaxIdList.put(classObj, getMaxId(classObj) + 1);
         return bufferMaxIdList.get(classObj);
+    }
+
+    public static int getMaxId(Class<? extends BaseEntity> classObj){
+        while (true){
+            try {
+                DataBase.readList(classObj); //TO ensure have this buffer
+                int id = bufferMaxIdList.get(classObj);
+                return id;
+            } catch (Exception e){
+            }
+        }
     }
 
     /**
@@ -182,7 +267,7 @@ public class DataBase {
      * @return the movie with id equals to movieId; if no such movie, exception will be thrown.
      */
     public static Movie getMovieById(int movieId) throws Exception {
-        ArrayList<Movie> movieList = readList("MovieList.txt", Movie.class);
+        ArrayList<Movie> movieList = readList(Movie.class);
         for (Movie m: movieList){
             if (m.getId() == movieId){
                 return m;

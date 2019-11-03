@@ -126,6 +126,7 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
         logMenu.add("Status: " + movie.getStatus());
         if (isAdmin) {
             this.console.logText("Choose from the following attributes of: " + movie.getName());
+            this.console.log("Movie ID: " + movie.getId());
             logMenu.remove(1);
             logMenu.add("Back");
             this.console.logMenu(logMenu);

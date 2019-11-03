@@ -64,7 +64,7 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
     public void enter(Boolean isAdmin) {
         while (true) {
             try{
-                movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
+                movieList = DataBase.readList(Movie.class);
             } catch (Exception e){
             }
             movieList = this.constructLogMenu(movieList, sortOption);

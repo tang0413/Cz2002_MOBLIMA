@@ -29,9 +29,9 @@ public class ListShowTimeInfoController extends BaseController {
     public void enter(){
         while(true){
             try{
-                ArrayList<Movie> movieList = DataBase.readList(MOVIEFILENAME, Movie.class);
-                ArrayList<Cineplex> cineplexesList = DataBase.readList(CINEPLEXFILENAME, Cineplex.class);
-                ArrayList<Show> showList = DataBase.readList(SHOWTIMEFILENAME, Show.class);
+                ArrayList<Movie> movieList = DataBase.readList(Movie.class);
+                ArrayList<Cineplex> cineplexesList = DataBase.readList(Cineplex.class);
+                ArrayList<Show> showList = DataBase.readList(Show.class);
                 Movie chosenMovie = movieList.get(moviePosition);
                 Cineplex chosenCineplex = cineplexesList.get(cineplexPosition);
                 Show chosenShow = showList.get(showtimePosition);
