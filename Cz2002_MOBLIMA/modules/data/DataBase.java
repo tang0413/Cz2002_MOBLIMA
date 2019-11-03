@@ -16,7 +16,7 @@ public class DataBase {
     private static final String VALUESEPARATOR = "=";
     private static final String DIR = "Cz2002_MOBLIMA/dataFiles/";
 
-    public static ArrayList readCineList(String filename) throws FileNotFoundException {
+    /*public static ArrayList readCineList(String filename) throws FileNotFoundException {
         //TODO: Remove this method, use readList instead
         ArrayList stringArray = (ArrayList)readFile(DIR + filename);
         ArrayList alr = new ArrayList<Cineplex>();
@@ -29,7 +29,7 @@ public class DataBase {
             alr.add(cineplex) ;
         }
         return alr ;
-    }
+    }*/
 
     public static ArrayList readList(String filename, Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         String listName= filename.substring(0 , filename.indexOf("."));
