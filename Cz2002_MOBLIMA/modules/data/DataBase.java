@@ -164,6 +164,11 @@ public class DataBase {
         }
     }
 
+    /**
+     * This is used to get a new id to help instantiate a specific class
+     * @param classObjThe class of the objects to be created e.g. Movie.class
+     * @return
+     */
     public static int getNewId(Class<? extends BaseEntity> classObj){
         bufferMaxIdList.put(classObj, bufferMaxIdList.get(classObj) + 1);
         return bufferMaxIdList.get(classObj);
