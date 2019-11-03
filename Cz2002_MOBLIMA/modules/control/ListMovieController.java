@@ -15,7 +15,12 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
      * This is the whole list of movies loaded from the database;
      */
     private ArrayList<Movie> movieList = new ArrayList<>();
+    /**
+     * This is the sort option of the movie list
+     * 1 for sort by ticket sales and 2 for sort by user rating; 0 for no sorting requirement
+     */
     private int sortOption;
+
     /**
      * This is to instantiate a controller with no sorting requirement
      * @param inheritedConsole the Console instance passed down from the previous controller
@@ -53,7 +58,7 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
     }
 
     /**
-     * This is to enter a serious process to display the movie list and let user to choose.
+     * This is to enter a series of process to display the movie list and let user to choose.
      * @param isAdmin true if it's for admin use
      */
     public void enter(Boolean isAdmin) {
@@ -77,9 +82,10 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
     }
 
     /**
-     * This is to display all movies by order if required
+     * This is to display all movies by order if required and return the re-sorted movie list
      * @param movieList The whole list of movies
      * @param sortOption 1 for sort by ticket sales and 2 for sort by user rating; 0 for no sorting requirement
+     * @return the re-sorted movie list by sortOption
      */
     //TODO change description
     private ArrayList constructLogMenu(ArrayList<Movie> movieList, int sortOption){
