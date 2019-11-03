@@ -5,11 +5,11 @@ import modules.boundary.Console;
 import java.util.ArrayList;
 
 /**
- * Represents a series of actions to let a user choose in which way the movie list shall be sorted
+ * Represents a router page which allows a user to choose in which way the movie list shall be sorted
  */
 public class MovieRankingController extends BaseController {
     /**
-     * This is to instantiate a controller specific for getting sort option from the user
+     * This is to instantiate a controller with all sorting options in menu
      * @param inheritedConsole the Console instance passed down from the previous controller
      */
     public MovieRankingController(Console inheritedConsole) {

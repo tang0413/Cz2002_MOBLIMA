@@ -14,16 +14,29 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Represents a manipulation on Movie object. e.g. Update or create Movies
+ */
 public class UpdateMovieController extends BaseController { //TODO to be reused by passing index from ListMovieInfoController, needs to be updated
+    /**
+     * This is to instantiate a controller with Movie manipulation ability
+     * @param inheritedConsole the Console instance passed down from the previous controller
+     */
     public UpdateMovieController(Console inheritedConsole) {
         super(inheritedConsole);
     }
 
     @Override
+    @Deprecated
     public void enter() {
 
     }
 
+    /**
+     * This is to enter a series of process to update or create a movie
+     * @param actionChoice 0 for creating new Movie. 1 - 7 to change a specific attribute of a Moive
+     * @param movieId id of the movie that is going to be updated
+     */
     public void enter(int actionChoice, int movieId) {
         while (true){
             try{
@@ -41,6 +54,10 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
         }
     }
 
+    /**
+     * This is to create a new Movie object from user input and then save it to the txt file (database)
+     * Inside this function, the user will asked to enter all necessary information for a Movie
+     */
     private void insetNewMovie() {
          this.console.logText("Please key in the following necessary information");
          ArrayList<String> newMovieParam = new ArrayList();
@@ -65,6 +82,11 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
          }
     }
 
+    /**
+     * This is to change a specific atttribute of a pointed movie by action code
+     * @param movieToChange the movie object that is going to be changed
+     * @param actionChoice the action code that is chosen by the user, ranging from 1 - 7
+     */
     private void alterMovie(Movie movieToChange, int actionChoice) throws IOException, InterruptedException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         String newValue;
         switch(actionChoice){ //TODO get rid of this stupid method!!!!
@@ -103,13 +125,18 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
         autoReturn();
     }
 
-    private void alterDirector(String DirectorList, int newMovieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    /**
+     * This is to add new MovieId to the inMovie attribute of the directors
+     * @param DirectorList the names of the new directors for the movie, separated by comma
+     * @param movieId the id of the target movie object
+     */
+    private void alterDirector(String DirectorList, int movieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String splittedInMovie[] = DirectorList.split(",");
         ArrayList<String> directorNames= new ArrayList<>( Arrays.asList(splittedInMovie));
         ArrayList<Director> currentDirectorList = DataBase.readList(DIRECTORFILENAME, Director.class);
         for (Director d :currentDirectorList){
             if(directorNames.contains(d.getName())){
-                d.addInMovie(newMovieId);
+                d.addInMovie(movieId);
                 directorNames.remove(d.getName());
             }
         }
@@ -118,20 +145,25 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 ArrayList<String> newDirectorParam = new ArrayList<>();
                 newDirectorParam.add(Integer.toString(DataBase.getNewId(Director.class)));
                 newDirectorParam.add(dName);
-                newDirectorParam.add(Integer.toString(newMovieId));
+                newDirectorParam.add(Integer.toString(movieId));
                 Director newDirector = new Director(newDirectorParam);
                 DataBase.setData(DIRECTORFILENAME, newDirector);
             }
         }
     }
 
-    private void alterCast(String Cast, int newMovieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    /**
+     * This is to add new MovieId to the inMovie attribute of the actors. Similar to alterDirector.
+     * @param Cast the names of the new cast for the movie, separated by comma
+     * @param movieId the id of the target movie object
+     */
+    private void alterCast(String Cast, int movieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String splittedInMovie[] = Cast.split(","); //TODO get rid off this similar code
         ArrayList<String> castNames= new ArrayList<>( Arrays.asList(splittedInMovie));
         ArrayList<Actor> currentCastList = DataBase.readList(CASTFILENAME, Actor.class);
         for (Actor a :currentCastList){
             if(castNames.contains(a.getName())){
-                a.addInMovie(newMovieId);
+                a.addInMovie(movieId);
                 castNames.remove(a.getName());
             }
         }
@@ -140,16 +172,20 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 ArrayList<String> newActorParam = new ArrayList<>();
                 newActorParam.add(Integer.toString(DataBase.getNewId(Actor.class)));
                 newActorParam.add(aName);
-                newActorParam.add(Integer.toString(newMovieId));
+                newActorParam.add(Integer.toString(movieId));
                 Actor newActor = new Actor(newActorParam);
                 DataBase.setData(CASTFILENAME, newActor);
             }
         }
     }
 
+    /**
+     * This is to print out success message and auto return to the previous page
+     * A sleep time of 2.5 seconds was set to allow the users to read
+     */
     private void autoReturn() throws InterruptedException {
         this.console.logReminder("Updated successfully! Returning to the previous page...");
-        TimeUnit.SECONDS.sleep((long)2.5);
+        TimeUnit.SECONDS.sleep(2);
         return;
     }
 }

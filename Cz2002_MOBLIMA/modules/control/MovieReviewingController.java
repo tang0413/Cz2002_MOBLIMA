@@ -75,7 +75,7 @@ public class MovieReviewingController extends BaseController{
 //                    restart.enter();
                     this.console.logReminder("Updated successfully! Returning to the previous page...");
                     try{
-                        TimeUnit.SECONDS.sleep((long)2.5);
+                        TimeUnit.SECONDS.sleep(2);
                     } catch (Exception e){
                     }
                     return;
@@ -83,7 +83,7 @@ public class MovieReviewingController extends BaseController{
                     this.console.log("");
                     this.console.logWarning("Failed to comment! Returning to previous page now...");
                     try{
-                        TimeUnit.SECONDS.sleep((long)2.5);
+                        TimeUnit.SECONDS.sleep(2);
                     } catch (Exception e){
                     } //TODO can make into another controller
                     return;

@@ -4,26 +4,32 @@ package modules.entity;
  * This is the superclass / baseclass of all the other classes under modules.entity package
  */
 public abstract class BaseEntity {
+
     /**
      * The name of the file which storing the needed information of Movie
      */
     protected static final String MOVIEFILENAME = "MovieList.txt";
+
     /**
      * The name of the file which storing the needed information of Director
      */
     protected static final String DIRECTORFILENAME = "DirectorList.txt";
+
     /**
      * The name of the file which storing the needed information of Actor (Cast)
      */
     protected static final String CASTFILENAME = "ActorList.txt";
+
     /**
      * The name of the file which storing the needed information of Review
      */
     protected static final String REVIEWFILENAME = "ReviewList.txt";
+
     /**
      * The name of the file which storing the needed information of Movie-goner
      */
     protected static final String MOVIEGONERFILENAME = "MoviegonerList.txt";
+
     /**
      * The unique id for each object by class
      */
