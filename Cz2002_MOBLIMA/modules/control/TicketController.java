@@ -26,14 +26,13 @@ public class TicketController extends BaseController {
         this.movie = mv;
         this.cineplex = ci;
         this.showtime = sh;
-
     }
 
     @Override
     public void enter() {
         while(true){
             try{
-                ticketList = DataBase.readList(TICKETFILENAME, Ticket.class);
+                ticketList = DataBase.readList(Ticket.class);
             }catch (Exception e){
                 this.console.logWarning(e.getMessage());
             }
@@ -41,7 +40,8 @@ public class TicketController extends BaseController {
             int choice = this.console.getInt("Enter index to proceed", 1, 3);
             if(choice == 1)
             {
-
+                //ask user to choose seats
+                //check if seats is taken
             }
         }
     }
@@ -52,86 +52,46 @@ public class TicketController extends BaseController {
         String[] data = new String[100];
         Ticket[] array = ticketList.toArray(new Ticket[ticketList.size()]);
         for(Ticket t : array) {
-            if (t.getMovieId() == this.movie.getId() && t.getCineplexId() == this.cineplex.getId() && t.getShowId() == this.showtime.getId()) {
+            if (t.getShowId() == this.showtime.getId() && t.getCineplexId() == this.cineplex.getId() && t.getMovieId() == this.movie.getId()) {
                 data[sc] = t.getSeats();
                 sc++;
             }
         }
         sc=0;
-        if(this.showtime.getCinemaname().equals("a"))
-        {
-            System.out.print("|");
-            ROWS=9;
-            SEATS=9;
-            int showseats[][] = new int [ROWS][SEATS];
-            for(i=0; i < ROWS; i++) {
-                for(j=0; j < SEATS; j++) {
-                    while(sc != 100)
+
+        int size = checkCinema();
+        ROWS = size/2;
+        SEATS = size/2;
+        System.out.print("|");
+        int showseats[][] = new int [ROWS][SEATS];
+        for(i=0; i < ROWS; i++) {
+            for(j=0; j < SEATS; j++) {
+                while(sc != 100)
+                {
+                    int pos = data[sc].charAt(0) - 'A' - 129;
+                    if(i==pos && j==(Integer.parseInt(data[sc].substring(1))))
                     {
-                        int pos = data[sc].charAt(0) - 'A' - 129;
-                        if(i==pos && j==(Integer.parseInt(data[sc].substring(1))))
-                        {
-                            System.out.print("X");
-                        }
-                        else
-                            System.out.print("_");
-                        sc++;
+                        System.out.print("X|");
                     }
-                    sc=0;
+                    else
+                        System.out.print("_|");
+                    sc++;
                 }
-                System.out.print("|");
-                System. out. print("\n");
+                sc=0;
             }
+            System. out. print("\n");
         }
-        else if(this.showtime.getCinemaname().equals("b"))
-        {
-            System.out.print("|");
-            ROWS=10;
-            SEATS=10;
-            int showseats[][] = new int [ROWS][SEATS];
-            for(i=1; i != ROWS; i++) {
-                for(j=1; j != SEATS; j++) {
-                    while(sc != 100)
-                    {
-                        int pos = data[sc].charAt(0) - 'A' - 129;
-                        if(i==pos && j==(Integer.parseInt(data[sc].substring(1))))
-                        {
-                            System.out.print("X");
-                        }
-                        else
-                            System.out.print("_");
-                        sc++;
-                    }
-                    sc=0;
-                }
-                System.out.print("|");
-                System. out. print("\n");
-            }
-        }
+    }
+
+
+    public int checkCinema()
+    {
+        String temp = String.valueOf(this.showtime.getCinemaname().charAt(0));
+        if(temp.equals("a"))
+            return 16;
+        else if(temp.equals("b"))
+            return 18;
         else
-        {
-            System.out.print("|");
-            ROWS=11;
-            SEATS=11;
-            int showseats[][] = new int [ROWS][SEATS];
-            for(i=1; i != ROWS; i++) {
-                for(j=1; j != SEATS; j++) {
-                    while(sc != 100)
-                    {
-                        int pos = data[sc].charAt(0) - 'A' - 129;
-                        if(i==pos && j==(Integer.parseInt(data[sc].substring(1))))
-                        {
-                            System.out.print("X");
-                        }
-                        else
-                            System.out.print("_");
-                        sc++;
-                    }
-                    sc=0;
-                }
-                System.out.print("|");
-                System. out. print("\n");
-            }
-        }
+            return 20;
     }
 }

@@ -31,7 +31,7 @@ public class Show extends BaseEntity {
     public void setId(int id){
         this.id = id;
         try{
-            DataBase.setData(SHOWFILENAME,this);
+            DataBase.readList(Show.class);
         }catch (Exception e){
         }
     }

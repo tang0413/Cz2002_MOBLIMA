@@ -1,4 +1,4 @@
 id=1|movieId=1|cineplexId=1|showId=1|tickettype=1|seats=E07
-id=2|movieId=1|cineplexId=2|showId=2||tickettype=2|seats=E07
-id=3|movieId=2|cineplexId=1|showId=1||tickettype=3|seats=E07
-id=4|movieId=2|cineplexId=2|showId=2||tickettype=4|seats=E07
+id=2|movieId=1|cineplexId=2|showId=2|tickettype=2|seats=E07
+id=3|movieId=2|cineplexId=1|showId=1|tickettype=3|seats=E07
+id=4|movieId=2|cineplexId=2|showId=2|tickettype=4|seats=E07
