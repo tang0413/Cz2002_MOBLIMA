@@ -4,7 +4,8 @@ import java.util.*;
 import java.lang.*;
 
 /**
- * This class is provided by lab4 manual and reused here for movie ranking function
+ * This class is modified lab4 manual and reused here for movie ranking function
+ * @author NTU
  */
 public class Sorting
 {

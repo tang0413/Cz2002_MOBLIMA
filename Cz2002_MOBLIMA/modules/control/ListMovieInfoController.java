@@ -1,10 +1,8 @@
 package modules.control;
 
 import modules.boundary.Console;
-import modules.entity.movie.Actor;
 import modules.entity.movie.Movie;
 import modules.data.DataBase;
-import modules.utils.Sorting;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +46,7 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
                     case 2:
                         if (!isAdmin){
                             if (chosenMovie.getStatus().equals("Preview") || chosenMovie.getStatus().equals("Now Showing")){
-                                ListAvailableCineplexController available = new ListAvailableCineplexController(console, chosenMovie);
+                                ListCineplexController available = new ListCineplexController(console, chosenMovie);
                                 available.enter();
                             } else {
                                 console.logReminder("Coming soon~ Booking not available for now!");
