@@ -182,6 +182,12 @@ public class Console {
         return sc.nextLine();
     }
 
+    /**
+     * This is used to get a checked string from the user, which is contained in a specified array list
+     * @param title The text to print out first as a instruction
+     * @param validValues An ArrayList of String which contains all the valid values
+     * @return a valid user input string
+     */
     public String getStr(String title, ArrayList<String> validValues) {
         while (true){
             this.log(">> " + title + ": ");
@@ -220,6 +226,11 @@ public class Console {
         }
     }
 
+    /**
+     * This is to get a valid id of a existing movie which is not in "End Of Showing" status
+     * @param title The text to print out first as a instruction
+     * @return a valid movie id, entered by the user
+     */
     public int getMovieId(String title){
         while (true){
             int movieId = getInt(title, 1, DataBase.getMaxId(Movie.class));
@@ -236,6 +247,11 @@ public class Console {
         }
     }
 
+    /**
+     * This is to get a valid id of a existing cineplex
+     * @param title The text to print out first as a instruction
+     * @return a valid cineplex id, entered by the user
+     */
     public int getCineplexId(String title){
         while (true){
             int cineplexId = getInt(title, 1, DataBase.getMaxId(Movie.class));
@@ -247,18 +263,6 @@ public class Console {
             }
         }
     }
-
-//    public int getObjId(String title, Class<? extends BaseEntity> classObj){
-//        while (true){
-//            int objId = getInt(title, 1, DataBase.getMaxId(classObj));
-//            try {
-//                DataBase.getObjById(classObj, objId);
-//                return objId;
-//            } catch (Exception e){
-//                logWarning("Invalid ID! Please re-enter");
-//            }
-//        }
-//    }
 
     /**
      * This is used to get a valid email from the user
@@ -276,6 +280,10 @@ public class Console {
         }
     }
 
+    /**
+     * This is used to get a time in "hh:mm" format in 24 hrs
+     * @return a valid time in "hh:mm" format, entered by the user
+     */
     public String getTime() {
         this.log(">> " + "Please indicate a time (e.g. 14:00)" + ": ");
         while (true){
@@ -288,6 +296,10 @@ public class Console {
         }
     }
 
+    /**
+     * This is used to get a date in "dd/mm/yyyy" format
+     * @return a valid date in "dd/mm/yyyy" format, entered by the user
+     */
     public String getDate() {
         this.log(">> " + "Please indicate a date (e.g. 11/12/2019)" + ": ");
         while (true){

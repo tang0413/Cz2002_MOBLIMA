@@ -34,7 +34,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
 
     /**
      * This is to enter a series of process to update or create a movie
-     * @param actionChoice 0 for creating new Movie. 1 - 7 to change a specific attribute of a Moive
+     * @param actionChoice 0 for creating new Movie. 1 - 7 for changing a specific attribute of a Moive
      * @param movieId id of the movie that is going to be updated
      */
     public void enter(int actionChoice, int movieId) {
@@ -83,7 +83,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
     }
 
     /**
-     * This is to change a specific atttribute of a pointed movie by action code
+     * This is to change a specific attribute of a pointed movie by action code
      * @param movieToChange the movie object that is going to be changed
      * @param actionChoice the action code that is chosen by the user, ranging from 1 - 7
      */

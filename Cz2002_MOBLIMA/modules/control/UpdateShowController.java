@@ -8,10 +8,12 @@ import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a manipulation on Show object. e.g. Update, create, or delete Show
+ */
 public class UpdateShowController extends BaseController {
     /**
-     * This is to instantiate a Controller object with I/O access
-     *
+     * This is to instantiate a controller with Show manipulation ability
      * @param inheritedConsole the Console instance passed down from the previous controller
      */
     public UpdateShowController(Console inheritedConsole) {
@@ -23,6 +25,11 @@ public class UpdateShowController extends BaseController {
     public void enter() {
     }
 
+    /**
+     * This is to enter a series of process to update, create or delete a Show
+     * @param actionChoice 0 for creating new Show. 1 - 5 for changing a specific attribute of a existing Show. 6 for deleting the specified Show
+     * @param showId id of the Show that is going to be updated
+     */
     public void enter(int actionChoice, int showId){
         while (true){
             try{
@@ -44,7 +51,12 @@ public class UpdateShowController extends BaseController {
         }
     }
 
-    private void alterShow(Show chosenShow, int actionChoice){
+    /**
+     * This is to change a specific attribute of a pointed Shown by action code
+     * @param chosenShow the Show object that is going to be changed
+     * @param actionChoice the action code that is chosen by the user, ranging from 1 - 5
+     */
+    private void alterShow(Show chosenShow, int actionChoice){//TODO can add some more descriptions
         try{
             switch (actionChoice){ //TODO finish
                 case 1:
@@ -78,6 +90,10 @@ public class UpdateShowController extends BaseController {
 
     }
 
+    /**
+     * This is to create a new Show object from user input and then save it to the txt file (database)
+     * Inside this function, the user will asked to enter all necessary information for a Show
+     */
     private void insetNewShow() {
         try{
             //id=5|movieId=1|cineplexId=1|cinemaname=b|time=17:30|date=11/12/2019
@@ -101,6 +117,10 @@ public class UpdateShowController extends BaseController {
         }
     }
 
+    /**
+     * This is to deleted a show, specified by showIdm, from the txt file (databse)
+     * @param showId the id of the Show to be deleted
+     */
     private void deleteShow(int showId){
         try{
             Show showToDelete = (Show)DataBase.getObjById(showId, Show.class);
