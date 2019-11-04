@@ -45,4 +45,24 @@ public class Show extends BaseEntity {
     public String getTime() { return time; }
 
     public String getDate() { return date; }
+
+    public void setCinemaname(String cinemaname) {
+        this.cinemaname = cinemaname;
+    }
+
+    public void setCineplexId(int cineplexId) {
+        this.cineplexId = cineplexId;
+    }
+
+    public void setMovieId(int movieId) {
+        this.movieId = movieId;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
