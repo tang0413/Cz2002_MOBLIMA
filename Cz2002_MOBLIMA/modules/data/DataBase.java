@@ -276,6 +276,16 @@ public class DataBase {
         throw new Exception("No such movie!");
     }
 
+    public static Cineplex getCineplexById(int cineplexId) throws Exception { //TODO: refine
+        ArrayList<Cineplex> cineplexList = readList(Cineplex.class);
+        for (Cineplex c: cineplexList){
+            if (c.getId() == cineplexId){
+                return c;
+            }
+        }
+        throw new Exception("No such cineplex!");
+    }
+
     /**
      * This is used by setData and deleteData to write to files
      * @param fileName The filename to change e.g. MovieList.txt

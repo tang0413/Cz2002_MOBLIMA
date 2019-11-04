@@ -1,5 +1,6 @@
-id=1|movieId=1|cineplexId=1|cinemaname=a|time=14:30|date=14/12/2019
-id=2|movieId=1|cineplexId=2|cinemaname=b|time=12:30|date=13/12/2019
-id=3|movieId=2|cineplexId=1|cinemaname=a|time=10:30|date=12/12/2019
-id=4|movieId=2|cineplexId=2|cinemaname=b|time=16:30|date=11/12/2019
-id=5|movieId=1|cineplexId=1|cinemaname=b|time=17:30|date=11/12/2019
+id=1|movieId=1|cineplexId=1|cinemaname=a1|time=14:30|date=14/12/2019
+id=2|movieId=1|cineplexId=2|cinemaname=b2|time=12:30|date=13/12/2019
+id=3|movieId=2|cineplexId=1|cinemaname=a1|time=10:30|date=12/12/2019
+id=4|movieId=2|cineplexId=2|cinemaname=b2|time=16:30|date=11/12/2019
+id=5|movieId=1|cineplexId=1|cinemaname=b1|time=17:30|date=11/12/2019
+id=6|movieId=2|cineplexId=1|cinemaname=a1|time=11:00|date=1/11/2019

@@ -35,6 +35,7 @@ public class TicketController extends BaseController {
             try{
                 ticketList = DataBase.readList(TICKETFILENAME, Ticket.class);
             }catch (Exception e){
+                this.console.logWarning(e.getMessage());
             }
             this.seatPlan(ticketList);
             int choice = this.console.getInt("Enter index to proceed", 1, 3);

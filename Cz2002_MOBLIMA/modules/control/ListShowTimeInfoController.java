@@ -45,6 +45,7 @@ public class ListShowTimeInfoController extends BaseController {
                 else
                     return;
             } catch (Exception e){
+                console.logWarning(e.getMessage());
             }
         }
     }

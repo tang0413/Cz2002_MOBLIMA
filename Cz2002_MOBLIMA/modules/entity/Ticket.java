@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Ticket extends BaseEntity {
     //id=1|movieId=1|cineplexId=1|showId=1|priceId=1|seats=E07
-    private int id;
     private int movieId;
     private int cineplexId;
     private int showId;

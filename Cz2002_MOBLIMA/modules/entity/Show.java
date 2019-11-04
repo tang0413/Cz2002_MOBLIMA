@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class Show extends BaseEntity {
     //id=1|movieId=1|cineplexId=1|cinemaname=a|time=14:30|date=14/12/2019
-    private int id;
     private int movieId;
     private int cineplexId;
     private String cinemaname;

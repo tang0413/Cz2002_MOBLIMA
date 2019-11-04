@@ -56,6 +56,6 @@ public class MoviePeople extends BaseEntity {
     @Override
     public String StringlizeEntity() {
         String reinMovieString = String.join(",", this.inMovie);
-        return "id=" + this.id + "|name=" + this.name + "|inMovie=" + reinMovieString; //TODO: chonvertType!
+        return "id=" + this.id + "|name=" + this.name + "|inMovie=" + reinMovieString;
     }
 }
