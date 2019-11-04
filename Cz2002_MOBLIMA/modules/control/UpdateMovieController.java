@@ -44,7 +44,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                     insetNewMovie();
                     return;
                 }
-                Movie chosenMovie = DataBase.getMovieById(movieId);
+                Movie chosenMovie = (Movie) DataBase.getObjById(movieId, Movie.class);
                 alterMovie(chosenMovie, actionChoice);
                 return;
             } catch (Exception e){

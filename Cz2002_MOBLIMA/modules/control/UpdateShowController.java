@@ -49,7 +49,7 @@ public class UpdateShowController extends BaseController {
             newShowParam.add(Integer.toString(this.console.getMovieId("Movie ID")));
             int cineplexId = this.console.getCineplexId("Cineplex ID");
             newShowParam.add(Integer.toString(cineplexId));
-            Cineplex chosenCineplex = DataBase.getCineplexById(cineplexId);
+            Cineplex chosenCineplex = (Cineplex)DataBase.getObjById(cineplexId, Cineplex.class);
             console.logReminder("Please choose from the following cinemas" + chosenCineplex.getCinemaList());
             newShowParam.add(this.console.getStr("Cinema Name", chosenCineplex.getCinemaList()));
             newShowParam.add(this.console.getTime()); //TODO validate if there is a clash

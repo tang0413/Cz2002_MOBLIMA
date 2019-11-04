@@ -9,6 +9,7 @@ import modules.utils.Sorting;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -246,11 +247,7 @@ public class DataBase {
         }
     }
 
-    /**
-     * This is used to get a movie object given its unique movieId
-     * @param movieId the id of the movie to be found
-     * @return the movie with id equals to movieId; if no such movie, exception will be thrown.
-     */
+    @Deprecated
     public static Movie getMovieById(int movieId) throws Exception {
         ArrayList<Movie> movieList = readList(Movie.class);
         for (Movie m: movieList){
@@ -261,6 +258,23 @@ public class DataBase {
         throw new Exception("No such movie!");
     }
 
+    /**
+     * This is used to get a object, which belongs to BaseEntity or its subclasses, by ID
+     * @param id the id of the object to be found
+     * @return the object with id equals to id; if no such object, exception will be thrown.
+     */
+    public static Object getObjById(int id, Class<? extends BaseEntity> classType) throws Exception {
+        ArrayList<?> movieList = readList(classType);
+        for(int i = 0;i < movieList.size(); i ++){
+            Method m = movieList.get(i).getClass().getDeclaredMethod("getId");
+            if((Integer)m.invoke(movieList.get(i)) == id){
+                return movieList.get(i);
+            };
+        }
+        throw new Exception("No such Object!");
+    }
+
+    @Deprecated
     public static Cineplex getCineplexById(int cineplexId) throws Exception { //TODO: refine
         ArrayList<Cineplex> cineplexList = readList(Cineplex.class);
         for (Cineplex c: cineplexList){

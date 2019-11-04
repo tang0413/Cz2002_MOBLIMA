@@ -12,10 +12,6 @@ public class ListShowInfoController extends BaseController {
     private Movie movie;
     private Cineplex cineplex;
     private Show show;
-    private int moviePosition;
-    private int cineplexPosition;
-    private int showtimePosition;
-    private ArrayList<Show> showList = new ArrayList<>();
 
     public ListShowInfoController(Console inheritedConsole, Show sh, Movie mv, Cineplex ci)
     {

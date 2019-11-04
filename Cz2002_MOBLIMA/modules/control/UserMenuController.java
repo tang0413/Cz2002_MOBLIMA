@@ -1,6 +1,9 @@
 package modules.control;
 
 import modules.boundary.Console;
+import modules.data.DataBase;
+import modules.entity.Cineplex;
+import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 

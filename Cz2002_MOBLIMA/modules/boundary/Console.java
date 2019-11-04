@@ -216,7 +216,7 @@ public class Console {
         while (true){
             int movieId = getInt(title, 1, DataBase.getMaxId(Movie.class));
             try {
-                Movie chosenMovie = DataBase.getMovieById(movieId);
+                Movie chosenMovie = (Movie)DataBase.getObjById(movieId, Movie.class);
                 if (chosenMovie.getStatus().equals("End Of Showing")){
                     logWarning("This movie is no longer available for showing!");
                 } else {
@@ -232,7 +232,7 @@ public class Console {
         while (true){
             int cineplexId = getInt(title, 1, DataBase.getMaxId(Movie.class));
             try {
-                Cineplex chosenCinplex = DataBase.getCineplexById(cineplexId);
+                DataBase.getObjById(cineplexId, Cineplex.class);
                 return cineplexId;
             } catch (Exception e){
                 logWarning("No such cineplex!");

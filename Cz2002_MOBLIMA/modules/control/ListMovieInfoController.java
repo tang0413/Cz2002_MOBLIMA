@@ -36,7 +36,7 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
     public void enter(Boolean isAdmin) {
         while (true){
             try{
-                Movie chosenMovie = DataBase.getMovieById(this.movieID);
+                Movie chosenMovie = (Movie)DataBase.getObjById(this.movieID, Movie.class);
                 constructLogInfo(isAdmin, chosenMovie);
                 int choice = this.console.getInt("Enter index to proceed", 1, logMenu.size());
                 switch (choice) {
