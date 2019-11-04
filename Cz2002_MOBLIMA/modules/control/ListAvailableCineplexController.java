@@ -10,13 +10,12 @@ import java.util.ArrayList;
 
 public class ListAvailableCineplexController extends BaseController{
     private Movie movie;
-    private int moviePosition;
     private ArrayList<Cineplex> cineplexList = new ArrayList<>();
 
     public ListAvailableCineplexController(Console inheritedConsole, Movie mv) {
         super(inheritedConsole);
         this.movie = mv;
-        logText = "Here are the all Cineplex";
+        logText = "Here are all Cineplexes";
     }
 
     @Override
@@ -29,13 +28,13 @@ public class ListAvailableCineplexController extends BaseController{
             this.contructLogMenu(cineplexList);
             this.console.logText(logText);
             this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to see movie details", 1, cineplexList.size()+1);
+            int choice = this.console.getInt("Enter index to proceed", 1, cineplexList.size()+1);
             if(choice == cineplexList.size()+1)
                 return;
             else
             {
-                ListCineplexInfoController cineInfo = new ListCineplexInfoController(console,choice-1, this.movie);
-                cineInfo.enter();
+                ListShowController showTime = new ListShowController(console,this.movie, cineplexList.get(choice));
+                showTime.enter(false);
             }
         }
     }

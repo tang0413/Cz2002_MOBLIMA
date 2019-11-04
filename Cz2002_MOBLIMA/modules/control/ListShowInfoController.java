@@ -8,42 +8,34 @@ import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
-public class ListShowTimeInfoController extends BaseController {
+public class ListShowInfoController extends BaseController {
     private Movie movie;
     private Cineplex cineplex;
-    private Show showtime;
-    private int moviePosition;
-    private int cineplexPosition;
-    private int showtimePosition;
-    private ArrayList<Show> showList = new ArrayList<>();
+    private Show show;
 
-    public ListShowTimeInfoController(Console inheritedConsole, int showtimePosition, Movie mv, Cineplex ci)
+    public ListShowInfoController(Console inheritedConsole, Show sh, Movie mv, Cineplex ci)
     {
         super(inheritedConsole);
         this.movie = mv;
         this.cineplex = ci;
-        logText = "Here are the Show Time";
+        this.show = sh;
+        logText = "Here are the detailed information of the show";
     }
 
     @Override
     public void enter(){
         while(true){
             try{
-                ArrayList<Movie> movieList = DataBase.readList(Movie.class);
-                ArrayList<Cineplex> cineplexesList = DataBase.readList(Cineplex.class);
-                ArrayList<Show> showList = DataBase.readList(Show.class);
-                Movie chosenMovie = movieList.get(moviePosition);
-                Cineplex chosenCineplex = cineplexesList.get(cineplexPosition);
-                Show chosenShow = showList.get(showtimePosition);
-                constuctLogIno(chosenMovie, chosenCineplex, chosenShow);
+                constuctLogIno(movie, cineplex, show);
                 int choice = this.console.getInt("Enter index to proceed", 1, 3);
                 if (choice == 1){
-                    /*ListSeatsController seat = new ListSeatsController(console, chosenMovie, chosenCineplex, chosenShowTime);
-                    seat.enter();*/
+                    TicketController ticket = new TicketController(console, this.movie, this.cineplex, this.show);
+                    ticket.enter();
                 }
                 else
                     return;
             } catch (Exception e){
+                console.logWarning(e.getMessage());
             }
         }
     }
@@ -51,18 +43,19 @@ public class ListShowTimeInfoController extends BaseController {
     private void constuctLogIno(Movie movie, Cineplex cineplex, Show showtime)
     {
         logMenu = new ArrayList<>();
-        logMenu.add("Movie Name:" + movie.getName());
-        logMenu.add("Cineplex Name:" + cineplex.getCineplexName());
-        logMenu.add("Show Time:" + showtime.getTime());
-        this.console.logText("This is the basic information of ");
-        this.console.logMenu(logMenu);
+        logMenu.add("Movie Name: " + movie.getName());
+        logMenu.add("Cineplex Name: " + cineplex.getCineplexName());
+        logMenu.add("Cinema Name: " + showtime.getCinemaname());
+        logMenu.add("Show Time: " + showtime.getTime() + " " + showtime.getDate());
+        this.console.logText(logText);
+        this.console.logMenu(logMenu, true);
         logMenu = new ArrayList<>();
-        logMenu.add("Choose Seats");
+        logMenu.add("Proceed to choose seats");
         logMenu.add("Back");
         this.console.logMenu(logMenu);
 
     }
-    /*public ListShowTimeInfoController(Console inheritedConsole, int showtimeId, Movie mv, Cineplex ci)
+    /*public ListShowInfoController(Console inheritedConsole, int showtimeId, Movie mv, Cineplex ci)
     {
         super(inheritedConsole);
         this.showtimeId = showtimeId;

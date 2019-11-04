@@ -9,6 +9,7 @@ import modules.utils.Sorting;
 
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -52,21 +53,6 @@ public class DataBase {
      * The relative directory where all txt files are stored
      */
     private static final String DIR = "Cz2002_MOBLIMA/dataFiles/";
-
-    /*public static ArrayList readCineList(String filename) throws FileNotFoundException {
-        //TODO: Remove this method, use readList instead
-        ArrayList stringArray = (ArrayList)readFile(DIR + filename);
-        ArrayList alr = new ArrayList<Cineplex>();
-        for (int i = 0 ; i < stringArray.size() ; i++) {
-            String st = (String)stringArray.get(i);
-            StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
-            int  id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
-            String  cineplexname = star.nextToken().trim().split(VALUESEPARATOR)[1];
-            Cineplex cineplex = new Cineplex(id, cineplexname);
-            alr.add(cineplex) ;
-        }
-        return alr ;
-    }*/
 
     /**
      * This is used to read data from the txt file
@@ -261,11 +247,7 @@ public class DataBase {
         }
     }
 
-    /**
-     * This is used to get a movie object given its unique movieId
-     * @param movieId the id of the movie to be found
-     * @return the movie with id equals to movieId; if no such movie, exception will be thrown.
-     */
+    @Deprecated
     public static Movie getMovieById(int movieId) throws Exception {
         ArrayList<Movie> movieList = readList(Movie.class);
         for (Movie m: movieList){
@@ -274,6 +256,33 @@ public class DataBase {
             }
         }
         throw new Exception("No such movie!");
+    }
+
+    /**
+     * This is used to get a object, which belongs to BaseEntity or its subclasses, by ID
+     * @param id the id of the object to be found
+     * @return the object with id equals to id; if no such object, exception will be thrown.
+     */
+    public static Object getObjById(int id, Class<? extends BaseEntity> classType) throws Exception {
+        ArrayList<?> movieList = readList(classType);
+        for(int i = 0;i < movieList.size(); i ++){
+            Method m = movieList.get(i).getClass().getDeclaredMethod("getId");
+            if((Integer)m.invoke(movieList.get(i)) == id){
+                return movieList.get(i);
+            };
+        }
+        throw new Exception("No such Object!");
+    }
+
+    @Deprecated
+    public static Cineplex getCineplexById(int cineplexId) throws Exception { //TODO: refine
+        ArrayList<Cineplex> cineplexList = readList(Cineplex.class);
+        for (Cineplex c: cineplexList){
+            if (c.getId() == cineplexId){
+                return c;
+            }
+        }
+        throw new Exception("No such cineplex!");
     }
 
     /**

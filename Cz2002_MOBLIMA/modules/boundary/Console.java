@@ -2,9 +2,13 @@ package modules.boundary;
 
 import modules.data.DataBase;
 import modules.entity.BaseEntity;
+import modules.entity.Cineplex;
 import modules.entity.movie.Movie;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
@@ -32,6 +36,8 @@ public class Console {
      * Regular expression to check the syntax of email
      */
     private final Pattern EMAILPATTERN = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$");
+
+    private final SimpleDateFormat DATEFORMAT = new SimpleDateFormat("dd/mm/yyyy");
     /**
      * All available movie status
      */
@@ -130,6 +136,16 @@ public class Console {
     }
 
     /**
+     * This is to print out success message and auto return to the previous page
+     * A sleep time of 2.5 seconds was set to allow the users to read
+     */
+    public void logSuccess() throws InterruptedException {
+        logReminder("Updated successfully! Returning to the previous page...");
+        TimeUnit.SECONDS.sleep(2);
+        return;
+    }
+
+    /**
      * This is used to get an integer from users with a lowerBound and upperBound
      * @param label The text to print out first as a instruction
      * @param lowerBound The minimum accepted value
@@ -166,6 +182,18 @@ public class Console {
         return sc.nextLine();
     }
 
+    public String getStr(String title, ArrayList<String> validValues) {
+        while (true){
+            this.log(">> " + title + ": ");
+            String userInput = sc.nextLine();
+            if (validValues.contains(userInput)){
+                return userInput;
+            } else {
+                this.logWarning("Invalid input! Please try again.");
+            }
+        }
+    }
+
     /**
      * This is used to get a movie type from the user
      * @param title The text to print out first as a instruction
@@ -186,9 +214,9 @@ public class Console {
 
     public int getMovieId(String title){
         while (true){
-            int movieId = getInt("Movie ID", 1, DataBase.getMaxId(Movie.class));
+            int movieId = getInt(title, 1, DataBase.getMaxId(Movie.class));
             try {
-                Movie chosenMovie = DataBase.getMovieById(movieId);
+                Movie chosenMovie = (Movie)DataBase.getObjById(movieId, Movie.class);
                 if (chosenMovie.getStatus().equals("End Of Showing")){
                     logWarning("This movie is no longer available for showing!");
                 } else {
@@ -196,6 +224,18 @@ public class Console {
                 }
             } catch (Exception e){
                 logWarning("No such movie!");
+            }
+        }
+    }
+
+    public int getCineplexId(String title){
+        while (true){
+            int cineplexId = getInt(title, 1, DataBase.getMaxId(Movie.class));
+            try {
+                DataBase.getObjById(cineplexId, Cineplex.class);
+                return cineplexId;
+            } catch (Exception e){
+                logWarning("No such cineplex!");
             }
         }
     }
@@ -223,6 +263,31 @@ public class Console {
             if (EMAILPATTERN.matcher(userInput).matches()){
                 return userInput;
             } else {
+                this.logWarning("Invalid input! Please try again.");
+            }
+        }
+    }
+
+    public String getTime() {
+        this.log(">> " + "Please indicate a time (e.g. 14:00)" + ": ");
+        while (true){
+            String userInput = sc.nextLine();
+            if (userInput.matches("([01]?[0-9]|2[0-3]):[0-5][0-9]")){
+                return userInput;
+            } else {
+                this.logWarning("Invalid input! Please try again.");
+            }
+        }
+    }
+
+    public String getDate() {
+        this.log(">> " + "Please indicate a date (e.g. 11/12/2019)" + ": ");
+        while (true){
+            String userInput = sc.nextLine();
+            try{
+                DATEFORMAT.parse(userInput);
+                return userInput;
+            } catch (ParseException e){
                 this.logWarning("Invalid input! Please try again.");
             }
         }

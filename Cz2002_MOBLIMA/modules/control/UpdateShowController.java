@@ -2,6 +2,7 @@ package modules.control;
 
 import modules.boundary.Console;
 import modules.data.DataBase;
+import modules.entity.Cineplex;
 import modules.entity.Show;
 import modules.entity.movie.Movie;
 
@@ -40,29 +41,25 @@ public class UpdateShowController extends BaseController {
     }
 
     private void insetNewShow() {
-        //id=5|movieId=1|cineplexId=1|cinemaname=b|time=17:30|date=11/12/2019
-        this.console.logText("Please key in the following necessary information");
-        ArrayList<String> newShowParam = new ArrayList();
-        int newShowId = DataBase.getNewId(Show.class);
-        newShowParam.add(Integer.toString(newShowId));
-        newShowParam.add(Integer.toString(this.console.getMovieId("Movie ID")));
-        //TODO finish the process after the structure confirm
-//        newShowParam.add(this.console.getStr(""));
-//        newShowParam.add(this.console.getStr("Description"));
-//        newShowParam.add(this.console.getMovieType("Status"));
-//        newShowParam.add(this.console.getStr("Movie Type"));
-//        newShowParam.add(this.console.getStr("Category"));
-//        this.console.logReminder("Please separate names by ',' with no space");
-//        String DirectorList = this.console.getStr("Director(s)");
-//        String Cast = this.console.getStr("Cast(s)");
-//        try{
-//            alterDirector(DirectorList, newMovieId);
-//            alterCast(Cast, newMovieId);
-//            Movie newMovie = new Movie(newMovieParam);
-//            DataBase.setData(MOVIEFILENAME, newMovie);
-//            autoReturn();
-//        } catch (Exception e){
-//            this.console.log(e.getMessage());
-//        }
+        try{
+            //id=5|movieId=1|cineplexId=1|cinemaname=b|time=17:30|date=11/12/2019
+            this.console.logText("Please key in the following necessary information");
+            ArrayList<String> newShowParam = new ArrayList();
+            newShowParam.add(Integer.toString(DataBase.getNewId(Show.class)));
+            newShowParam.add(Integer.toString(this.console.getMovieId("Movie ID")));
+            int cineplexId = this.console.getCineplexId("Cineplex ID");
+            newShowParam.add(Integer.toString(cineplexId));
+            Cineplex chosenCineplex = (Cineplex)DataBase.getObjById(cineplexId, Cineplex.class);
+            console.logReminder("Please choose from the following cinemas" + chosenCineplex.getCinemaList());
+            newShowParam.add(this.console.getStr("Cinema Name", chosenCineplex.getCinemaList()));
+            newShowParam.add(this.console.getTime()); //TODO validate if there is a clash
+            newShowParam.add(this.console.getDate()); //TODO validate if is earlier than now
+            Show newShow = new Show(newShowParam);
+            DataBase.setData(newShow);
+            console.logSuccess();
+        } catch (Exception e){
+            console.logWarning("Failed!");
+            return;
+        }
     }
 }

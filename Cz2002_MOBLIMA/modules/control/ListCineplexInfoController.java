@@ -7,6 +7,7 @@ import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class ListCineplexInfoController extends BaseController {
     private int moviePosition;
     private int cineplexPosition;
@@ -28,7 +29,7 @@ public class ListCineplexInfoController extends BaseController {
                 constructLogInfo(chosenMovie, chosenCineplex);
                 int choice = this.console.getInt("Enter index to proceed", 1, 3);
                 if (choice == 1){
-                    ListShowTimeController showTime = new ListShowTimeController(console, chosenMovie, chosenCineplex);
+                    ListShowController showTime = new ListShowController(console, chosenMovie, chosenCineplex);
                 showTime.enter();
                 }
                 else

@@ -1,2 +1,2 @@
-id=1|cineplexname=Jurong East
-id=2|cineplexname=Boon Lay
+id=1|cineplexname=Jurong East|cinema=a1,b1,c1
+id=2|cineplexname=Boon Lay|cinema=a2,b2,c2

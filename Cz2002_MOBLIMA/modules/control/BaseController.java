@@ -42,7 +42,8 @@ public abstract class BaseController {
      * The name of the file which storing the needed information of Admin
      */
     protected static final String ADMINFILENAME = "AdminList.txt";
-    protected static final String SHOWTIMEFILENAME = "ShowList.txt";
+    protected static final String SHOWFILENAME = "ShowList.txt";
+    protected static final String TICKETFILENAME = "TicketList.txt";
 
     /**
      * A instance of Console that is passed down between controllers to do I/O

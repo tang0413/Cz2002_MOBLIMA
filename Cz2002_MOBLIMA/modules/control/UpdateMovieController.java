@@ -44,7 +44,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                     insetNewMovie();
                     return;
                 }
-                Movie chosenMovie = DataBase.getMovieById(movieId);
+                Movie chosenMovie = (Movie) DataBase.getObjById(movieId, Movie.class);
                 alterMovie(chosenMovie, actionChoice);
                 return;
             } catch (Exception e){
@@ -76,7 +76,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
              alterCast(Cast, newMovieId);
              Movie newMovie = new Movie(newMovieParam);
              DataBase.setData(newMovie);
-             autoReturn();
+             console.logSuccess();
          } catch (Exception e){
              this.console.log(e.getMessage());
          }
@@ -122,7 +122,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 break;
         }
         DataBase.setData(movieToChange);
-        autoReturn();
+        console.logSuccess();
     }
 
     /**
@@ -177,15 +177,5 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 DataBase.setData(newActor);
             }
         }
-    }
-
-    /**
-     * This is to print out success message and auto return to the previous page
-     * A sleep time of 2.5 seconds was set to allow the users to read
-     */
-    private void autoReturn() throws InterruptedException {
-        this.console.logReminder("Updated successfully! Returning to the previous page...");
-        TimeUnit.SECONDS.sleep(2);
-        return;
     }
 }
