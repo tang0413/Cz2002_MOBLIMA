@@ -7,6 +7,7 @@ import modules.data.DataBase;
 import modules.utils.Sorting;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Represents a series of actions to displaying movie information details differently admin or customer
@@ -46,8 +47,13 @@ public class ListMovieInfoController extends BaseController {//TODO can be combi
                         }
                     case 2:
                         if (!isAdmin){
-                            ListAvailableCineplexController available = new ListAvailableCineplexController(console, chosenMovie);
-                            available.enter();
+                            if (chosenMovie.getStatus().equals("Preview") || chosenMovie.getStatus().equals("Now Showing")){
+                                ListAvailableCineplexController available = new ListAvailableCineplexController(console, chosenMovie);
+                                available.enter();
+                            } else {
+                                console.logReminder("Coming soon~ Booking not available for now!");
+                                TimeUnit.SECONDS.sleep(2);
+                            }
                             break;
                         }
                     case 3:

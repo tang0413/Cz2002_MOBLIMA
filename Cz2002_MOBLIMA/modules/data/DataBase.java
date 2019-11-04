@@ -53,21 +53,6 @@ public class DataBase {
      */
     private static final String DIR = "Cz2002_MOBLIMA/dataFiles/";
 
-    /*public static ArrayList readCineList(String filename) throws FileNotFoundException {
-        //TODO: Remove this method, use readList instead
-        ArrayList stringArray = (ArrayList)readFile(DIR + filename);
-        ArrayList alr = new ArrayList<Cineplex>();
-        for (int i = 0 ; i < stringArray.size() ; i++) {
-            String st = (String)stringArray.get(i);
-            StringTokenizer star = new StringTokenizer(st , SEPARATOR);	// pass in the string to the string tokenizer using delimiter ","
-            int  id = Integer.parseInt(star.nextToken().trim().split(VALUESEPARATOR)[1]);
-            String  cineplexname = star.nextToken().trim().split(VALUESEPARATOR)[1];
-            Cineplex cineplex = new Cineplex(id, cineplexname);
-            alr.add(cineplex) ;
-        }
-        return alr ;
-    }*/
-
     /**
      * This is used to read data from the txt file
      * Note if no file is changed since last read, it will check the bufferlist and return directly

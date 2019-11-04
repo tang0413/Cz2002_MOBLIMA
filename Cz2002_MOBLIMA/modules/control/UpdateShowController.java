@@ -45,8 +45,7 @@ public class UpdateShowController extends BaseController {
             //id=5|movieId=1|cineplexId=1|cinemaname=b|time=17:30|date=11/12/2019
             this.console.logText("Please key in the following necessary information");
             ArrayList<String> newShowParam = new ArrayList();
-            int newShowId = DataBase.getNewId(Show.class);
-            newShowParam.add(Integer.toString(newShowId));
+            newShowParam.add(Integer.toString(DataBase.getNewId(Show.class)));
             newShowParam.add(Integer.toString(this.console.getMovieId("Movie ID")));
             int cineplexId = this.console.getCineplexId("Cineplex ID");
             newShowParam.add(Integer.toString(cineplexId));

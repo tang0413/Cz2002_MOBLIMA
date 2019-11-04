@@ -94,22 +94,28 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
             case 0:
             case 1://TODO by sales
                 for (Movie m: movieList){
-                    logMenu.add(m.getName());
+                    if (!m.getStatus().equals("End Of Showing")){
+                        logMenu.add(m.getName());
+                        newMovieList.add(m);
+                    } else {
+                        continue;
+                    }
                 }
                 break;
             case 2:
                 Movie[] array = movieList.toArray(new Movie[movieList.size()]);
                 Sorting.selectionSortReverse(array);
                 for (Movie m: array){
-                    logMenu.add(m.getName());
-                    newMovieList.add(m);
+                    if (!m.getStatus().equals("End Of Showing")){
+                        continue;
+                    } else {
+                        logMenu.add(m.getName());
+                        newMovieList.add(m);
+                    } //TODO duplicate
                 }
                 break;
         }
         logMenu.add("Back");
-        if (newMovieList.size()>0){
-            return newMovieList;
-        }
-        return movieList;
+        return newMovieList;
     }
 }
