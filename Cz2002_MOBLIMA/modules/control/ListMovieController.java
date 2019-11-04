@@ -105,12 +105,17 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
             case 2:
                 Movie[] array = movieList.toArray(new Movie[movieList.size()]);
                 Sorting.selectionSortReverse(array);
+                int i = 0;
                 for (Movie m: array){
+                    if (i >= 5){
+                        break;
+                    }
                     if (!m.getStatus().equals("End Of Showing")){
-                        continue;
-                    } else {
                         logMenu.add(m.getName());
                         newMovieList.add(m);
+                        i ++;
+                    } else {
+                        continue;
                     } //TODO duplicate
                 }
                 break;
