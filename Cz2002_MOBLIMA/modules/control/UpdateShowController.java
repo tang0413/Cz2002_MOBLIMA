@@ -34,13 +34,18 @@ public class UpdateShowController extends BaseController {
                     deleteShow(showId);
                     return;
                 }
-//                Show chosenShow = DataBase.getShowById(showId);
-//                alterShow(chosenShow, actionChoice);
+                Show chosenShow = (Show)DataBase.getObjById(showId, Show.class);
+                alterShow(chosenShow, actionChoice);
                 return;
             } catch (Exception e){
                 this.console.log(e.getMessage());
                 return;
             }
+        }
+    }
+
+    private void alterShow(Show chosenShow, int actionChoice){
+        switch (actionChoice){ //TODO finish
         }
     }
 
