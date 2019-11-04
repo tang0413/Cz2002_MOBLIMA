@@ -11,6 +11,8 @@ public class Ticket extends BaseEntity {
     private int showId;
     private int priceId;
     private String seats;
+    private int custId;
+    private String tId;
     public Ticket(ArrayList<String> paramaList)
     {
         super(Integer.parseInt(paramaList.get(0)));
@@ -19,11 +21,13 @@ public class Ticket extends BaseEntity {
         this.showId = (Integer.parseInt(paramaList.get(3)));
         this.priceId = (Integer.parseInt(paramaList.get(4)));
         this.seats = paramaList.get(5);
+        this.custId = (Integer.parseInt(paramaList.get(6)));
+        this.tId = paramaList.get(7);
     }
 
     @Override
     public String StringlizeEntity() {
-        return "id=" + this.id + "|movieId=" + this.movieId + "|cineplexId=" + this.cineplexId + "|showId=" + this.showId + "|priceId=" + this.priceId + "|seats=" + this.seats;
+        return "id=" + this.id + "|movieId=" + this.movieId + "|cineplexId=" + this.cineplexId + "|showId=" + this.showId + "|priceId=" + this.priceId + "|seats=" + this.seats + "|customerId=" + this.custId + "|tid=" + this.tId;
     }
 
     public int getId() { return id; }
@@ -38,11 +42,29 @@ public class Ticket extends BaseEntity {
 
     public int getMovieId() { return movieId; }
 
+    public void setMovieId(int newMovieId) { this.movieId = newMovieId; }
+
     public int getCineplexId() { return cineplexId; }
+
+    public void setCineplexId(int newCineplexId) { this.cineplexId = newCineplexId; }
 
     public int getShowId() { return showId; }
 
+    public void setShowId(int newShowId) { this.showId = newShowId; }
+
     public int getPriceId() { return priceId; }
 
+    public void setPriceId(int newPriceId) { this.priceId = newPriceId; }
+
     public String getSeats() { return seats; }
+
+    public void setSeats(String newSeats) { this.seats = newSeats; }
+
+    public int getCustId() { return custId; }
+
+    public void setCustId(int newCustId) { this.custId = newCustId; }
+
+    public String gettId() { return tId; }
+
+    public void settId(String newtId) { this.tId = newtId; }
 }

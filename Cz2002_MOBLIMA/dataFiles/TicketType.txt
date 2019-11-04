@@ -1,8 +1,11 @@
-id=1|type=Senior Citizens
-id=2|type=Students
-id=3|type=Mon Wed
-id=4|type=Thur
-id=5|type=Fri1
-id=6|type=Fri2
-id=7|type=Sat Sun
-id=8|
+id=Sen|r=4|d=0
+id=Stu|r=7|d=9
+id=Mon|r=8.5|d=11
+id=Tue|r=8.5|d=11
+id=Wed|r=8.5|d=11
+id=Thu|r=9.5|d=11
+id=Fri|r=9.5|d=15
+id=Fri|r=11|d=15
+id=Sat|r=11|d=15
+id=Sun|r=11|d=15
+id=PCLC|r=7|d=0
