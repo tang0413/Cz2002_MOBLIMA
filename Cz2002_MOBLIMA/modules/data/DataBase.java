@@ -150,7 +150,6 @@ public class DataBase {
      */
     public static void setData(BaseEntity entityToUpdate) throws IOException {
         String fileName = fileList.get(entityToUpdate.getClass());
-        String listName= entityToUpdate.getClass().getName();
         try {
             String idString = "id=" + entityToUpdate.getId();
             ArrayList originalFile = (ArrayList)readFile(DIR + fileName);
@@ -207,10 +206,8 @@ public class DataBase {
      * @param entityToDelete A object of BaseEntity or its subclasses, which is to be deleted from database
      * @throws FileNotFoundException
      */
-    @Deprecated
-    public static void deleteData(String fileName, BaseEntity entityToDelete) throws FileNotFoundException {
-        //TODO test this function
-        String listName= fileName.substring(0 , fileName.indexOf("."));
+    public static void deleteData(BaseEntity entityToDelete) throws FileNotFoundException {
+        String fileName = fileList.get(entityToDelete.getClass());
         try {
             String idString = "id=" + entityToDelete.getId();
             ArrayList originalFile = (ArrayList)readFile(DIR + fileName);

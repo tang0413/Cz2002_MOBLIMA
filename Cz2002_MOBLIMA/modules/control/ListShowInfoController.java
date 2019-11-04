@@ -8,6 +8,9 @@ import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
+/**
+ * This is to confirm booking
+ */
 public class ListShowInfoController extends BaseController {
     private Movie movie;
     private Cineplex cineplex;
@@ -22,37 +25,89 @@ public class ListShowInfoController extends BaseController {
         logText = "Here are the detailed information of the show";
     }
 
-    @Override
-    public void enter(){
+    /**
+     * for admin use
+     */
+    public ListShowInfoController(Console inheritedConsole, int showId)
+    {
+        super(inheritedConsole);
+        try{
+            this.show = (Show)DataBase.getObjById(showId, Show.class);
+        } catch (Exception e){
+            this.console.logWarning("No such show!");
+        }
+        logText = "Please indicate one attribute to change";
+    }
+
+    public void enter(Boolean isAdmin){
         while(true){
             try{
-                constuctLogIno(movie, cineplex, show);
-                int choice = this.console.getInt("Enter index to proceed", 1, 3);
-                if (choice == 1){
-                    TicketController ticket = new TicketController(console, this.movie, this.cineplex, this.show);
-                    ticket.enter();
+                this.console.logText(logText);
+                constuctLogInfo(isAdmin, movie, cineplex, show);
+                int choice = this.console.getInt("Enter index to proceed", 1, isAdmin?7:2);
+                switch (choice){
+                    case 1:
+                        if(!isAdmin){
+                            TicketController ticket = new TicketController(console, this.movie, this.cineplex, this.show);
+                            ticket.enter();
+                            break;
+                        }
+                    case 2:
+                        if(!isAdmin){
+                            return;
+                        }
+                    case 3:
+                    case 4:
+                    case 5:
+                        UpdateShowController show = new UpdateShowController(console);
+                        show.enter(choice, this.show.getId());
+                        break;
+                    case 6:
+                        console.logWarning("This will deleted this show information. Continue?");
+                        if(console.getStr("Type 'y' to continue").equals("y")){
+                            UpdateShowController deleteShow = new UpdateShowController(console);
+                            deleteShow.enter(choice, this.show.getId());
+                            return;
+                        } else {
+                            break;
+                        }
+                    case 7:
+                        return;
                 }
-                else
-                    return;
             } catch (Exception e){
                 console.logWarning(e.getMessage());
             }
         }
     }
 
-    private void constuctLogIno(Movie movie, Cineplex cineplex, Show showtime)
+    private void constuctLogInfo(Boolean isAdmin, Movie movie, Cineplex cineplex, Show showtime)
     {
         logMenu = new ArrayList<>();
-        logMenu.add("Movie Name: " + movie.getName());
-        logMenu.add("Cineplex Name: " + cineplex.getCineplexName());
-        logMenu.add("Cinema Name: " + showtime.getCinemaname());
-        logMenu.add("Show Time: " + showtime.getTime() + " " + showtime.getDate());
-        this.console.logText(logText);
-        this.console.logMenu(logMenu, true);
-        logMenu = new ArrayList<>();
-        logMenu.add("Proceed to choose seats");
-        logMenu.add("Back");
-        this.console.logMenu(logMenu);
+        if (isAdmin) {
+            logMenu.add("Movie ID: " + showtime.getMovieId());
+            logMenu.add("Cineplex ID: " + showtime.getCineplexId());
+            logMenu.add("Cinema Name: " + showtime.getCinemaname());
+            logMenu.add("Time: " + showtime.getTime());
+            logMenu.add("Date: " + showtime.getDate());
+            logMenu.add("\u001B[31mDELETE\u001B[0m");
+            logMenu.add("Back");
+            this.console.logMenu(logMenu);
+        } else {
+            logMenu.add("Movie Name: " + movie.getName());
+            logMenu.add("Cineplex Name: " + cineplex.getCineplexName());
+            logMenu.add("Cinema Name: " + showtime.getCinemaname());
+            logMenu.add("Show Time: " + showtime.getTime() + " " + showtime.getDate());
+            this.console.logMenu(logMenu, true);
+            logMenu = new ArrayList<>();
+            logMenu.add("Proceed to choose seats");
+            logMenu.add("Back");
+            this.console.logMenu(logMenu);
+        }
+    }
+
+    @Override
+    @Deprecated
+    public void enter() {
 
     }
     /*public ListShowInfoController(Console inheritedConsole, int showtimeId, Movie mv, Cineplex ci)

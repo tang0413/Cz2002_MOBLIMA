@@ -15,12 +15,21 @@ public class ListShowController extends BaseController {
     private int showPosition;
     private ArrayList<Show> showList = new ArrayList<>();
 
+    /**
+     * This is for admin use
+     */
+    public ListShowController(Console inheritedConsole)
+    {
+        super(inheritedConsole);
+        logText = "Here are all the Shows";
+    }
+
     public ListShowController(Console inheritedConsole, Movie mv, Cineplex ci)
     {
         super(inheritedConsole);
         this.movie = mv;
         this.cineplex = ci;
-        logText = "Here are the Show Time";
+        logText = "Here are the available shows of "+ movie.getName() + " in " + cineplex.getCineplexName() + " Cineplex";
     }
 
     public void enter(Boolean isAdmin) { //TODO admin can see all the shows
@@ -37,8 +46,14 @@ public class ListShowController extends BaseController {
                 return;
             else
             {
-                ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1), this.movie, this.cineplex);
-                showInfo.enter();
+                if (!isAdmin) {
+                    ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1), this.movie, this.cineplex);
+                    showInfo.enter(false);
+                } else {
+                    ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1).getId());
+                    showInfo.enter(true);
+                }
+
             }
         }
     }
@@ -54,8 +69,18 @@ public class ListShowController extends BaseController {
                     logMenu.add("Cinema: " + st.getCinemaname() + " Time: " + st.getTime() + " " + st.getDate());
                 }
             } else {
-                selectedShowList.add(st);
-                logMenu.add("Cinema: " + st.getCinemaname() + " Time: " + st.getTime() + " " + st.getDate());
+                try{//TODO should it be moved to showInfo?
+                    Movie chosenMovie = (Movie)DataBase.getObjById(st.getMovieId(), Movie.class);
+                    Cineplex chosenCineplex = (Cineplex)DataBase.getObjById(st.getCineplexId(), Cineplex.class);
+                    if (!chosenMovie.getStatus().equals("End Of Showing")){
+                        selectedShowList.add(st);
+                        logMenu.add("\nMovie ID: "+ st.getMovieId() + "\nMovie Name: " + chosenMovie.getName()
+                                + "\nCinplex ID: "+ st.getCineplexId() +"\nCinplex: " + chosenCineplex.getCineplexName()+ "\nCinema: " + st.getCinemaname()
+                                + "\nTime: " + st.getTime() + "\nDate: " + st.getDate() + "\n");
+                    }
+                } catch (Exception e){
+                    console.logWarning(e.getMessage());
+                }
             }
         }
         logMenu.add("Back");

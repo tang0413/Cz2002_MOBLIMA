@@ -39,7 +39,6 @@ public class ListAvailableCineplexController extends BaseController{
         }
     }
 
-
     private void contructLogMenu(ArrayList<Cineplex> cineplexList){
         logMenu = new ArrayList<>();
         for (Cineplex c : cineplexList){

@@ -1,6 +1,6 @@
 id=1|name=Tatanic|description=this is movie1|status=Now Showing|type=3D|cat=PG13
 id=2|name=Annabelle|description=this is a horror movie|status=Preview|type=Horror|cat=PG-13
-id=3|name=3 idiots|description=this is movie3|status=End of Showing|type=Comedy|cat=PG13
+id=3|name=3 idiots|description=this is movie3|status=Preview|type=Comedy|cat=PG13
 id=4|name=Ring|description=this is movie 5|status=Preview|type=Horror|cat=PG13
 id=5|name=King of Comedy|description=this is movie6|status=End Of Showing|type=Comedy|cat=PG15
 id=6|name=Toy Story|description=this is movie 7|status=Preview|type=Comedy|cat=PG15

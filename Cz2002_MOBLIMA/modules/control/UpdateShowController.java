@@ -30,6 +30,10 @@ public class UpdateShowController extends BaseController {
                     insetNewShow();
                     return;
                 }
+                if (actionChoice == 6){
+                    deleteShow(showId);
+                    return;
+                }
 //                Show chosenShow = DataBase.getShowById(showId);
 //                alterShow(chosenShow, actionChoice);
                 return;
@@ -56,6 +60,17 @@ public class UpdateShowController extends BaseController {
             newShowParam.add(this.console.getDate()); //TODO validate if is earlier than now
             Show newShow = new Show(newShowParam);
             DataBase.setData(newShow);
+            console.logSuccess();
+        } catch (Exception e){
+            console.logWarning("Failed!");
+            return;
+        }
+    }
+
+    private void deleteShow(int showId){
+        try{
+            Show showToDelete = (Show)DataBase.getObjById(showId, Show.class);
+            DataBase.deleteData(showToDelete);
             console.logSuccess();
         } catch (Exception e){
             console.logWarning("Failed!");
