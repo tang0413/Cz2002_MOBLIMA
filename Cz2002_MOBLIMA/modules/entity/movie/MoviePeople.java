@@ -50,6 +50,42 @@ public class MoviePeople extends BaseEntity {
     }
 
     /**
+     * This is to add a new movie to this MoviePerson's participated movie list
+     * @param movieId the id of the new movie that this MoviePerson is in.
+     * @return true if the data is correctly stored. false if not
+     */
+    public Boolean addInMovie(int movieId){
+        if(!this.inMovie.contains(Integer.toString(movieId))){
+            this.inMovie.add(Integer.toString(movieId));
+        } else {
+            return true;
+        }
+        try{
+            DataBase.setData(this);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+    /**
+     * This is to remove a  movie from this MoviePerson's participated movie list
+     * @param movieId the id of the new movie that this MoviePerson should not be in.
+     * @return true if the data is correctly stored. false if not
+     */
+    public Boolean removeInMovie(int movieId){
+        this.inMovie.remove(Integer.toString(movieId));
+        if (this.inMovie.size() == 0){
+            this.inMovie.add("0");
+        }
+        try{
+            DataBase.setData(this);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    /**
      * This is used in DataBase when setData/deleteData is called
      * @return the Stringlized properties to store back to txt file. e.g. id=3|name=John|inMovie=1,2
      */

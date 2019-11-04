@@ -71,5 +71,5 @@ public abstract class BaseController {
     /**
      * This is the basic method to enter a serious of process
      */
-    public abstract void enter(); //TODO to update real data without restart, turn void into all possible changed objs. Too troublesome
+    public abstract void enter();
 }

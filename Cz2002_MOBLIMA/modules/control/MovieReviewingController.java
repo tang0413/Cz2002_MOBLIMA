@@ -71,11 +71,8 @@ public class MovieReviewingController extends BaseController{
             }
             if (hasThisUser){
                 if(makeReview()){
-//                    AppRestartController restart = new AppRestartController(this.console);
-//                    restart.enter();
-                    this.console.logReminder("Updated successfully! Returning to the previous page...");
                     try{
-                        TimeUnit.SECONDS.sleep(2);
+                        this.console.logSuccess();
                     } catch (Exception e){
                     }
                     return;

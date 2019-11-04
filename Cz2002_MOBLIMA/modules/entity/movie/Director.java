@@ -1,7 +1,5 @@
 package modules.entity.movie;
 
-import modules.data.DataBase;
-
 import java.util.ArrayList;
 
 /**
@@ -13,13 +11,4 @@ public class Director extends MoviePeople {
         super(paramList);
     }
 
-    public Boolean addInMovie(int movieId){
-        this.inMovie.add(Integer.toString(movieId));
-        try{
-            DataBase.setData(this);
-            return true;
-        } catch (Exception e){
-            return false;
-        }
-    }
 }

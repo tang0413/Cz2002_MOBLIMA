@@ -54,7 +54,7 @@ public class StaffMenuController extends BaseController {
                     break;
                 case 6:
                     MovieRankingController rank = new MovieRankingController(this.console);
-                    rank.enter(); //TODO but to do so, staff will also be able to book movie
+                    rank.enter();
                     break;
                 case 7:
                     return;

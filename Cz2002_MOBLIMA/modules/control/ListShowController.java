@@ -55,7 +55,7 @@ public class ListShowController extends BaseController {
      * This is to enter a series of actions to display all available shows for common user, or to list out all show records in details for admin to choose from
      * @param isAdmin true if it is for admin use
      */
-    public void enter(Boolean isAdmin) { //TODO admin can see all the shows
+    public void enter(Boolean isAdmin) {
         while(true){
             try{
                 showList = DataBase.readList(Show.class);
@@ -87,18 +87,18 @@ public class ListShowController extends BaseController {
      * @param isAdmin true if it is for admin use
      * @return A selected list which contains all the show entries listed on screen in sequence. Used to find the user-chosen show
      */
-    public ArrayList<Show> constructLogMenu(ArrayList<Show> showList, Boolean isAdmin)//TODO for admin list all
+    public ArrayList<Show> constructLogMenu(ArrayList<Show> showList, Boolean isAdmin)
     {
         ArrayList selectedShowList = new ArrayList();
         logMenu = new ArrayList<>();
         for(Show st : showList) {
             if (!isAdmin){//TODO should sort by time
-                if(st.getMovieId() == this.movie.getId() && st.getCineplexId() == (this.cineplex.getId())) { //TODO sytanx error getId
+                if(st.getMovieId() == this.movie.getId() && st.getCineplexId() == (this.cineplex.getId())) {
                     selectedShowList.add(st);
                     logMenu.add("Cinema: " + st.getCinemaname() + " Time: " + st.getTime() + " " + st.getDate());
                 }
             } else {
-                try{//TODO should it be moved to showInfo?
+                try{
                     Movie chosenMovie = (Movie)DataBase.getObjById(st.getMovieId(), Movie.class);
                     Cineplex chosenCineplex = (Cineplex)DataBase.getObjById(st.getCineplexId(), Cineplex.class);
                     if (!chosenMovie.getStatus().equals("End Of Showing")){

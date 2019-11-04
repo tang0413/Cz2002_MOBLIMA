@@ -26,7 +26,7 @@ public class RunApp {
 	@Deprecated
 	public static void restart(){
 		DataBase.clearBuffer();
-		app = null; //TODO not sure if is destroy other objs as well
+		app = null;
 		app = new App();
 		app.run();
 	}

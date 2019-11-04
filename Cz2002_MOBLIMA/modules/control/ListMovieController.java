@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a series actions to list out movie names in console
  */
-public class ListMovieController extends BaseController{ //TODO: experiment with refreshing list;
+public class ListMovieController extends BaseController{
     /**
      * This is the whole list of movies loaded from the database;
      */
@@ -82,7 +82,6 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
                 ListMovieInfoController movieInfo = new ListMovieInfoController(console, movieList.get(choice -1).getId());
                 movieInfo.enter(isAdmin);
             }
-                //display info controller (choice);
         }
     }
 
@@ -149,7 +148,7 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
                         i ++;
                     } else {
                         continue;
-                    } //TODO duplicate
+                    }
                 }
                 break;
         }

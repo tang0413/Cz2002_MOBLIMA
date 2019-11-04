@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a series of actions to displaying movie information details differently admin or customer
  */
-public class ListMovieInfoController extends BaseController {//TODO can be combined with listMovie in the future
+public class ListMovieInfoController extends BaseController {
 
     /**
      * This is the id of the user chosen movie

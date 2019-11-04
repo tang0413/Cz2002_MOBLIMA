@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a manipulation on Movie object. e.g. Update or create Movies
  */
-public class UpdateMovieController extends BaseController { //TODO to be reused by passing index from ListMovieInfoController, needs to be updated
+public class UpdateMovieController extends BaseController {
     /**
      * This is to instantiate a controller with Movie manipulation ability
      * @param inheritedConsole the Console instance passed down from the previous controller
@@ -89,7 +89,7 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
      */
     private void alterMovie(Movie movieToChange, int actionChoice) throws IOException, InterruptedException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         String newValue;
-        switch(actionChoice){ //TODO get rid of this stupid method!!!!
+        switch(actionChoice){
             case 1:
                 newValue = this.console.getStr("Please enter a new Name");
                 movieToChange.setName(newValue);
@@ -108,12 +108,12 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
                 break;
             case 5:
                 this.console.logReminder("Please separate names by ',' with no space");
-                newValue = this.console.getStr("Please enter new director(s) to be added");//TODO so far can only add
+                newValue = this.console.getStr("Please enter new director(s)");//TODO so far can only add
                 alterDirector(newValue, movieToChange.getId());
                 break;
             case 6:
                 this.console.logReminder("Please separate names by ',' with no space");
-                newValue = this.console.getStr("Please enter new cast to be added");
+                newValue = this.console.getStr("Please enter new cast");
                 alterCast(newValue, movieToChange.getId());
                 break;
             case 7:
@@ -138,6 +138,8 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
             if(directorNames.contains(d.getName())){
                 d.addInMovie(movieId);
                 directorNames.remove(d.getName());
+            } else if ((!directorNames.contains(d.getName())) && d.getInMovie().contains(Integer.toString(movieId))){
+                d.removeInMovie(movieId);
             }
         }
         if(directorNames.size() != 0){
@@ -165,6 +167,8 @@ public class UpdateMovieController extends BaseController { //TODO to be reused 
             if(castNames.contains(a.getName())){
                 a.addInMovie(movieId);
                 castNames.remove(a.getName());
+            } else if((!castNames.contains(a.getName())) && a.getInMovie().contains(Integer.toString(movieId))){
+                a.removeInMovie(movieId);
             }
         }
         if(castNames.size() != 0){
