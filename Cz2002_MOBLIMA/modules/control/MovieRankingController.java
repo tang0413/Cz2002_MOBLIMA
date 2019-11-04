@@ -32,7 +32,8 @@ public class MovieRankingController extends BaseController {
             this.console.logMenu(logMenu);
             int choice = this.console.getInt("Enter index to proceed", 1, 3);
             switch (choice) {
-                case 2: //TODO: finish case 1
+                case 1:
+                case 2:
                     ListMovieController ls = new ListMovieController(this.console, choice);
                     ls.enter(false);
                     break;

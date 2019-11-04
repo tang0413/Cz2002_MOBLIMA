@@ -2,10 +2,15 @@ package modules.control;
 
 import modules.boundary.Console;
 import modules.data.DataBase;
+import modules.entity.Ticket;
 import modules.entity.movie.Movie;
 import modules.utils.Sorting;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Represents a series actions to list out movie names in console
@@ -92,7 +97,6 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
         logMenu = new ArrayList<>();
         switch (sortOption){
             case 0:
-            case 1://TODO by sales
                 for (Movie m: movieList){
                     if (!m.getStatus().equals("End Of Showing")){
                         logMenu.add(m.getName());
@@ -102,6 +106,35 @@ public class ListMovieController extends BaseController{ //TODO: experiment with
                     }
                 }
                 break;
+            case 1:
+                try{
+                    HashMap<Integer, Integer> salesCount = new HashMap<>();
+                    for (Movie m: movieList){
+                        salesCount.put(m.getId(), 0);
+                    }
+                    ArrayList<Ticket> ticketList = DataBase.readList(Ticket.class);
+                    for (Ticket t: ticketList){
+                        salesCount.put(t.getMovieId(), salesCount.get(t.getMovieId())+1);
+                    }
+                    HashMap<Integer,Integer> sortedMap = Sorting.sortByValue(salesCount);
+                    int i = 0;
+                    for (Map.Entry<Integer, Integer> en : sortedMap.entrySet()){
+                        if (i >= 5){
+                            break;
+                        }
+                        Movie m = (Movie)DataBase.getObjById(en.getKey(), Movie.class);
+                        if (!m.getStatus().equals("End Of Showing")){
+                            logMenu.add(m.getName());
+                            newMovieList.add(m);
+                            i ++;
+                        } else {
+                            continue;
+                        }
+                    }
+                    break;
+                } catch (Exception e){
+                    console.logWarning("Failed to do the sorting!");
+                }
             case 2:
                 Movie[] array = movieList.toArray(new Movie[movieList.size()]);
                 Sorting.selectionSortReverse(array);
