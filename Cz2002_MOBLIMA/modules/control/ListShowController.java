@@ -48,9 +48,14 @@ public class ListShowController extends BaseController {
         ArrayList selectedShowList = new ArrayList();
         logMenu = new ArrayList<>();
         for(Show st : showList) {
-            if(st.getMovieId() == this.movie.getId() && st.getCineplexId() == (this.cineplex.getId())) { //TODO sytanx error getId
+            if (!isAdmin){//TODO should sort by time
+                if(st.getMovieId() == this.movie.getId() && st.getCineplexId() == (this.cineplex.getId())) { //TODO sytanx error getId
+                    selectedShowList.add(st);
+                    logMenu.add("Cinema: " + st.getCinemaname() + " Time: " + st.getTime() + " " + st.getDate());
+                }
+            } else {
                 selectedShowList.add(st);
-                logMenu.add("Cinema: " + st.getCinemaname() + " Time:" + st.getTime() + " " + st.getDate());
+                logMenu.add("Cinema: " + st.getCinemaname() + " Time: " + st.getTime() + " " + st.getDate());
             }
         }
         logMenu.add("Back");
