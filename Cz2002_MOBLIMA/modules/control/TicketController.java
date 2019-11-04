@@ -2,27 +2,26 @@ package modules.control;
 
 import modules.boundary.Console;
 import modules.data.DataBase;
-import modules.entity.Cineplex;
-import modules.entity.Show;
-import modules.entity.Ticket;
+import modules.entity.*;
 import modules.entity.movie.Movie;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Calendar;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ArrayList;
 
 public class TicketController extends BaseController {
     private Movie movie;
     private Cineplex cineplex;
     private Show show;
-    private int moviePosition;
-    private int cineplexPosition;
-    private int showtimePosition;
+    private MovieGoner movieGoner;
     private int ROWS;
     private int SEATS;
+    private int option;
     private ArrayList<Ticket> ticketList = new ArrayList<>();
+    private ArrayList<TicketType> ticketTypesList = new ArrayList<>();
+    private ArrayList<MovieGoner> movieGonersList = new ArrayList<>();
 
     public TicketController(Console inheritedConsole, Movie mv, Cineplex ci, Show sh)
     {
@@ -51,6 +50,8 @@ public class TicketController extends BaseController {
                 //check if seats is taken
                 String noTicket = this.console.getStr("How many ticket do you want to book?");
                 bookMovie(noTicket);
+                ListMovieController movie =  new ListMovieController(console,option);
+                movie.enter();
             }
             else
             {
@@ -175,37 +176,174 @@ public class TicketController extends BaseController {
     private void bookMovie(String ticket)
     {
         //id=1|movieId=1|cineplexId=1|showId=1|tickettype=1|seats=F07
-        int i=0,scc=0,check=0;
-        String[] sc = new String[3];
+        int i=0,scc=0,check=0,s=0;
+        String[] sc = new String[2];
+        String email = "";
+        String days = "";
+        String chosenSeats = "";
+        String tempchosenSeats="";
+        String name="";
+        String phoneNumber="";
+        String nric="";
+        Double ticketPrice;
+        String tId="";
+        int ticketType;
+        int checkAge = 0;
         int noTicket = Integer.parseInt(ticket);
         String[] data = checkUserBooked(ticketList);
-
-        while(noTicket!=0)
+        int checkUser;
+        try {
+            while (noTicket != 0) {
+                tempchosenSeats = this.console.getStr("Enter Your Seats Code");
+                while (data[i] != null) {
+                    if (tempchosenSeats.equals(data[i]))
+                        check = 1;
+                    i++;
+                }
+                if (check != 1) {
+                    sc[scc] = tempchosenSeats;
+                    scc++;
+                }
+                noTicket--;
+            }
+        }catch (Exception e)
         {
-            String chosenSeats = this.console.getStr("Enter Your Seats Code");
-            String tempchosenSeats = chosenSeats.substring(0,1).toUpperCase() + chosenSeats.substring(1);
-            while(data[i]!=null)
-            {
-                if(data[i].equals(tempchosenSeats))
-                    check = 1;
-                i++;
-            }
-            while(check!=1)
-            {
-                sc[scc] = tempchosenSeats;
-                scc++;
-            }
-            noTicket--;
+            console.logWarning(e.getMessage());
+        }
+
+        try {
+            days = checkDays(show.getDate());
+        }catch (Exception e)
+        {
+            console.logWarning(e.getMessage());
+        }
+        email = this.console.getStr("Enter Your Email:");
+        checkUser = checkExistsUser(movieGonersList,email);
+        if(checkUser == 0)
+        {
+            name = this.console.getStr("Enter Your Name:");
+            phoneNumber = this.console.getStr("Enter Your Phone Number:");
+        }
+
+
+        contructAgeMenu();
+        checkAge = this.console.getInt("Choose your age category:", 1,3);
+
+        ticketPrice = checkPrice(days,ticketTypesList,checkAge);
+        ticketType = checkTicketType(days,ticketTypesList,checkAge);
+
+        tId = generateTID();
+
+        //add new user
+        ArrayList<String> newUserParm = new ArrayList<>();
+        int newUserId = DataBase.getNewId(MovieGoner.class);
+        newUserParm.add(name);
+        newUserParm.add(phoneNumber);
+        newUserParm.add(email);
+        try
+        {
+            MovieGoner newUser = new MovieGoner(newUserParm);
+            DataBase.setData(newUser);
+            console.logSuccess();;
+        }catch (Exception e){
+            this.console.log(e.getMessage());
+        }
+
+        ArrayList<String> newTicketParm = new ArrayList<>();
+        int newTicketId = DataBase.getNewId(Ticket.class);
+        newTicketParm.add(Integer.toString(this.movie.getId()));
+        newTicketParm.add(Integer.toString(this.cineplex.getId()));
+        newTicketParm.add(Integer.toString(this.show.getId()));
+        newTicketParm.add(Integer.toString(ticketType));
+        newTicketParm.add(sc[s]);
+        if(checkUser != 0) {
+            newTicketParm.add(Integer.toString(newUserId));
+        }
+        else
+        {
+            newTicketParm.add(Integer.toString(checkUser));
+        }
+        newTicketParm.add(tId);
+
+        try
+        {
+            Ticket newTicket = new Ticket(newTicketParm);
+            DataBase.setData(newTicket);
+            console.logSuccess();;
+        }catch (Exception e){
+            this.console.log(e.getMessage());
         }
     }
 
-    private String checkTicketType(String date)
+    public int checkExistsUser(ArrayList<MovieGoner> movieGonersList, String Email)
+    {
+        int userId = 0;
+        for(MovieGoner mg : movieGonersList)
+        {
+            if(mg.getEmail().equals(Email)) {
+                System.out.print("Welcome " + mg.getName());
+                userId = mg.getId();
+            }
+        }
+        return userId;
+    }
+
+    private Double checkPrice(String date, ArrayList<TicketType> ticketTypesList, int cat)
+    {
+        int tempCat = cat;
+        String tempDate = date;
+        Double confirmPrice = 0.0;
+        DecimalFormat df = new DecimalFormat("#.##");
+        int time = Integer.parseInt(show.getTime().substring(0,2));
+        if(time<12 && tempCat==1 && ((!tempDate.equals("Sat")||(!tempDate.equals("Sun")))))
+                tempDate = "Sen";
+        if(time<12 && tempCat==2 && ((!tempDate.equals("Sat")||(!tempDate.equals("Sun")))))
+                tempDate = "Stu";
+        for(TicketType tt : ticketTypesList)
+        {
+            if(tempDate.equals(tt.getDays()))
+            {
+                if(movie.getType().equals("3D"))
+                {
+                    confirmPrice =  tt.getdPrice();
+                }
+                else if(movie.getType().equals("Blockburster"))
+                    confirmPrice = tt.getrPrice() + 1;
+                else
+                    confirmPrice = tt.getrPrice();
+            }
+        }
+        return Double.valueOf(df.format(confirmPrice * 1.07));
+    }
+
+    private int checkTicketType(String date, ArrayList<TicketType> ticketTypesList, int cat)
+    {
+        int tempCat = cat;
+        int ticketTypeId = 0;
+        String tempDate = date;
+        DecimalFormat df = new DecimalFormat("#.##");
+        int time = Integer.parseInt(show.getTime().substring(0,2));
+        if(time<12 && tempCat==1 && ((!tempDate.equals("Sat")||(!tempDate.equals("Sun")))))
+            tempDate = "Sen";
+        if(time<12 && tempCat==2 && ((!tempDate.equals("Sat")||(!tempDate.equals("Sun")))))
+            tempDate = "Stu";
+        for(TicketType tt : ticketTypesList)
+        {
+            if(tempDate.equals(tt.getDays()))
+            {
+                ticketTypeId = tt.getId();
+            }
+        }
+        return ticketTypeId;
+    }
+
+    private String checkDays(String date) throws Exception
     {
         String checkDate = date;
-        SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/yyyy");
-        Date dt1 = format1.parse(checkDate);
-        DateFormat format2 = new SimpleDateFormat("EEE");
-        String finalDay = format2.format(dt1);
+        Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(checkDate);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE");
+        String stringDate = sdf.format(date1);
+        return stringDate;
     }
 
     private void contructMenu()
@@ -214,5 +352,20 @@ public class TicketController extends BaseController {
         logMenu.add("Proceed to choose seats");
         logMenu.add("Back");
         this.console.logMenu(logMenu);
+    }
+    private void contructAgeMenu()
+    {
+        logMenu = new ArrayList<>();
+        logMenu.add("Senior Citizen");
+        logMenu.add("Student");
+        logMenu.add("None");
+        this.console.logMenu(logMenu);
+    }
+    private String generateTID()
+    {
+        String TID = "";
+        String timeStamp = new SimpleDateFormat("yyyyMMddHHmm").format(Calendar.getInstance().getTime());
+        TID = show.getCinemaname() + timeStamp;
+        return TID;
     }
 }
