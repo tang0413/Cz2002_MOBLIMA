@@ -45,8 +45,37 @@ public class UpdateShowController extends BaseController {
     }
 
     private void alterShow(Show chosenShow, int actionChoice){
-        switch (actionChoice){ //TODO finish
+        try{
+            switch (actionChoice){ //TODO finish
+                case 1:
+                    chosenShow.setMovieId(this.console.getMovieId("Please enter a new movie ID"));
+                    break;
+                case 2:
+                    int newCineplexId = this.console.getCineplexId("Please enter a new Cinplex ID");
+                    Cineplex newCineplex = (Cineplex)DataBase.getObjById(newCineplexId, Cineplex.class);
+                    console.logReminder("Please choose from the following cinemas" + newCineplex.getCinemaList());
+                    String newCinemaName = this.console.getStr("Cinema Name", newCineplex.getCinemaList());
+                    chosenShow.setCineplexId(newCineplexId);
+                    chosenShow.setCinemaname(newCinemaName);
+                    break;
+                case 3:
+                    Cineplex chosenCineplex = (Cineplex)DataBase.getObjById(chosenShow.getCineplexId(), Cineplex.class);
+                    console.logReminder("Please choose from the following cinemas" + chosenCineplex.getCinemaList());
+                    chosenShow.setCinemaname(this.console.getStr("Cinema Name", chosenCineplex.getCinemaList()));
+                    break;
+                case 4:
+                    chosenShow.setTime(this.console.getTime());
+                    break;
+                case 5:
+                    chosenShow.setTime(this.console.getDate());
+                    break;
+            }
+            DataBase.setData(chosenShow);
+            console.logSuccess();
+        } catch (Exception e){
+            console.logWarning("Failed to update!");
         }
+
     }
 
     private void insetNewShow() {
