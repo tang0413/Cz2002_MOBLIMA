@@ -43,9 +43,6 @@ public class ListShowController extends BaseController {
         }
     }
 
-
-
-
     public ArrayList<Show> contructLogMenu(ArrayList<Show> showList, Boolean isAdmin)//TODO for admin list all
     {
         ArrayList selectedShowList = new ArrayList();

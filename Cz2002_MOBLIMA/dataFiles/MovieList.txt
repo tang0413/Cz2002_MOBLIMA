@@ -6,6 +6,6 @@ id=5|name=King of Comedy|description=this is movie6|status=End Of Showing|type=C
 id=6|name=Toy Story|description=this is movie 7|status=Preview|type=Comedy|cat=PG15
 id=7|name=test8|description=this is movie 8|status=End Of Showing|type=Horror|cat=N.A.
 id=8|name=test9|description=this is movie9|status=Preview|type=Action|cat=NC17
-id=9|name=Joker|description=Super Hero|status=Now Showing|type=Digital|cat=PG16
+id=9|name=Joker|description=Super Hero|status=End Of Showing|type=Digital|cat=PG16
 id=10|name=Terminator|description=good movie|status=Now Showing|type=3D|cat=NC16
 id=11|name=Disney's Maleficent: Mistress Of Evil|description=a disney movie|status=Coming Soon|type=Digital|cat=PG13

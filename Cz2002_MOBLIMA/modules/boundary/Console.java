@@ -199,7 +199,7 @@ public class Console {
      * @param title The text to print out first as a instruction
      * @return A valid user input movie type as string
      */
-    public String getMovieType(String title){
+    public String getMovieStatus(String title){
         this.logReminder("Status: " + Arrays.toString(movieStatusList.toArray()));
         while (true){
             this.log(">> " + title + ": ");
