@@ -33,7 +33,7 @@ public class ListAvailableCineplexController extends BaseController{
                 return;
             else
             {
-                ListShowController showTime = new ListShowController(console,this.movie, cineplexList.get(choice));
+                ListShowController showTime = new ListShowController(console,this.movie, cineplexList.get(choice-1));
                 showTime.enter(false);
             }
         }

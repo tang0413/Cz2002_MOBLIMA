@@ -195,16 +195,24 @@ public class Console {
     }
 
     /**
-     * This is used to get a movie type from the user
+     * This is used to get a movie status from the user
      * @param title The text to print out first as a instruction
      * @return A valid user input movie type as string
      */
-    public String getMovieType(String title){
+    public String getMovieStatus(String title){
         this.logReminder("Status: " + Arrays.toString(movieStatusList.toArray()));
         while (true){
             this.log(">> " + title + ": ");
             String userEnteredValue = sc.nextLine();
             if(movieStatusList.contains(userEnteredValue)){
+                if (userEnteredValue.equals("End Of Showing")){
+                    logWarning("This will exclude this movie record from the list in the future. Continue?");
+                    if(getStr("Type 'y' to continue").equals("y")){
+                        return userEnteredValue;
+                    } else {
+                        continue;
+                    }
+                }
                 return userEnteredValue;
             } else {
                 this.logWarning("Invalid input! Please try again.");
