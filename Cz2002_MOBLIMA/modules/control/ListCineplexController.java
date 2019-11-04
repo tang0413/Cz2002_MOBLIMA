@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Represents a series of actions to list out all cineplexs
  */
-public class ListAvailableCineplexController extends BaseController{
+public class ListCineplexController extends BaseController{
     /**
      * A specific movie that the user chose before
      */
@@ -26,7 +26,7 @@ public class ListAvailableCineplexController extends BaseController{
      * @param inheritedConsole the Console instance passed down from the previous controller
      * @param mv a user specified movie
      */
-    public ListAvailableCineplexController(Console inheritedConsole, Movie mv) {
+    public ListCineplexController(Console inheritedConsole, Movie mv) {
         super(inheritedConsole);
         this.movie = mv;
         logText = "Here are all Cineplexes";
