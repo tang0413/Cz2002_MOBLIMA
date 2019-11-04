@@ -58,7 +58,7 @@ public class UpdateShowController extends BaseController {
      */
     private void alterShow(Show chosenShow, int actionChoice){//TODO can add some more descriptions
         try{
-            switch (actionChoice){ //TODO finish
+            switch (actionChoice){
                 case 1:
                     chosenShow.setMovieId(this.console.getMovieId("Please enter a new movie ID"));
                     break;

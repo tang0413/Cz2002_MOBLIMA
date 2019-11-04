@@ -108,7 +108,7 @@ public class UpdateMovieController extends BaseController {
                 break;
             case 5:
                 this.console.logReminder("Please separate names by ',' with no space");
-                newValue = this.console.getStr("Please enter new director(s)");//TODO so far can only add
+                newValue = this.console.getStr("Please enter new director(s)");
                 alterDirector(newValue, movieToChange.getId());
                 break;
             case 6:

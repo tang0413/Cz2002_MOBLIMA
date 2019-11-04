@@ -165,7 +165,7 @@ public class DataBase {
                 originalFile.add(entityToUpdate.StringlizeEntity());
             }
             writeFile(fileName, originalFile);
-            clearBuffer(); //TODO no need to every entity
+            clearBuffer();
         } catch (Exception e){
         }
     }
@@ -194,7 +194,7 @@ public class DataBase {
                 originalFile.add(entityToUpdate.StringlizeEntity());
             }
             writeFile(fileName, originalFile);
-            clearBuffer(); //TODO no need to every entity
+            clearBuffer();
         } catch (Exception e){
         }
     }
@@ -218,7 +218,7 @@ public class DataBase {
                 }
             }
             writeFile(fileName, originalFile);
-            clearBuffer(); //TODO no need to every entity
+            clearBuffer();
         } catch (Exception e){
         }
     }
@@ -272,7 +272,7 @@ public class DataBase {
     }
 
     @Deprecated
-    public static Cineplex getCineplexById(int cineplexId) throws Exception { //TODO: refine
+    public static Cineplex getCineplexById(int cineplexId) throws Exception {
         ArrayList<Cineplex> cineplexList = readList(Cineplex.class);
         for (Cineplex c: cineplexList){
             if (c.getId() == cineplexId){
