@@ -167,6 +167,7 @@ public class DataBase {
             writeFile(fileName, originalFile);
             clearBuffer();
         } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -196,6 +197,7 @@ public class DataBase {
             writeFile(fileName, originalFile);
             clearBuffer();
         } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -220,6 +222,7 @@ public class DataBase {
             writeFile(fileName, originalFile);
             clearBuffer();
         } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -240,6 +243,7 @@ public class DataBase {
                 int id = bufferMaxIdList.get(classObj);
                 return id;
             } catch (Exception e){
+                e.printStackTrace();
             }
         }
     }
@@ -295,7 +299,10 @@ public class DataBase {
                 out.println((String)content.get(i));
             }
             out.close();
-        } catch (Exception e){
+        } catch (FileNotFoundException e){
+            throw e;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

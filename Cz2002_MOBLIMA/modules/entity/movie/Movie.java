@@ -201,6 +201,7 @@ public class Movie extends BaseEntity implements Comparable{
                 }
             }
         } catch(Exception e){
+            e.printStackTrace();
         }
         return peopleList;
     }
@@ -224,6 +225,7 @@ public class Movie extends BaseEntity implements Comparable{
                 }
             }
         } catch(Exception e){
+            e.printStackTrace();
         }
         if (numberOfPeople > 1){
             return df.format(totalScore/numberOfPeople);

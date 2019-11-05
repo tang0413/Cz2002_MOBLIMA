@@ -19,7 +19,7 @@ public class ListMovieController extends BaseController{
     /**
      * This is the whole list of movies loaded from the database;
      */
-    private ArrayList<Movie> movieList = new ArrayList<>();
+    private ArrayList<Movie> movieList;
     /**
      * This is the sort option of the movie list
      * 1 for sort by ticket sales and 2 for sort by user rating; 0 for no sorting requirement
@@ -70,17 +70,20 @@ public class ListMovieController extends BaseController{
         while (true) {
             try{
                 movieList = DataBase.readList(Movie.class);
+                movieList = this.constructLogMenu(movieList, sortOption);
+                this.console.logText(logText);
+                this.console.logMenu(logMenu);
+                int choice = this.console.getInt("Enter index to proceed", 1, movieList.size()+1);
+                if (choice == movieList.size()+1){
+                    return;
+                } else {
+                    ListMovieInfoController movieInfo = new ListMovieInfoController(console, movieList.get(choice -1).getId());
+                    movieInfo.enter(isAdmin);
+                }
             } catch (Exception e){
-            }
-            movieList = this.constructLogMenu(movieList, sortOption);
-            this.console.logText(logText);
-            this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to proceed", 1, movieList.size()+1);
-            if (choice == movieList.size()+1){
+                console.logWarning(e.getMessage());
+                console.logWarning("Failed to load Movies!");
                 return;
-            } else {
-                ListMovieInfoController movieInfo = new ListMovieInfoController(console, movieList.get(choice -1).getId());
-                movieInfo.enter(isAdmin);
             }
         }
     }

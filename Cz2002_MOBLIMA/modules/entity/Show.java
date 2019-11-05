@@ -28,6 +28,7 @@ public class Show extends BaseEntity {
 
     public int getId() { return id; }
 
+    @Deprecated //TODO remove
     public void setId(int id){
         this.id = id;
         try{

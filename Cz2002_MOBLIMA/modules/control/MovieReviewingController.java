@@ -56,41 +56,46 @@ public class MovieReviewingController extends BaseController{
             MovieGoner user ;
             try {
                 wholeUserList = DataBase.readList(MovieGoner.class);
+                Boolean hasThisUser = false;
+                if (wholeUserList.size() >= 1){
+                    for (MovieGoner go: wholeUserList){
+                        if (go.getEmail().equals(email)){
+                            this.user = go;
+                            hasThisUser = true;
+                            break;
+                        }
+                    }
+                }
+                if (hasThisUser){
+                    if(makeReview()){
+                        try{
+                            this.console.logSuccess();
+                        } catch (Exception e){
+                            console.logWarning("Failed to sleep!");
+                        }
+                        return;
+                    } else {
+                        this.console.log("");
+                        this.console.logWarning("Failed to comment! Returning to previous page now...");
+                        try{
+                            TimeUnit.SECONDS.sleep(2);
+                        } catch (Exception e){
+                            console.logWarning("Failed to sleep!");
+                        } //TODO can make into another controller
+                        return;
+                    }
+                } else {
+                    this.console.logWarning("No such user found!"); //TODO refine language
+                    String choice = this.console.getStr("Try again?[y/n]");
+                    if (!choice.equals("y")){
+                        return;
+                    }
+                }
             } catch (Exception e) {
                 System.out.println("exception");
-            }
-            Boolean hasThisUser = false;
-            if (wholeUserList.size() >= 1){
-                for (MovieGoner go: wholeUserList){
-                    if (go.getEmail().equals(email)){
-                        this.user = go;
-                        hasThisUser = true;
-                        break;
-                    }
-                }
-            }
-            if (hasThisUser){
-                if(makeReview()){
-                    try{
-                        this.console.logSuccess();
-                    } catch (Exception e){
-                    }
-                    return;
-                } else {
-                    this.console.log("");
-                    this.console.logWarning("Failed to comment! Returning to previous page now...");
-                    try{
-                        TimeUnit.SECONDS.sleep(2);
-                    } catch (Exception e){
-                    } //TODO can make into another controller
-                    return;
-                }
-            } else {
-                this.console.logWarning("No such user found!"); //TODO refine language
-                String choice = this.console.getStr("Try again?[y/n]");
-                if (!choice.equals("y")){
-                    return;
-                }
+                console.logWarning(e.getMessage());
+                console.logWarning("Failed to load the movie reviews!");
+                return;
             }
         }
     }

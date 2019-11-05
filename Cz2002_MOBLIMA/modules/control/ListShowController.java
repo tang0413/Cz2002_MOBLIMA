@@ -23,7 +23,7 @@ public class ListShowController extends BaseController {
     /**
      * The whole list of all cineplexes; loaded inside enter()
      */
-    private ArrayList<Show> showList = new ArrayList<>();
+    private ArrayList<Show> showList;
 
     /**
      * This is for admin use. No specific movie or cineplex required.
@@ -59,24 +59,27 @@ public class ListShowController extends BaseController {
         while(true){
             try{
                 showList = DataBase.readList(Show.class);
-            }catch (Exception e){
-            }
-            ArrayList<Show> selectedShowList = this.constructLogMenu(showList, isAdmin);
-            this.console.logText(logText);
-            this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to see show details", 1, selectedShowList.size()+1);
-            if(choice == selectedShowList.size()+1)
-                return;
-            else
-            {
-                if (!isAdmin) {
-                    ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1), this.movie, this.cineplex);
-                    showInfo.enter(false);
-                } else {
-                    ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1).getId());
-                    showInfo.enter(true);
-                }
+                ArrayList<Show> selectedShowList = this.constructLogMenu(showList, isAdmin);
+                this.console.logText(logText);
+                this.console.logMenu(logMenu);
+                int choice = this.console.getInt("Enter index to see show details", 1, selectedShowList.size()+1);
+                if(choice == selectedShowList.size()+1)
+                    return;
+                else
+                {
+                    if (!isAdmin) {
+                        ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1), this.movie, this.cineplex);
+                        showInfo.enter(false);
+                    } else {
+                        ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1).getId());
+                        showInfo.enter(true);
+                    }
 
+                }
+            }catch (Exception e){
+                console.logWarning(e.getMessage());
+                console.logWarning("Failed to load the shows!");
+                return;
             }
         }
     }

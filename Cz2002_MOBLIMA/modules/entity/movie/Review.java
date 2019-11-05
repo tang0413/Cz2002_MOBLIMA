@@ -72,6 +72,7 @@ public class Review extends BaseEntity {
                 }
             }
         } catch(Exception e){
+            System.out.println("Failed to load the user data!");
         }
         return "";
     }

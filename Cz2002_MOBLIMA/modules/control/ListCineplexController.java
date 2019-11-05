@@ -19,7 +19,7 @@ public class ListCineplexController extends BaseController{
     /**
      * The whole list of all cineplexes; loaded inside enter()
      */
-    private ArrayList<Cineplex> cineplexList = new ArrayList<>();
+    private ArrayList<Cineplex> cineplexList;
 
     /**
      * This is to instantiate a controller specially for displaying all cineplexes
@@ -41,18 +41,21 @@ public class ListCineplexController extends BaseController{
         while (true){
             try{
                 cineplexList = DataBase.readList(Cineplex.class);
+                this.contructLogMenu(cineplexList);
+                this.console.logText(logText);
+                this.console.logMenu(logMenu);
+                int choice = this.console.getInt("Enter index to proceed", 1, cineplexList.size()+1);
+                if(choice == cineplexList.size()+1)
+                    return;
+                else
+                {
+                    ListShowController showTime = new ListShowController(console,this.movie, cineplexList.get(choice-1));
+                    showTime.enter(false);
+                }
             }catch (Exception e){
-            }
-            this.contructLogMenu(cineplexList);
-            this.console.logText(logText);
-            this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to proceed", 1, cineplexList.size()+1);
-            if(choice == cineplexList.size()+1)
+                console.logWarning(e.getMessage());
+                console.logWarning("Failed to load Cineplexes!");
                 return;
-            else
-            {
-                ListShowController showTime = new ListShowController(console,this.movie, cineplexList.get(choice-1));
-                showTime.enter(false);
             }
         }
     }

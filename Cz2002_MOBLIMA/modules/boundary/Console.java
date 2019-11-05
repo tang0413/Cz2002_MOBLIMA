@@ -314,7 +314,7 @@ public class Console {
             if(movieStatusList.contains(userEnteredValue)){
                 if (userEnteredValue.equals("End Of Showing")){
                     logWarning("This will exclude this movie record from the list in the future. Continue?");
-                    if(getStr("Type 'y' to continue").equals("y")){
+                    if(getStr("Type 'YES' to continue").equals("YES")){
                         return userEnteredValue;
                     } else {
                         continue;

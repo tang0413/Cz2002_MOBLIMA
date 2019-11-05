@@ -103,6 +103,8 @@ public class ListShowInfoController extends BaseController {
                 }
             } catch (Exception e){
                 console.logWarning(e.getMessage());
+                console.logWarning("Failed to load the show information!");
+                return;
             }
         }
     }

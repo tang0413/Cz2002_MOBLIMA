@@ -38,18 +38,20 @@ public class LoginProcessController extends BaseController {
 			String password = this.console.getStr("Your password");
 			try {
 				adminList = DataBase.readList(Admin.class);
-			} catch (Exception e) {
-				System.out.println("exception");
-			}
-			if (validate(adminList, username, password)) {
+				if (validate(adminList, username, password)) {
 					StaffMenuController staffMenu = new StaffMenuController(this.console);
 					staffMenu.enter();
 					return; //for now
-			} else {
-				this.console.logWarning("Invalid Credential!");
-				if (!tryAgain()){
-					return;
-				};
+				} else {
+					this.console.logWarning("Invalid Credential!");
+					if (!tryAgain()){
+						return;
+					};
+				}
+			} catch (Exception e) {
+				console.logWarning(e.getMessage());
+				console.logWarning("Failed to load the admin list!");
+				return;
 			}
 		}
 	}

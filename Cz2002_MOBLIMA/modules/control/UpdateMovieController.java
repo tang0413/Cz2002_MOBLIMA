@@ -49,6 +49,7 @@ public class UpdateMovieController extends BaseController {
                 return;
             } catch (Exception e){
                 this.console.log(e.getMessage());
+                console.logWarning("Failed to update the movie!");
                 return;
             }
         }

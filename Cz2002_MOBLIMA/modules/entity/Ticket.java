@@ -32,10 +32,11 @@ public class Ticket extends BaseEntity {
 
     public int getId() { return id; }
 
+    @Deprecated
     public void setId(int id){
         this.id = id;
         try{
-            DataBase.setData(TICKETFILENAME,this);
+            DataBase.setData(this);
         }catch (Exception e){
         }
     }

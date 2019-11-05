@@ -69,6 +69,9 @@ public class ListMovieInfoController extends BaseController {
                         return;
                 }
             } catch (Exception e){
+                console.logWarning(e.getMessage());
+                console.logWarning("Failed to load the movie information!");
+                return;
             }
         }
     }
