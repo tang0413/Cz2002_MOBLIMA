@@ -1,11 +1,11 @@
-id=1|days=Sen|r=4|d=0
-id=2|days=Stu|r=7|d=9
-id=3|days=Mon|r=8.5|d=11
-id=4|days=Tue|r=8.5|d=11
-id=5|days=Wed|r=8.5|d=11
-id=6|days=Thu|r=9.5|d=11
-id=7|days=Fri|r=9.5|d=15
-id=8|days=Fri1|r=11|d=15
-id=9|days=Sat|r=11|d=15
-id=10|days=Sun|r=11|d=15
-id=11|days=PCLC|r=7|d=0
+id=1|name=senior citizen|days=Sen|regular=4|3d=0
+id=2|name=student|days=Stu|regular=7|3d=9
+id=3|name=monday|days=Mon|regular=8.5|3d=11
+id=4|name=tuesday|days=Tue|regular=8.5|3d=11
+id=5|name=wednesday|days=Wed|regular=8.5|3d=11
+id=6|name=thursday|days=Thu|regular=9.5|3d=11
+id=7|name=friday before 6|days=Fri|regular=9.5|3d=15
+id=8|name=friday after 6|days=Fri6|regular=11|3d=15
+id=9|name=saturday|days=Sat|regular=11|3d=15
+id=10|name=sunday|days=Sun|regular=11|3d=15
+id=11|name=prefercredit&loyaltycards|days=PCLC|regular=7|3d=0

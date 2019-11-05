@@ -59,3 +59,4 @@ public class TicketType extends BaseEntity {
         this.dPrice = dPrice;
     }
 }
+
