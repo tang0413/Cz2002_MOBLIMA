@@ -89,8 +89,9 @@ public class ListShowInfoController extends BaseController {
                         show.enter(choice, this.show.getId());
                         break;
                     case 6:
-                        console.logWarning("This will deleted this show information. Continue?");
-                        if(console.getStr("Type 'y' to continue").equals("y")){
+                        console.logWarning("This will completely deleted this show from the Database. You are not recommended to do so unless the show was just mis-entered. Continue?");
+                        console.logReminder("To disable users from booking, simply set a movie's status to 'End Of Showing' or 'Coming Soon' will do");
+                        if(console.getStr("Type 'YES' to continue").equals("YES")){
                             UpdateShowController deleteShow = new UpdateShowController(console);
                             deleteShow.enter(choice, this.show.getId());
                             return;

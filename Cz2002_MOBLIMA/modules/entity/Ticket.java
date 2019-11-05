@@ -10,9 +10,9 @@ public class Ticket extends BaseEntity {
     private int cineplexId;
     private int showId;
     private int priceId;
-    private String seats;
+    private String seats; //TODO not seats, but seat!!
     private int custId;
-    private String tId;
+    private String tId;// TODO use full name!
     public Ticket(ArrayList<String> paramaList)
     {
         super(Integer.parseInt(paramaList.get(0)));

@@ -42,6 +42,10 @@ public class UserMenuController extends BaseController {
                     ListMovieController ls = new ListMovieController(this.console, 0);
                     ls.enter(false);
                     break;
+                case 3:
+                    BookingHistoryController book = new BookingHistoryController(this.console);
+                    book.enter();
+                    break;
                 case 4:
                     MovieRankingController rank = new MovieRankingController(this.console);
                     rank.enter();
