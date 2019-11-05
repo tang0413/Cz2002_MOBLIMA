@@ -6,57 +6,57 @@ import modules.entity.BaseEntity;
 import java.util.ArrayList;
 
 public class TicketType extends BaseEntity {
-    //id=1|days=Sen|r=4|d=0
-    private String days;
-    private Double rPrice;
-    private Double dPrice;
+    //id=1|name=Senior Citizen|code=Sen|regular=4|3d=11
+    private String name;
+    private String code;
+    private Double regularPrice;
+    private Double threeDPrice;
 
     public TicketType(ArrayList<String> paramaList)
     {
         super(Integer.parseInt(paramaList.get(0)));
-        this.days=paramaList.get(2);
-        this.rPrice=(Double.parseDouble(paramaList.get(2)));
-        this.dPrice=(Double.parseDouble(paramaList.get(2)));
+        this.name=paramaList.get(1);
+        this.code=paramaList.get(2);
+        this.regularPrice=(Double.parseDouble(paramaList.get(3)));
+        this.threeDPrice=(Double.parseDouble(paramaList.get(4)));
     }
 
     @Override
     public String StringlizeEntity() {
-        return "id=" + this.id + "|days=" + this.dPrice + "|r=" + this.rPrice+ "|d=" + this.dPrice;
+        return "id=" + this.id + "|name=" + this.name + "|code=" + this.code+ "|regular=" + this.regularPrice + "|3d=" + this.threeDPrice;
     }
 
     public int getId() { return id; }
 
-    @Deprecated //TODO remove
-    public void setId(int id){
-        this.id = id;
-        try{
-            DataBase.setData(this);
-        }catch (Exception e){
-        }
-    }
-
+    @Deprecated
     public String getDays() {
-        return days;
+        return code;
     }
 
-    public void setDays(String days) {
-        this.days = days;
-    }
-
+    @Deprecated
     public Double getrPrice() {
-        return rPrice;
+        return regularPrice;
     }
 
-    public void setrPrice(Double rPrice) {
-        this.rPrice = rPrice;
-    }
-
+    @Deprecated
     public Double getdPrice() {
-        return dPrice;
+        return threeDPrice;
     }
 
-    public void setdPrice(Double dPrice) {
-        this.dPrice = dPrice;
+    public String getName() {
+        return name;
+    }
+
+    public Double getRegularPrice() {
+        return regularPrice;
+    }
+
+    public Double getThreeDPrice() {
+        return threeDPrice;
+    }
+
+    public String getCode() {
+        return code;
     }
 }
 
