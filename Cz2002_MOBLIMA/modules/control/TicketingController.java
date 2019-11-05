@@ -59,7 +59,7 @@ public class TicketingController extends BaseController {
         }
     }
 
-    public String[] checkUserBooked(ArrayList<Ticket> ticketList)
+    private String[] checkUserBooked()
     {
         int sc = 0;
         String[] data = new String[100];
@@ -87,7 +87,7 @@ public class TicketingController extends BaseController {
         String tId="";
         int ticketType;
         int checkAge = 0;
-        String[] data = checkUserBooked(ticketList);
+        String[] data = checkUserBooked();
         int checkUser;
         try {
             for (String seat: indicatedSeats){
@@ -172,7 +172,7 @@ public class TicketingController extends BaseController {
         }
     }
 
-    public int checkExistsUser(String Email)
+    private int checkExistsUser(String Email)
     {
         int userId = 0;
         for(MovieGoner mg : this.movieGonersList)
