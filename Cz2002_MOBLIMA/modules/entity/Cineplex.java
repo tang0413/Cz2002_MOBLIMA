@@ -31,4 +31,8 @@ public class Cineplex extends BaseEntity{
         return cinemaList;
     }
 
+    public void addCinema(String newCinemaName){
+        this.cinemaList.add(newCinemaName);
+    }
+
 }

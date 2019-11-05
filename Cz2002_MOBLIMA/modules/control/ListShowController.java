@@ -61,6 +61,11 @@ public class ListShowController extends BaseController {
                 showList = DataBase.readList(Show.class);
                 ArrayList<Show> selectedShowList = this.constructLogMenu(showList, isAdmin);
                 this.console.logText(logText);
+                if (selectedShowList.size()==0){
+                    this.console.log("");
+                    this.console.log("No shows are available!");
+                    this.console.log("");
+                }
                 this.console.logMenu(logMenu);
                 int choice = this.console.getInt("Enter index to see show details", 1, selectedShowList.size()+1);
                 if(choice == selectedShowList.size()+1)

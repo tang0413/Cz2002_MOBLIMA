@@ -45,6 +45,18 @@ public class Admin extends BaseEntity{
         }
     }
 
+    public boolean checkPassword(String password){
+        if(password.equals(this.password)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
+    }
+
     /**
      * This is used in DataBase when setData/deleteData is called
      * @return the Stringlized Admin properties to store back to txt file. e.g. id=2|username=admin|password=password

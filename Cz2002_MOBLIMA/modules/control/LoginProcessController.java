@@ -38,10 +38,11 @@ public class LoginProcessController extends BaseController {
 			String password = this.console.getStr("Your password");
 			try {
 				adminList = DataBase.readList(Admin.class);
-				if (validate(adminList, username, password)) {
-					StaffMenuController staffMenu = new StaffMenuController(this.console);
+				Admin thisAdmin = validate(username, password);
+				if (thisAdmin != null){
+					StaffMenuController staffMenu = new StaffMenuController(this.console, thisAdmin);
 					staffMenu.enter();
-					return; //for now
+					return;
 				} else {
 					this.console.logWarning("Invalid Credential!");
 					if (!tryAgain()){
@@ -58,18 +59,17 @@ public class LoginProcessController extends BaseController {
 
 	/**
 	 * This is to check if the user input username and password fit any of the admins
-	 * @param adminList
 	 * @param username
 	 * @param password
 	 * @return
 	 */
-	private Boolean validate(ArrayList<Admin> adminList, String username, String password) {
+	private Admin validate(String username, String password) {
 		for (Admin a : adminList) {
 			if (a.auth(username, password)) {
-				return true;
+				return a;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	/**

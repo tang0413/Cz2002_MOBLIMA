@@ -366,6 +366,32 @@ public class Console {
     }
 
     /**
+     * This is to get a valid String consisting of cinema names, with comma separated in between
+     * @return a valid String consisting of cinema names, with comma separated in between
+     */
+    public String getCinemaNames(){
+        this.log(">> " + "Please enter the cinema names e.g. 'a1,b1'" + ": ");
+        while (true){
+            String userInput = sc.nextLine();
+            String splittedNames[] = userInput.split(",");
+            ArrayList<String> chosenSeats = new ArrayList<>( Arrays.asList(splittedNames));
+            Boolean valid = true;
+            for (String s: chosenSeats){
+                if (s.matches("[a-c][1-9]")){
+                    continue;
+                } else {
+                    valid = false;
+                }
+            }
+            if (valid){
+                return userInput;
+            } else {
+                this.logWarning("Invalid input! Please try again.");
+            }
+        }
+    }
+
+    /**
      * This is used to get a valid email from the user
      * @return A valid user input email address as string
      */

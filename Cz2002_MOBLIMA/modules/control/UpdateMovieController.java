@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a manipulation on Movie object. e.g. Update or create Movies
  */
-public class UpdateMovieController extends BaseController {
+public class UpdateMovieController extends BaseController {//TODO see if any way to prevent non-admin access
     /**
      * This is to instantiate a controller with Movie manipulation ability
      * @param inheritedConsole the Console instance passed down from the previous controller

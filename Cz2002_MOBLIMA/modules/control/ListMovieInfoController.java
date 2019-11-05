@@ -47,7 +47,7 @@ public class ListMovieInfoController extends BaseController {
                         if (!isAdmin){
                             if (chosenMovie.getStatus().equals("Preview") || chosenMovie.getStatus().equals("Now Showing")){
                                 ListCineplexController available = new ListCineplexController(console, chosenMovie);
-                                available.enter();
+                                available.enter(false);
                             } else {
                                 console.logReminder("Coming soon~ Booking not available for now!");
                                 TimeUnit.SECONDS.sleep(2);
