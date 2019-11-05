@@ -29,7 +29,7 @@ public class Console {
     /**
      * Change output message to Cyan
      */
-    public  final String ANSI_CYAN = "\u001B[36m";
+    private final String ANSI_CYAN = "\u001B[36m";
     /**
      * Reset the color of output message
      */
