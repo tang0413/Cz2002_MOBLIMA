@@ -74,7 +74,7 @@ public class ListShowInfoController extends BaseController {
                 switch (choice){
                     case 1:
                         if(!isAdmin){
-                            TicketController ticket = new TicketController(console, this.movie, this.cineplex, this.show);
+                            TicketingController ticket = new TicketingController(console, this.movie, this.cineplex, this.show);
                             ticket.enter();
                             break;
                         }
@@ -132,7 +132,7 @@ public class ListShowInfoController extends BaseController {
             logMenu.add("Show Time: " + showtime.getTime() + " " + showtime.getDate());
             this.console.logMenu(logMenu, true);
             logMenu = new ArrayList<>();
-            logMenu.add("Proceed to choose seats");
+            logMenu.add("Check Available Seats");
             logMenu.add("Back");
             this.console.logMenu(logMenu);
         }

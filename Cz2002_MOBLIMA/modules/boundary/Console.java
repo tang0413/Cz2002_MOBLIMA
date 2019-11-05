@@ -3,6 +3,8 @@ package modules.boundary;
 import modules.data.DataBase;
 import modules.entity.BaseEntity;
 import modules.entity.Cineplex;
+import modules.entity.Show;
+import modules.entity.Ticket;
 import modules.entity.movie.Movie;
 
 import java.text.ParseException;
@@ -133,6 +135,105 @@ public class Console {
             }
         }
         System.out.println(" ");
+    }
+
+    public void logSeatPlan(ArrayList<Ticket> ticketList, Show show){
+        int i,j, sc=0,c=0, increment;
+        char ch;
+        String[] data = new String[100];
+        for(Ticket t : ticketList) {
+            if (t.getShowId() == show.getId() && t.getCineplexId() == show.getCineplexId() && t.getMovieId() == show.getMovieId()) {
+                data[sc] = t.getSeats();
+                sc++;
+            }
+        }
+        sc = 0;
+        int size = 20; //default
+        char temp = show.getCinemaname().charAt(0);
+        switch (temp){
+            case 'a':
+                size =  16;
+            case 'b':
+                size = 18;
+        }
+        int ROWS = size/2;
+        int SEATS = size/2;
+        increment =0;
+        while(increment!=(SEATS*3))
+        {
+            System.out.print("=");
+            increment++;
+        }
+        System.out.print("\n");
+        System.out.print("||");
+
+        increment =0;
+        while(increment!=(SEATS))
+        {
+            System.out.print(" ");
+            increment++;
+        }
+        System.out.print("SCREEN");
+        increment=1;
+        while(increment!=(SEATS))
+        {
+            System.out.print(" ");
+            increment++;
+        }
+        System.out.print("||");
+        System.out.print("\n||    ");
+        increment =0;
+        while(increment!=SEATS)
+        {
+            System.out.print((increment+1) + " ");
+            increment++;
+        }
+        System.out.print(" ||");
+        System.out.println("");
+        int showseats[][] = new int [ROWS][SEATS];
+        for(i=1; i <= ROWS; i++) {
+            System.out.print("|| " + (char) (i + 64) + " |");
+            for (j = 1; j <= SEATS; j++) {
+                while (data[sc] != null) {
+                    int pos = data[sc].charAt(0) - 64;
+                    if (i == pos && j == (Integer.parseInt(data[sc].substring(1)))) {
+                        System.out.print("X|");
+                        c = 1;
+                    }
+                    sc++;
+                }
+                if (c == 0)
+                    System.out.print("_|");
+                c = 0;
+                sc = 0;
+            }
+            System.out.print(" || \n");
+        }
+
+        System.out.print("||");
+
+        increment =0;
+        while(increment!=(SEATS))
+        {
+            System.out.print(" ");
+            increment++;
+        }
+        System.out.print("ENTRANCE");
+        increment=3;
+        while(increment!=(SEATS))
+        {
+            System.out.print(" ");
+            increment++;
+        }
+        System.out.print("||");
+        System.out.print("\n");
+        increment =0;
+        while(increment!=(SEATS*3))
+        {
+            System.out.print("=");
+            increment++;
+        }
+        System.out.print("\n");
     }
 
     /**
@@ -308,6 +409,28 @@ public class Console {
                 DATEFORMAT.parse(userInput);
                 return userInput;
             } catch (ParseException e){
+                this.logWarning("Invalid input! Please try again.");
+            }
+        }
+    }
+
+    public ArrayList<String> getSeat() {
+        this.log(">> " + "Please Enter Your Seat(s) Choice e.g. 'E03,E04'" + ": ");
+        while (true){
+            String userInput = sc.nextLine();
+            String splittedSeats[] = userInput.split(",");
+            ArrayList<String> chosenSeats = new ArrayList<>( Arrays.asList(splittedSeats));
+            Boolean valid = true;
+            for (String s: chosenSeats){
+                if (s.matches("[A-Z][0-1][0-9]")){
+                    continue;
+                } else {
+                    valid = false;
+                }
+            }
+            if (valid){
+                return chosenSeats;
+            } else {
                 this.logWarning("Invalid input! Please try again.");
             }
         }

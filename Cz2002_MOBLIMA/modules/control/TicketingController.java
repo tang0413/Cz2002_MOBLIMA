@@ -7,11 +7,12 @@ import modules.entity.movie.Movie;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
 
-public class TicketController extends BaseController {
+public class TicketingController extends BaseController {
     private Movie movie;
     private Cineplex cineplex;
     private Show show;
@@ -23,35 +24,33 @@ public class TicketController extends BaseController {
     private ArrayList<TicketType> ticketTypesList = new ArrayList<>();
     private ArrayList<MovieGoner> movieGonersList = new ArrayList<>();
 
-    public TicketController(Console inheritedConsole, Movie mv, Cineplex ci, Show sh)
+    public TicketingController(Console inheritedConsole, Movie mv, Cineplex ci, Show sh)
     {
         super(inheritedConsole);
         this.movie = mv;
         this.cineplex = ci;
         this.show = sh;
-        logText = "Please choose your seats";
+        logText = "Here is the seat availability condition of the show";
     }
 
     @Override
     public void enter() {
         while(true){
             try{
+                ticketTypesList = DataBase.readList(TicketType.class);
                 ticketList = DataBase.readList(Ticket.class);
+                movieGonersList = DataBase.readList(MovieGoner.class);
             }catch (Exception e){
                 this.console.logWarning(e.getMessage());
             }
-
-            this.seatPlan(ticketList);
-            contructMenu();
+            this.console.logText(logText);
+            this.console.logSeatPlan(ticketList, this.show);
+            contructLogMenu();
             int choice = this.console.getInt("Enter index to proceed", 1, 3);
             if(choice == 1)
             {
-                //ask user to choose seats
-                //check if seats is taken
-                String noTicket = this.console.getStr("How many ticket do you want to book?");
-                bookMovie(noTicket);
-                ListMovieController movie =  new ListMovieController(console,option);
-                movie.enter();
+                ArrayList<String> chosenSeats = this.console.getSeat();
+                bookMovie(chosenSeats);
             }
             else
             {
@@ -60,112 +59,12 @@ public class TicketController extends BaseController {
         }
     }
 
-    public void seatPlan(ArrayList<Ticket> ticketList)
-    {
-        int i,j, sc=0,c=0, increment;
-        char ch;
-
-        String[] data = checkUserBooked(ticketList);
-
-        int size = checkCinema();
-        ROWS = size/2;
-        SEATS = size/2;
-        increment =0;
-        while(increment!=(SEATS*3))
-        {
-            System.out.print("=");
-            increment++;
-        }
-        System.out.print("\n");
-        System.out.print("||");
-
-        increment =0;
-        while(increment!=(SEATS))
-        {
-            System.out.print(" ");
-            increment++;
-        }
-        System.out.print("SCREEN");
-        increment=1;
-        while(increment!=(SEATS))
-        {
-            System.out.print(" ");
-            increment++;
-        }
-        System.out.print("||");
-        System.out.print("\n||    ");
-        increment =0;
-        while(increment!=SEATS)
-        {
-            System.out.print((increment+1) + " ");
-            increment++;
-        }
-        System.out.print(" ||");
-        System.out.println("");
-        int showseats[][] = new int [ROWS][SEATS];
-        for(i=1; i <= ROWS; i++) {
-                System.out.print("|| " + (char) (i + 64) + " |");
-            for (j = 1; j <= SEATS; j++) {
-                while (data[sc] != null) {
-                    int pos = data[sc].charAt(0) - 64;
-                    if (i == pos && j == (Integer.parseInt(data[sc].substring(1)))) {
-                        System.out.print("X|");
-                        c = 1;
-                    }
-                    sc++;
-                }
-                if (c == 0)
-                    System.out.print("_|");
-                c = 0;
-                sc = 0;
-            }
-            System.out.print(" || \n");
-        }
-
-        System.out.print("||");
-
-        increment =0;
-        while(increment!=(SEATS))
-        {
-            System.out.print(" ");
-            increment++;
-        }
-        System.out.print("ENTRANCE");
-        increment=3;
-        while(increment!=(SEATS))
-        {
-            System.out.print(" ");
-            increment++;
-        }
-        System.out.print("||");
-        System.out.print("\n");
-        increment =0;
-        while(increment!=(SEATS*3))
-        {
-            System.out.print("=");
-            increment++;
-        }
-        System.out.print("\n");
-    }
-
-
-    public int checkCinema()
-    {
-        String temp = String.valueOf(this.show.getCinemaname().charAt(0));
-        if(temp.equals("a"))
-            return 16;
-        else if(temp.equals("b"))
-            return 18;
-        else
-            return 20;
-    }
-
     public String[] checkUserBooked(ArrayList<Ticket> ticketList)
     {
         int sc = 0;
         String[] data = new String[100];
         for(Ticket t : ticketList) {
-            if (t.getShowId() == this.show.getId() && t.getCineplexId() == this.cineplex.getId() && t.getMovieId() == this.movie.getId()) {
+            if (t.getShowId() == this.show.getId() && t.getCineplexId() == this.show.getCineplexId() && t.getMovieId() == this.show.getMovieId()) {
                 data[sc] = t.getSeats();
                 sc++;
             }
@@ -173,7 +72,7 @@ public class TicketController extends BaseController {
         return data;
     }
 
-    private void bookMovie(String ticket)
+    private void bookMovie(ArrayList<String> indicatedSeats)
     {
         //id=1|movieId=1|cineplexId=1|showId=1|tickettype=1|seats=F07
         int i=0,scc=0,check=0,s=0;
@@ -184,17 +83,15 @@ public class TicketController extends BaseController {
         String tempchosenSeats="";
         String name="";
         String phoneNumber="";
-        String nric="";
         Double ticketPrice;
         String tId="";
         int ticketType;
         int checkAge = 0;
-        int noTicket = Integer.parseInt(ticket);
         String[] data = checkUserBooked(ticketList);
         int checkUser;
         try {
-            while (noTicket != 0) {
-                tempchosenSeats = this.console.getStr("Enter Your Seats Code");
+            for (String seat: indicatedSeats){
+                tempchosenSeats = seat;
                 while (data[i] != null) {
                     if (tempchosenSeats.equals(data[i]))
                         check = 1;
@@ -204,7 +101,6 @@ public class TicketController extends BaseController {
                     sc[scc] = tempchosenSeats;
                     scc++;
                 }
-                noTicket--;
             }
         }catch (Exception e)
         {
@@ -217,83 +113,86 @@ public class TicketController extends BaseController {
         {
             console.logWarning(e.getMessage());
         }
-        email = this.console.getStr("Enter Your Email:");
-        checkUser = checkExistsUser(movieGonersList,email);
+        email = this.console.getEmail();
+        checkUser = checkExistsUser(email);
         if(checkUser == 0)
         {
-            name = this.console.getStr("Enter Your Name:");
-            phoneNumber = this.console.getStr("Enter Your Phone Number:");
+            name = this.console.getStr("Enter Your Name");
+            phoneNumber = this.console.getStr("Enter Your Phone Number");
+            this.console.logReminder("Welcome! "+ name);
+            this.console.log("");
         }
-
-
         contructAgeMenu();
         checkAge = this.console.getInt("Choose your age category:", 1,3);
 
-        ticketPrice = checkPrice(days,ticketTypesList,checkAge);
-        ticketType = checkTicketType(days,ticketTypesList,checkAge);
+        ticketPrice = checkPrice(days, checkAge);
+        ticketType = checkTicketType(days, checkAge);
 
         tId = generateTID();
 
         //add new user
-        ArrayList<String> newUserParm = new ArrayList<>();
-        int newUserId = DataBase.getNewId(MovieGoner.class);
-        newUserParm.add(name);
-        newUserParm.add(phoneNumber);
-        newUserParm.add(email);
-        try
-        {
-            MovieGoner newUser = new MovieGoner(newUserParm);
-            DataBase.setData(newUser);
-            console.logSuccess();;
-        }catch (Exception e){
-            this.console.log(e.getMessage());
+        if (checkUser == 0){
+            ArrayList<String> newUserParam = new ArrayList<>();
+            int newUserId = DataBase.getNewId(MovieGoner.class);
+            newUserParam.add(Integer.toString(newUserId));
+            newUserParam.add(name);
+            newUserParam.add(phoneNumber);
+            newUserParam.add(email);
+            try
+            {
+                MovieGoner newUser = new MovieGoner(newUserParam);
+                DataBase.setData(newUser);
+                checkUser = newUserId;
+            }catch (Exception e){
+                this.console.log(e.getMessage());
+                this.console.logWarning("Failed to store user information!");
+            }
         }
 
-        ArrayList<String> newTicketParm = new ArrayList<>();
+        //TODO put a while loop here
+        ArrayList<String> newTicketParam = new ArrayList<>();
         int newTicketId = DataBase.getNewId(Ticket.class);
-        newTicketParm.add(Integer.toString(this.movie.getId()));
-        newTicketParm.add(Integer.toString(this.cineplex.getId()));
-        newTicketParm.add(Integer.toString(this.show.getId()));
-        newTicketParm.add(Integer.toString(ticketType));
-        newTicketParm.add(sc[s]);
-        if(checkUser != 0) {
-            newTicketParm.add(Integer.toString(newUserId));
-        }
-        else
-        {
-            newTicketParm.add(Integer.toString(checkUser));
-        }
-        newTicketParm.add(tId);
+        newTicketParam.add(Integer.toString(newTicketId));
+        newTicketParam.add(Integer.toString(this.show.getMovieId()));
+        newTicketParam.add(Integer.toString(this.show.getCineplexId()));
+        newTicketParam.add(Integer.toString(this.show.getId()));
+        newTicketParam.add(Integer.toString(ticketType));
+        newTicketParam.add(sc[s]);
+        newTicketParam.add(Integer.toString(checkUser));
+        newTicketParam.add(tId);
 
         try
         {
-            Ticket newTicket = new Ticket(newTicketParm);
+            Ticket newTicket = new Ticket(newTicketParam);
             DataBase.setData(newTicket);
             console.logSuccess();;
         }catch (Exception e){
             this.console.log(e.getMessage());
+            this.console.logWarning("Failed to store ticket information!");
         }
     }
 
-    public int checkExistsUser(ArrayList<MovieGoner> movieGonersList, String Email)
+    public int checkExistsUser(String Email)
     {
         int userId = 0;
-        for(MovieGoner mg : movieGonersList)
+        for(MovieGoner mg : this.movieGonersList)
         {
             if(mg.getEmail().equals(Email)) {
-                System.out.print("Welcome " + mg.getName());
+                this.console.logReminder("Welcome Back! " + mg.getName());
+                this.console.log("");
                 userId = mg.getId();
+                break;
             }
         }
         return userId;
     }
 
-    private Double checkPrice(String date, ArrayList<TicketType> ticketTypesList, int cat)
+    private Double checkPrice(String date, int cat)
     {
         int tempCat = cat;
         String tempDate = date;
         Double confirmPrice = 0.0;
-        DecimalFormat df = new DecimalFormat("#.##");
+        DecimalFormat df = new DecimalFormat("#.##"); //TODO repeat code!!
         int time = Integer.parseInt(show.getTime().substring(0,2));
         if(time<12 && tempCat==1 && ((!tempDate.equals("Sat")||(!tempDate.equals("Sun")))))
                 tempDate = "Sen";
@@ -316,7 +215,7 @@ public class TicketController extends BaseController {
         return Double.valueOf(df.format(confirmPrice * 1.07));
     }
 
-    private int checkTicketType(String date, ArrayList<TicketType> ticketTypesList, int cat)
+    private int checkTicketType(String date, int cat)
     {
         int tempCat = cat;
         int ticketTypeId = 0;
@@ -346,7 +245,7 @@ public class TicketController extends BaseController {
         return stringDate;
     }
 
-    private void contructMenu()
+    private void contructLogMenu()
     {
         logMenu = new ArrayList<>();
         logMenu.add("Proceed to choose seats");

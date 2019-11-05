@@ -27,7 +27,7 @@ public class Ticket extends BaseEntity {
 
     @Override
     public String StringlizeEntity() {
-        return "id=" + this.id + "|movieId=" + this.movieId + "|cineplexId=" + this.cineplexId + "|showId=" + this.showId + "|priceId=" + this.priceId + "|seats=" + this.seats + "|customerId=" + this.custId + "|tid=" + this.tId;
+        return "id=" + this.id + "|movieId=" + this.movieId + "|cineplexId=" + this.cineplexId + "|showId=" + this.showId + "|tickettype=" + this.priceId + "|seats=" + this.seats + "|customerId=" + this.custId + "|tid=" + this.tId;
     }
 
     public int getId() { return id; }
