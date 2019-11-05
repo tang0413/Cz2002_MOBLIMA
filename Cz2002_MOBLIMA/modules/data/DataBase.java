@@ -39,7 +39,8 @@ public class DataBase {
         fileList.put(Show.class, "ShowList.txt");
         fileList.put(Admin.class, "AdminList.txt");
         fileList.put(Ticket.class, "TicketList.txt");
-        fileList.put(TicketType.class, "TicketType.txt");
+        fileList.put(TicketType.class, "TicketTypeList.txt");
+        fileList.put(Holiday.class, "HolidayList.txt");
     }
     /**
      * A separator used to tokenize the records read from txt file
