@@ -209,7 +209,7 @@ public class TicketingController extends BaseController {
                 newTicketParam.add(Integer.toString(this.show.getMovieId()));
                 newTicketParam.add(Integer.toString(this.show.getCineplexId()));
                 newTicketParam.add(Integer.toString(this.show.getId()));
-                newTicketParam.add(Integer.toString(ticketType.intValue()));
+                newTicketParam.add(Integer.toString(type[s]));
                 newTicketParam.add(sc[s]);
                 newTicketParam.add(Integer.toString(checkUser));
                 newTicketParam.add(tId);
@@ -302,35 +302,6 @@ public class TicketingController extends BaseController {
             return Double.valueOf(getId);
         else
             return Double.valueOf(df.format(confirmPrice * 1.07));
-    }
-
-    private int checkTicketType(String date, int cat)//check logic
-    {
-
-        int tempCat = cat;
-        int ticketTypeId = 0;
-        String tempDate = date;
-        try{
-            ticketTypesList = DataBase.readList(TicketType.class);
-            int time = Integer.parseInt(show.getTime().substring(0,2));
-            if(time<12 && tempCat==1 && ((!tempDate.equals("Sat")||(!tempDate.equals("Sun")))))
-                tempDate = "Sen";
-            if(time<12 && tempCat==2 && ((!tempDate.equals("Sat")||(!tempDate.equals("Sun")))))
-                tempDate = "Stu";
-            for(TicketType tt : ticketTypesList)
-            {
-                if(tempDate.equals(tt.getDays()))
-                {
-                    ticketTypeId = tt.getId();
-                }
-            }
-        }catch (Exception e)
-        {
-            console.logWarning(e.getMessage());
-            console.logWarning("Failed to check ticket type!");
-
-        }
-        return ticketTypeId;
     }
 
     private String checkDays(String date) throws Exception
