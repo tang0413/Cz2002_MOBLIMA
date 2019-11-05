@@ -83,6 +83,10 @@ public class BookingHistoryController extends BaseController {
                     Map.Entry mapElement = (Map.Entry)hmIterator.next();
                     logMenu.add(mapElement.getValue().toString());
                 }
+                if (logMenu.size() == 0){
+                    logMenu.add("");
+                    logMenu.add("Oops, you don't have any booking records for now. Go make your first booking!");
+                }
                 console.logMenu(logMenu, true);
                 logMenu = new ArrayList<>();
                 logMenu.add("Back");
