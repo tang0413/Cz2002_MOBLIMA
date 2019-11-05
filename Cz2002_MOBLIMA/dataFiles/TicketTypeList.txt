@@ -4,8 +4,8 @@ id=3|name=Monday|code=Mon|regular=8.5|3d=11
 id=4|name=Tuesday|code=Tue|regular=8.5|3d=11
 id=5|name=Wednesday|code=Wed|regular=8.5|3d=11
 id=6|name=Thursday|code=Thu|regular=9.5|3d=11
-id=7|name=Friday Before 6pm|code=Fri|regular=9.5|3d=15
-id=8|name=Friday After 6pm|code=Fri6|regular=11|3d=15
+id=7|name=Friday Before 6pm|code=Fri6|regular=9.5|3d=15
+id=8|name=Friday After 6pm|code=Fri|regular=11|3d=15
 id=9|name=Saturday|code=Sat|regular=11|3d=15
 id=10|name=Sunday|code=Sun|regular=11|3d=15
 id=10|name=Public Holiday|code=Pub|regular=11|3d=15

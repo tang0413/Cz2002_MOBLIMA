@@ -3,3 +3,4 @@ id=2|name=Customer2|phone=19003218|email=test2@test.com
 id=3|name=Customer3|phone=93214821|email=test3@test.com
 id=4|name=Zhang|phone=91928384|email=test4@test.com
 id=5|name=Tang|phone=90112392|email=test5@test.com
+id=6|name=wei|phone=999|email=wei@wei.com
