@@ -14,18 +14,55 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Represents a type of controller that is able to list out detailed show information for movie and allow user to book ticket.
+ */
+
+
 public class TicketingController extends BaseController {
+    /**
+     * The specific movie that user chose before. not applicable for staff
+     */
     private Movie movie;
+    /**
+     * The specific cineplex that user chose before. not applicable for staff
+     */
     private Cineplex cineplex;
+    /**
+     * The specific show that user chose before. not applicable for staff
+     */
     private Show show;
+    /**
+     * The specific ArrayList for MovieGoner to store user data
+     */
     private ArrayList<MovieGoner> movieGonersList;
+    /**
+     * The specific ArrayList for Ticket Type to store Type of Ticket data
+     */
     private ArrayList<TicketType> ticketTypesList;
+    /**
+     * The specific ArrayList for Holiday Type to store Holiday date's data
+     */
     private ArrayList<Holiday> holidayList;
+    /**
+     * The specific ArrayList for Ticket to store all transaction data
+     */
+    private ArrayList<Ticket> ticketList = new ArrayList<>();
+    /**
+     * The specific int for Rows and Seats to display seat layout
+     */
     private int ROWS;
     private int SEATS;
-    private int option;
-    private ArrayList<Ticket> ticketList = new ArrayList<>();
 
+
+    /**
+     * This is for common user use. specific movie, cineplex and show record required
+     * To instantiate a controller specially for displaying detailed show information for users to check before booking
+     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param sh the show chosen by the user
+     * @param mv the movie chosen by the user
+     * @param ci the cineplex chosen by the user
+     */
     public TicketingController(Console inheritedConsole, Movie mv, Cineplex ci, Show sh)
     {
         super(inheritedConsole);
@@ -35,6 +72,10 @@ public class TicketingController extends BaseController {
         logText = "Here is the seat availability condition of the show";
     }
 
+    /**
+     * This is to enter a series of actions to display the detailed show information for common user, or to list out attributes of a show record for user to book movie ticket
+     * After the common user confirm their choice, they will be allow them to eat seat number.
+     */
     @Override
     public void enter() {
         while(true){
@@ -62,6 +103,11 @@ public class TicketingController extends BaseController {
         }
     }
 
+    /**
+     * This function is to save all data the seats that have been booked
+     * @param ticketList list of seats that been booked, pass into check
+     * @return return all seats number that has booked
+     */
     public String[] checkUserBooked(ArrayList<Ticket> ticketList)
     {
         int sc = 0;
@@ -75,23 +121,21 @@ public class TicketingController extends BaseController {
         return data;
     }
 
+    /**
+     * The function to allow user enter the detail and choose detail before finalise and book ticket which been chosen
+     * @param indicatedSeats seats that user selected is store and pass into
+     */
     private void bookMovie(ArrayList<String> indicatedSeats) {
         //id=1|movieId=1|cineplexId=1|showId=1|tickettype=1|seats=F07
-        int i = 0, scc = 0, check = 0, s = 0, checkAge = 0, confirmBuy = 0,count = indicatedSeats.size(), ticketcounter = 1, h=0, count2 = indicatedSeats.size(), count3 = 0,count4=0;
+        int i = 0, scc = 0, check = 0, s = 0, checkAge = 0, confirmBuy = 0,count = indicatedSeats.size(), h=0, noTicketPurchase=0;
         String[] sc = new String[100];
         Double[] confirmPrice = new Double[100];
-        String email = "";
-        String code = "";
-//        String chosenSeats = "";
-//        String tempchosenSeats = "";
-        String name = "";
-        String phoneNumber = "";
+        String email = "",code = "",name = "",phoneNumber = "",tId="";
         Double ticketPrice=0.00,totalPrice=0.00;
 
         ArrayList<TicketType> thisTicketTypes = new ArrayList<>();
         TicketType thisTicketType;
 
-        String tId = "";
         String[] data = checkUserBooked(ticketList);
         int checkUser;
         try {
@@ -137,21 +181,20 @@ public class TicketingController extends BaseController {
         while(count!=0) //determine which ticket types (can check even if have multiple type of ticket)
         {
             contructAgeMenu();
-            checkAge = this.console.getInt("Choose your age category for ticket:" + ticketcounter , 1, 3);
+            checkAge = this.console.getInt("Choose your age category for ticket:" + h+1 , 1, 3);
             try {
                 thisTicketType = checkTicketType(code, checkAge);
                 thisTicketTypes.add(thisTicketType);
                 ticketPrice = checkPrice(thisTicketType);
                 confirmPrice[h]=ticketPrice;
-                ticketcounter++;
                 count--;
                 h++;
             } catch (Exception e){
                 e.printStackTrace();
                 return;
             }
-
         }
+        count = indicatedSeats.size();
 
         if(checkUser!=0)
         {
@@ -178,15 +221,14 @@ public class TicketingController extends BaseController {
         this.console.log("Cinema Type: " + cinemaType);
         this.console.log("Show Time: " + show.getTime() + " " + show.getDate());
 
-        while(count3!=indicatedSeats.size())
+        while(noTicketPurchase!=indicatedSeats.size())
         {
             this.console.log("");
-            this.console.log("Seats: " + sc[count4]);
-            this.console.log("Ticket Type: " + thisTicketTypes.get(count4).getName());
-            this.console.log("Prices: S$" + confirmPrice[count4]);
-            totalPrice+=confirmPrice[count4];
-            count4++;
-            count3++;
+            this.console.log("Seats: " + sc[noTicketPurchase]);
+            this.console.log("Ticket Type: " + thisTicketTypes.get(noTicketPurchase).getName());
+            this.console.log("Prices: S$" + confirmPrice[noTicketPurchase]);
+            totalPrice+=confirmPrice[noTicketPurchase];
+            noTicketPurchase++;
         }
         this.console.log("");
         this.console.logReminder("Total Prices: S$" + totalPrice);
@@ -215,8 +257,7 @@ public class TicketingController extends BaseController {
                     this.console.logWarning("Failed to store user information!");
                 }
             }
-            while (count2 != 0) {
-                //TODO put a while loop here
+            while (count != 0) {
                 ArrayList<String> newTicketParam = new ArrayList<>();
                 int newTicketId = DataBase.getNewId(Ticket.class);
                 newTicketParam.add(Integer.toString(newTicketId));
@@ -236,9 +277,11 @@ public class TicketingController extends BaseController {
                     this.console.logWarning("Failed to store ticket information!");
                     return;
                 }
-                count2--;
+                count--;
                 s++;
             }
+
+            count=indicatedSeats.size();
 
             try {
                 console.logSuccess();
@@ -253,6 +296,11 @@ public class TicketingController extends BaseController {
         }
     }
 
+    /**
+     * check the price of the ticket depend of movies
+     * @param thisTicketType detail been pass into to check ticket type and allocated prices
+     * @return price of ticket
+     */
     private Double checkPrice(TicketType thisTicketType) {
         double priceWithoutAddon;
         if (movie.getType().equals("3D")) {
@@ -268,6 +316,11 @@ public class TicketingController extends BaseController {
         return priceWithoutAddon;
     }
 
+    /**
+     * function to check if user is exist
+     * @param Email uniqu key and pass into check if existed user
+     * @return false will be pass back to allow create user if not will welcome user back
+     */
     public int checkExistsUser(String Email)
     {
         int userId = 0;
@@ -291,6 +344,13 @@ public class TicketingController extends BaseController {
         return userId;
     }
 
+    /**
+     * A function checkTicketType for future calculation purpose
+     * @param date pass the days to determine the check with database
+     * @param cat to know if there is chance is student or senior citizen
+     * @return to pass back the type of ticket
+     * @throws Exception make sure ticket type can be found, if not will show error
+     */
     private TicketType checkTicketType(String date, int cat) throws Exception//check logic
     {
         TicketType thisType;
@@ -321,6 +381,12 @@ public class TicketingController extends BaseController {
         throw new Exception("Failed to check ticket type!");
     }
 
+    /**
+     * check is which day of movie, example "Monday" will be "Mon'
+     * @param date pass the days to determine the check with database
+     * @return return "Mon' if is Monday
+     * @throws Exception display error if cannot been found
+     */
     private String checkCode(String date) throws Exception
     {
         String checkDate = date;
@@ -342,6 +408,9 @@ public class TicketingController extends BaseController {
         return code;
     }
 
+    /**
+     * create menu for user to choose book or return to select time again
+     */
     private void contructLogMenu()
     {
         logMenu = new ArrayList<>();
@@ -350,6 +419,9 @@ public class TicketingController extends BaseController {
         this.console.logMenu(logMenu);
     }
 
+    /**
+     * create menu for user to choose the special promotion for certain user
+     */
     private void contructAgeMenu()
     {
         logMenu = new ArrayList<>();
@@ -359,6 +431,9 @@ public class TicketingController extends BaseController {
         this.console.logMenu(logMenu);
     }
 
+    /**
+     * to confirm if user wanted to buy or not
+     */
     private void contructConfirmBuy()
     {
         logMenu = new ArrayList<>();
@@ -367,6 +442,10 @@ public class TicketingController extends BaseController {
         this.console.logMenu(logMenu);
     }
 
+    /**
+     * this function is to generate a transaction ID
+     * @return new transaction ID is pass back
+     */
     private String generateTID()
     {
         String TID = "";
