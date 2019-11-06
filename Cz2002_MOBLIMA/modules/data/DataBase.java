@@ -205,8 +205,6 @@ public class DataBase {
 
     /**
      * This is used to delete one record from a txt file
-     * Not in use now
-     * @param fileName The filename to change e.g. MovieList.txt
      * @param entityToDelete A object of BaseEntity or its subclasses, which is to be deleted from database
      * @throws FileNotFoundException
      */
