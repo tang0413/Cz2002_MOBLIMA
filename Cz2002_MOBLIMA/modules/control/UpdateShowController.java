@@ -93,7 +93,7 @@ public class UpdateShowController extends BaseController {
 
     /**
      * This is to create a new Show object from user input and then save it to the txt file (database)
-     * Inside this function, the user will asked to enter all necessary information for a Show
+     * Inside this method, the user will asked to enter all necessary information for a Show
      */
     private void insetNewShow() {
         try{

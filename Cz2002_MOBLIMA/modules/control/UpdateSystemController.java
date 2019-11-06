@@ -11,13 +11,18 @@ import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Represents a manipulation on system configuration. e.g. Update, create, or delete Holiday
+ */
 public class UpdateSystemController extends BaseController{
-    private ArrayList<Admin> adminList;
+    /**
+     * This is the amdin who asked for manipulation on system configuration
+     */
     private Admin admin;
     /**
-     * This is to instantiate a Controller object with I/O access
-     *
+     * This is to instantiate a Controller specially for manipulating system configuration
      * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param thisAdmin a admin who asked for this action
      */
     public UpdateSystemController(Console inheritedConsole, Admin thisAdmin) {
         super(inheritedConsole);
@@ -33,7 +38,8 @@ public class UpdateSystemController extends BaseController{
     }
 
     /**
-     * This is the basic method to enter a serious of process
+     * This is to enter a series of process to change system configuration by firstly provide the admin with a menu
+     *  including: Add New Cineplex, Add New Cinema, Edit Ticket Pricing, Edit Holiday, and Edit My Password
      */
     @Override
     public void enter() {
@@ -63,6 +69,9 @@ public class UpdateSystemController extends BaseController{
         }
     }
 
+    /**
+     * This is to let the admin indicate whether he wants to Update, Delete, or add new Holiday
+     */
     private void updateHolidayOption(){
         while (true){
             console.logText("Please choose from the following options");
@@ -88,6 +97,10 @@ public class UpdateSystemController extends BaseController{
         }
     }
 
+    /**
+     * This is to list out current holidays for the admin to update of delete
+     * @param choice 1 for update and 2 for delete, which the admin has indicated in updateHolidayOption
+     */
     private void listHoliday(int choice){
         while (true){
             console.logText("Please choose from the following holidays");
@@ -120,6 +133,10 @@ public class UpdateSystemController extends BaseController{
         }
     }
 
+    /**
+     * This is to create a new Holiday object from user input and then save it to the txt file (database)
+     * Inside this method, the user will asked to enter all necessary information for a Holiday
+     */
     private void addHoliday(){
         try{
             int newId = DataBase.getNewId(Holiday.class);
@@ -136,6 +153,10 @@ public class UpdateSystemController extends BaseController{
 
     }
 
+
+    /**
+     * This is to list out the names of all TicketTypes for the admin to choose from to edit
+     */
     private void listPrice(){
         while (true){
             console.logText("Please choose from the following ticket types");
@@ -160,6 +181,10 @@ public class UpdateSystemController extends BaseController{
         }
     }
 
+    /**
+     * This is to list out regular price and 3D movie price of a specific ticket type for the admin to update values
+     * @param tt the TicketType object that the admin indicated before in listPrice
+     */
     private void updatePriceInfo(TicketType tt){
         while (true){
             console.logText("Please choose to set attribute");
@@ -192,6 +217,10 @@ public class UpdateSystemController extends BaseController{
         }
     }
 
+    /**
+     * This is to create a new Cineplex object from user input and then save it to the txt file (database)
+     * Inside this method, the user will asked to enter all necessary information for a Cineplex
+     */
     private void addCineplex(){
         while (true) {
             String cineplexName = console.getStr("Please enter a name for the new cineplex");
@@ -228,6 +257,9 @@ public class UpdateSystemController extends BaseController{
         }
     }
 
+    /**
+     * This is to add cinema(s) to a current existing cineplex
+     */
     private void addCinema(){
         while (true) {
             try {
@@ -254,11 +286,15 @@ public class UpdateSystemController extends BaseController{
         }
     }
 
+    /**
+     * This is to validate the current password of the admin who is operating
+     * If the entered current password is correct, he/she will the proceed to enter new passwords
+     */
     private void updateAdmin(){
         while (true){
             String oldPassword = console.getStr("Please enter your old password");
             if (admin.checkPassword(oldPassword)){
-                setNewPassword(admin);
+                setNewPassword();
                 return;
             } else {
                 console.logWarning("Incorrect Old Password! Try again?");
@@ -269,7 +305,10 @@ public class UpdateSystemController extends BaseController{
         }
     }
 
-    private void setNewPassword(Admin admin){
+    /**
+     * This is to set a new password for the admin who is operating
+     */
+    private void setNewPassword(){
         while (true){
             String newPassword = console.getStr("Please enter your new password");
             if (newPassword.equals(console.getStr("Please enter your new password again to confirm"))){
