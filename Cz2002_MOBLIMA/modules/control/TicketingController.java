@@ -172,9 +172,11 @@ public class TicketingController extends BaseController {
         this.console.log("Movie Type: " + movie.getType());
         this.console.log("Movie Category: " + movie.getCat());
         this.console.log("Movie Description: " + movie.getDescription());
-        this.console.log("Movie Cineplex Name: " + cineplex.getCineplexName());
-        this.console.log("Movie Cinema Name: " + show.getCinemaname());
-        this.console.log("Movie Show Time: " + show.getTime() + " " + show.getDate());
+        this.console.log("Cineplex Name: " + cineplex.getCineplexName());
+        this.console.log("Cinema Name: " + show.getCinemaname());
+        String cinemaType = (show.getCinemaname().charAt(0)=='c')? "Platinum Movie Suites": "Regular";
+        this.console.log("Cinema Type: " + cinemaType);
+        this.console.log("Show Time: " + show.getTime() + " " + show.getDate());
 
         while(count3!=indicatedSeats.size())
         {

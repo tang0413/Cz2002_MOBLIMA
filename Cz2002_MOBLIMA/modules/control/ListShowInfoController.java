@@ -132,6 +132,8 @@ public class ListShowInfoController extends BaseController {
             logMenu.add("Movie Name: " + movie.getName());
             logMenu.add("Cineplex Name: " + cineplex.getCineplexName());
             logMenu.add("Cinema Name: " + showtime.getCinemaname());
+            String cinemaType = (show.getCinemaname().charAt(0)=='c')? "Platinum Movie Suites": "Regular";
+            logMenu.add("Cinema Type: " + cinemaType);
             logMenu.add("Show Time: " + showtime.getTime() + " " + showtime.getDate());
             this.console.logMenu(logMenu, true);
             logMenu = new ArrayList<>();

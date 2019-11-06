@@ -110,10 +110,12 @@ public class BookingHistoryController extends BaseController {
         Movie mv = (Movie)DataBase.getObjById(t.getMovieId(), Movie.class);
         Cineplex cineplex = (Cineplex)DataBase.getObjById(t.getCineplexId(), Cineplex.class);
         Show sh = (Show)DataBase.getObjById(t.getShowId(), Show.class);
+        String cinemaType = (sh.getCinemaname().charAt(0)=='c')? "Platinum Movie Suites": "Regular";
         return  "\nTID: " + t.gettId() + //TODO can add more info
                 "\nMovie: " + mv.getName() +
                 "\nCineplex: " + cineplex.getCineplexName() +
                 "\nCinema:  " + sh.getCinemaname() +
+                "\nCinema Type: " + cinemaType +
                 "\nTime: " + sh.getTime() + " " + sh.getDate() +
                 "\nSeat(s): " + t.getSeats();
     }
