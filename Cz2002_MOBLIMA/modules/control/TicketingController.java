@@ -15,21 +15,19 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Represents a type of controller that is able to list out detailed show information for movie and allow user to book ticket.
+ * Represents a type of controller that is able to make booking according to the user's request
  */
-
-
 public class TicketingController extends BaseController {
     /**
-     * The specific movie that user chose before. not applicable for staff
+     * The specific movie that user chose before.
      */
     private Movie movie;
     /**
-     * The specific cineplex that user chose before. not applicable for staff
+     * The specific cineplex that user chose before.
      */
     private Cineplex cineplex;
     /**
-     * The specific show that user chose before. not applicable for staff
+     * The specific show that user chose before.
      */
     private Show show;
     /**
@@ -48,16 +46,9 @@ public class TicketingController extends BaseController {
      * The specific ArrayList for Ticket to store all transaction data
      */
     private ArrayList<Ticket> ticketList = new ArrayList<>();
-    /**
-     * The specific int for Rows and Seats to display seat layout
-     */
-    private int ROWS;
-    private int SEATS;
-
 
     /**
-     * This is for common user use. specific movie, cineplex and show record required
-     * To instantiate a controller specially for displaying detailed show information for users to check before booking
+     * To instantiate a controller specially for the whole booking process
      * @param inheritedConsole the Console instance passed down from the previous controller
      * @param sh the show chosen by the user
      * @param mv the movie chosen by the user
@@ -73,8 +64,7 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * This is to enter a series of actions to display the detailed show information for common user, or to list out attributes of a show record for user to book movie ticket
-     * After the common user confirm their choice, they will be allow them to eat seat number.
+     * This is to enter a series of actions to display the detailed show information and let user to fill in booking information
      */
     @Override
     public void enter() {
@@ -104,8 +94,8 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * This function is to save all data the seats that have been booked
-     * @param ticketList list of seats that been booked, pass into check
+     * This function is to check the existing booking data for the specific show that the user wants to book
+     * @param ticketList list of seats that been booked
      * @return return all seats number that has booked
      */
     public String[] checkUserBooked(ArrayList<Ticket> ticketList)
@@ -122,8 +112,8 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * The function to allow user enter the detail and choose detail before finalise and book ticket which been chosen
-     * @param indicatedSeats seats that user selected is store and pass into
+     * The function to let the user enter, confirm details and eventually settle the booking
+     * @param indicatedSeats seats that the user selected before
      */
     private void bookMovie(ArrayList<String> indicatedSeats) {
         //id=1|movieId=1|cineplexId=1|showId=1|tickettype=1|seats=F07
@@ -297,9 +287,9 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * check the price of the ticket depend of movies
+     * check the price of the ticket according to the types of ticket, movie and cinema
      * @param thisTicketType detail been pass into to check ticket type and allocated prices
-     * @return price of ticket
+     * @return the finalized price of a ticket
      */
     private Double checkPrice(TicketType thisTicketType) {
         double priceWithoutAddon;
@@ -317,9 +307,9 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * function to check if user is exist
-     * @param Email uniqu key and pass into check if existed user
-     * @return false will be pass back to allow create user if not will welcome user back
+     * function to check if the user has made any booking before
+     * @param Email the user-entered email
+     * @return id of the user if exists. 0 if not.
      */
     public int checkExistsUser(String Email)
     {
@@ -345,16 +335,16 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * A function checkTicketType for future calculation purpose
-     * @param date pass the days to determine the check with database
-     * @param cat to know if there is chance is student or senior citizen
-     * @return to pass back the type of ticket
-     * @throws Exception make sure ticket type can be found, if not will show error
+     * function to check the type of a ticket
+     * @param code the three-character code which is based on the day of the show e.g. Tue; Pub for public holiday
+     * @param cat the user-entered aga category. 1 for senior citizen, 2 for student, and 3 for none
+     * @return the type of a ticket
+     * @throws Exception Occurs when not suitable ticket type was found
      */
-    private TicketType checkTicketType(String date, int cat) throws Exception//check logic
+    private TicketType checkTicketType(String code, int cat) throws Exception//check logic
     {
         TicketType thisType;
-        String tempDate = date;
+        String tempDate = code;
 //        DecimalFormat df = new DecimalFormat("#.##"); //TODO repeat code!!
         try {
             ticketTypesList = DataBase.readList(TicketType.class);
@@ -382,10 +372,10 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * check is which day of movie, example "Monday" will be "Mon'
-     * @param date pass the days to determine the check with database
-     * @return return "Mon' if is Monday
-     * @throws Exception display error if cannot been found
+     * function to check which day the show will be on
+     * @param date the date of the show to be checked e.g. 11/12/2019
+     * @return a three-character code. e.g. Tue; Pub for public holiday
+     * @throws Exception Occurs when the passed in date cannot be parsed properly
      */
     private String checkCode(String date) throws Exception
     {
@@ -409,7 +399,7 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * create menu for user to choose book or return to select time again
+     * function to create menu for users to choose book or return to select time again
      */
     private void contructLogMenu()
     {
@@ -420,7 +410,7 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * create menu for user to choose the special promotion for certain user
+     * function to create menu for users to choose the special promotion for certain age category
      */
     private void contructAgeMenu()
     {
@@ -432,7 +422,7 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * to confirm if user wanted to buy or not
+     * function to create menu for users to confirm entered booking information
      */
     private void contructConfirmBuy()
     {
@@ -443,7 +433,7 @@ public class TicketingController extends BaseController {
     }
 
     /**
-     * this function is to generate a transaction ID
+     * function to generate a transaction ID based on current time and cinema name
      * @return new transaction ID is pass back
      */
     private String generateTID()
