@@ -162,7 +162,7 @@ public class Console {
         int ROWS = size/2;
         int SEATS = size/2;
         increment =0;
-        while(increment!=(SEATS*3))
+        while(increment!=(SEATS/2*8))
         {
             System.out.print("=");
             increment++;
@@ -171,14 +171,14 @@ public class Console {
         System.out.print("||");
 
         increment =0;
-        while(increment!=(SEATS))
+        while(increment!=(SEATS/2*3))
         {
             System.out.print(" ");
             increment++;
         }
         System.out.print("SCREEN");
         increment=1;
-        while(increment!=(SEATS))
+        while(increment!=(SEATS/2*3))
         {
             System.out.print(" ");
             increment++;
@@ -189,6 +189,8 @@ public class Console {
         while(increment!=SEATS)
         {
             System.out.print((increment+1) + " ");
+            if(increment==3)
+                System.out.print("      ");
             increment++;
         }
         System.out.print(" ||");
@@ -197,6 +199,10 @@ public class Console {
         for(i=1; i <= ROWS; i++) {
             System.out.print("|| " + (char) (i + 64) + " |");
             for (j = 1; j <= SEATS; j++) {
+                if(j==5)
+                {
+                    System.out.print("     |");
+                }
                 while (data[sc] != null) {
                     int pos = data[sc].charAt(0) - 64;
                     if (i == pos && j == (Integer.parseInt(data[sc].substring(1)))) {
@@ -216,14 +222,14 @@ public class Console {
         System.out.print("||");
 
         increment =0;
-        while(increment!=(SEATS))
+        while(increment!=(SEATS/2*3))
         {
             System.out.print(" ");
             increment++;
         }
         System.out.print("ENTRANCE");
         increment=3;
-        while(increment!=(SEATS))
+        while(increment!=(SEATS/2*3))
         {
             System.out.print(" ");
             increment++;
@@ -231,7 +237,7 @@ public class Console {
         System.out.print("||");
         System.out.print("\n");
         increment =0;
-        while(increment!=(SEATS*3))
+        while(increment!=(SEATS/2*8))
         {
             System.out.print("=");
             increment++;
