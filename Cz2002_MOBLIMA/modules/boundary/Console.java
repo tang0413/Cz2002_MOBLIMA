@@ -171,14 +171,14 @@ public class Console {
         System.out.print("||");
 
         increment =0;
-        while(increment!=(SEATS/2*3))
+        while(increment!=((int)(SEATS*1.3)))
         {
             System.out.print(" ");
             increment++;
         }
         System.out.print("SCREEN");
         increment=1;
-        while(increment!=(SEATS/2*3))
+        while(increment!=((int)(SEATS*1.3)))
         {
             System.out.print(" ");
             increment++;
@@ -190,7 +190,7 @@ public class Console {
         {
             System.out.print((increment+1) + " ");
             if(increment==3)
-                System.out.print("      ");
+                System.out.print("    ");
             increment++;
         }
         System.out.print(" ||");
@@ -201,7 +201,7 @@ public class Console {
             for (j = 1; j <= SEATS; j++) {
                 if(j==5)
                 {
-                    System.out.print("     |");
+                    System.out.print("   |");
                 }
                 while (data[sc] != null) {
                     int pos = data[sc].charAt(0) - 64;
@@ -222,14 +222,14 @@ public class Console {
         System.out.print("||");
 
         increment =0;
-        while(increment!=(SEATS/2*3))
+        while(increment!=(SEATS*1.3))
         {
             System.out.print(" ");
             increment++;
         }
         System.out.print("ENTRANCE");
         increment=3;
-        while(increment!=(SEATS/2*3))
+        while(increment!=(SEATS*1.3))
         {
             System.out.print(" ");
             increment++;
