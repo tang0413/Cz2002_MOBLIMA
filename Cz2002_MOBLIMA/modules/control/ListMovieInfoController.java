@@ -49,7 +49,7 @@ public class ListMovieInfoController extends BaseController {
                                 ListCineplexController available = new ListCineplexController(console, chosenMovie);
                                 available.enter(false);
                             } else {
-                                console.logReminder("Coming soon~ Booking not available for now!");
+                                console.logReminder("Oops~ Booking not available for now!");
                                 TimeUnit.SECONDS.sleep(2);
                             }
                             break;
