@@ -9,7 +9,7 @@ import modules.utils.Sorting;
 import java.util.ArrayList;
 
 /**
- * Represents a series of actions to list out all cineplexs
+ * Represents a type of controller that is able to list out all cineplexs
  */
 public class ListCineplexController extends BaseController{
     /**

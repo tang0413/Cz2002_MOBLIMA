@@ -5,7 +5,7 @@ import modules.boundary.Console;
 import java.util.ArrayList;
 
 /**
- * Represents a router page which provides all available Movie-goner action options
+ * Represents a router page which provides all available Movie-goner action options and is able to proceed to the corresponding functions after the choosing
  */
 public class UserMenuController extends BaseController {
     /**

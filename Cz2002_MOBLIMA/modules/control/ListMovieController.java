@@ -13,7 +13,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
- * Represents a series actions to list out movie names in console
+ * Represents a type of controller that is able to list out movie names in console
  */
 public class ListMovieController extends BaseController{
     /**

@@ -5,7 +5,7 @@ import modules.boundary.Console;
 import java.util.ArrayList;
 
 /**
- * Represents a router page which allows a user to choose in which way the movie list shall be sorted
+ * Represents a router page which allows a user to choose in which way the movie list shall be sorted and is able to proceed to the listing after choosing
  */
 public class MovieRankingController extends BaseController {
     /**

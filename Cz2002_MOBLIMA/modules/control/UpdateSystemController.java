@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents a manipulation on system configuration. e.g. Update, create, or delete Holiday
+ * Represents a type of controller that is able to do manipulation on system configuration. e.g. Update, create, or delete Holiday
  */
 public class UpdateSystemController extends BaseController{
     /**

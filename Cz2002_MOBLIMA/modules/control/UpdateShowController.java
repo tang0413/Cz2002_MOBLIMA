@@ -9,7 +9,7 @@ import modules.entity.movie.Movie;
 import java.util.ArrayList;
 
 /**
- * Represents a manipulation on Show object. e.g. Update, create, or delete Show
+ * Represents a type of controller that is able to do manipulation on Show object. e.g. Update, create, or delete Show
  */
 public class UpdateShowController extends BaseController {
     /**

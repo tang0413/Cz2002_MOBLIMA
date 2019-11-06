@@ -9,7 +9,7 @@ import modules.entity.movie.Movie;
 import java.util.ArrayList;
 
 /**
- * Represents a series of actions to list out detailed show information for common users to confirm before proceeding to booking, or for staff to choose from to edit.
+ * Represents a type of controller that is able to list out detailed show information for common users to confirm before proceeding to booking, or for staff to choose from to edit.
  */
 public class ListShowInfoController extends BaseController {
     /**

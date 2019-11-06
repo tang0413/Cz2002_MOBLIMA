@@ -9,7 +9,7 @@ import modules.entity.movie.Movie;
 import java.util.ArrayList;
 
 /**
- * Represents a series of actions to list out show plans for a specific movie in a specific cineplex for common user, or all valid show plans for staff
+ * Represents a type of controller that is able to list out show plans for a specific movie in a specific cineplex for common user, or all valid show plans for staff
  */
 public class ListShowController extends BaseController {
     /**

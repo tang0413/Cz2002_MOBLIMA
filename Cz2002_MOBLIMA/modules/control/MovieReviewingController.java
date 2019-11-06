@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Represents a series of actions to get new review from the user and store them back to txt file
+ * Represents a type of controller that is able to get new review from the user and store them back to txt file
  */
 public class MovieReviewingController extends BaseController{
     //TODO only the users that have watched can do review. take email to find userID, and then find book record, check movie id

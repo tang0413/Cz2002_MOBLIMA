@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
- * Represents a series of actions to log in
+ * Represents a type of controller that is able to do log in for an admin
  */
 public class LoginProcessController extends BaseController {
 	/**

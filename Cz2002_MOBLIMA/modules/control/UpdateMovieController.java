@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Represents a manipulation on Movie object. e.g. Update or create Movies
+ * Represents a type of controller that is able to do manipulation on Movie object. e.g. Update or create Movies
  */
 public class UpdateMovieController extends BaseController {//TODO see if any way to prevent non-admin access
     /**

@@ -5,6 +5,7 @@ import modules.boundary.Console;
 import java.util.ArrayList;
 
 /**
+ * Generally represents a controller that is able to perform a specific task
  * This is the superclass of all classes under controller folder
  */
 public abstract class BaseController {

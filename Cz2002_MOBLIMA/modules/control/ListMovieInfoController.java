@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Represents a series of actions to displaying movie information details differently admin or customer
+ * Represents a type of controller that is able to display movie information details differently for admin or customer
  */
 public class ListMovieInfoController extends BaseController {
 

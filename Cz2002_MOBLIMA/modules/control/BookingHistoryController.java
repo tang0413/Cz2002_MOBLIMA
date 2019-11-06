@@ -14,7 +14,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Represents a series of actions to list out booking histories of a user specified by email
+ * Represents a type of controller that is able to list out booking histories of a user specified by email
  */
 public class BookingHistoryController extends BaseController {
     /**
