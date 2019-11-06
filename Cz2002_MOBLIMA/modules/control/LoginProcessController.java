@@ -60,9 +60,9 @@ public class LoginProcessController extends BaseController {
 
 	/**
 	 * This is to check if the user input username and password fit any of the admins
-	 * @param username
-	 * @param password
-	 * @return
+	 * @param username the user entered username
+	 * @param password the user entered password
+	 * @return the Admin whose username and password matches the user input. null if no such admin.
 	 */
 	private Admin validate(String username, String password) {
 		for (Admin a : adminList) {

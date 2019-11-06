@@ -264,10 +264,12 @@ public class DataBase {
     /**
      * This is used to get a object, which belongs to BaseEntity or its subclasses, by ID
      * @param id the id of the object to be found
+     * @param classObj the class of the object to be reached
      * @return the object with id equals to id; if no such object, exception will be thrown.
+     * @throws Exception No corresponding object can be found
      */
-    public static Object getObjById(int id, Class<? extends BaseEntity> classType) throws Exception {
-        ArrayList<?> movieList = readList(classType);
+    public static Object getObjById(int id, Class<? extends BaseEntity> classObj) throws Exception {
+        ArrayList<?> movieList = readList(classObj);
         for(int i = 0;i < movieList.size(); i ++){
             Method m = movieList.get(i).getClass().getDeclaredMethod("getId");
             if((Integer)m.invoke(movieList.get(i)) == id){

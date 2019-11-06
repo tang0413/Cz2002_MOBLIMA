@@ -34,8 +34,8 @@ public class MovieReviewingController extends BaseController{
 
     /**
      * This is to instantiate a controller that is specifically for recording new reviews from the user
-     * @param inheritedConsole
-     * @param mv
+     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param mv the specific movie that uer chose to make review on
      */
     public MovieReviewingController(Console inheritedConsole, Movie mv) {
         super(inheritedConsole);

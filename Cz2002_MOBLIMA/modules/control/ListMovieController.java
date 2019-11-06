@@ -43,7 +43,7 @@ public class ListMovieController extends BaseController{
 
     /**
      * This is to instantiate a controller with sorting requirement
-     * @param inheritedConsole
+     * @param inheritedConsole the Console instance passed down from the previous controller
      * @param sortOption 1 for sort by ticket sales and 2 for sort by user rating; 0 for no sorting requirement
      */
     public ListMovieController(Console inheritedConsole, int sortOption) {
