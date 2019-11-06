@@ -23,15 +23,15 @@ public class Console {
      */
     private Scanner sc;
     /**
-     * Change output message to red
+     * String that changes output messages to red
      */
     private final String ANSI_RED = "\u001B[31m";
     /**
-     * Change output message to Cyan
+     * String that changes output messages to Cyan
      */
     private final String ANSI_CYAN = "\u001B[36m";
     /**
-     * Reset the color of output message
+     * String that resets the color of output messages
      */
     private final String ANSI_RESET = "\u001B[0m";
     /**
@@ -39,6 +39,9 @@ public class Console {
      */
     private final Pattern EMAILPATTERN = Pattern.compile("^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$");
 
+    /**
+     * A requirement on date format
+     */
     private final SimpleDateFormat DATEFORMAT = new SimpleDateFormat("dd/mm/yyyy");
     /**
      * All available movie status
