@@ -51,8 +51,16 @@ public class TicketType extends BaseEntity {
         return regularPrice;
     }
 
+    public void setRegularPrice(Double regularPrice) {
+        this.regularPrice = regularPrice;
+    }
+
     public Double getThreeDPrice() {
         return threeDPrice;
+    }
+
+    public void setThreeDPrice(Double threeDPrice) {
+        this.threeDPrice = threeDPrice;
     }
 
     public String getCode() {

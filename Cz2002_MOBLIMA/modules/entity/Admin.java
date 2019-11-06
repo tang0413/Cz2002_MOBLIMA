@@ -57,6 +57,11 @@ public class Admin extends BaseEntity{
         this.password = newPassword;
     }
 
+    @Override
+    public int getId() {
+        return super.getId();
+    }
+
     /**
      * This is used in DataBase when setData/deleteData is called
      * @return the Stringlized Admin properties to store back to txt file. e.g. id=2|username=admin|password=password

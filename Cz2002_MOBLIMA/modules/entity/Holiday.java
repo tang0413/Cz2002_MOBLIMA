@@ -20,9 +20,8 @@ public class Holiday extends BaseEntity {
         this.date = paramList.get(1);
     }
 
-    @Override
     public int getId() {
-        return super.getId();
+        return id;
     }
 
     public String getDate() {

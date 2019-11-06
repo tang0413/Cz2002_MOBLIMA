@@ -11,4 +11,8 @@ public class Director extends MoviePeople {
         super(paramList);
     }
 
+    @Override
+    public int getId() {
+        return super.getId();
+    }
 }

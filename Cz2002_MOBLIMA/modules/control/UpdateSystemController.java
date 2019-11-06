@@ -4,6 +4,8 @@ import modules.boundary.Console;
 import modules.data.DataBase;
 import modules.entity.Admin;
 import modules.entity.Cineplex;
+import modules.entity.Holiday;
+import modules.entity.TicketType;
 
 import javax.xml.crypto.Data;
 import java.util.ArrayList;
@@ -46,11 +48,146 @@ public class UpdateSystemController extends BaseController{
                 case 2:
                     addCinema();
                     break;
+                case 3:
+                    listPrice();
+                    break;
+                case 4:
+                    updateHolidayOption();
+                    break;
                 case 5:
                     updateAdmin();
                     break;
                 case 6:
                     return;
+            }
+        }
+    }
+
+    private void updateHolidayOption(){
+        while (true){
+            console.logText("Please choose from the following options");
+            ArrayList<String> subMenu = new ArrayList<>();
+            subMenu.add("Update Current Holidays");
+            subMenu.add("Delete Current Holidays");
+            subMenu.add("Add New Holidays");
+            subMenu.add("Back");
+            console.logMenu(subMenu);
+            int choice = console.getInt("Enter index to proceed", 1, subMenu.size());
+            if (choice == subMenu.size()){
+                return;
+            }
+            switch (choice){
+                case 1:
+                case 2:
+                    listHoliday(choice);
+                    break;
+                case 3:
+                    addHoliday();
+                    break;
+            }
+        }
+    }
+
+    private void listHoliday(int choice){
+        while (true){
+            console.logText("Please choose from the following holidays");
+            ArrayList<String> subMenu = new ArrayList<>();
+            try {
+                ArrayList<Holiday> holidayList = DataBase.readList(Holiday.class);
+                for (Holiday h: holidayList){
+                    subMenu.add(h.getDate());
+                }
+                subMenu.add("Back");
+                console.logMenu(subMenu);
+                int recordChoice = console.getInt("Enter index to proceed", 1, subMenu.size());
+                if (recordChoice == subMenu.size()){
+                    return;
+                } else {
+                    Holiday holi = holidayList.get(recordChoice-1);
+                    if (choice == 1){
+                        holi.setDate(console.getDate());
+                        DataBase.setData(holi);
+                    } else {
+                        DataBase.deleteData(holi);
+                    }
+                    console.logSuccess();
+                    return;
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+                return;
+            }
+        }
+    }
+
+    private void addHoliday(){
+        try{
+            int newId = DataBase.getNewId(Holiday.class);
+            String date = console.getDate();
+            ArrayList<String> newHolidayParam = new ArrayList<>();
+            newHolidayParam.add(Integer.toString(newId));
+            newHolidayParam.add(date);
+            Holiday newHoliday = new Holiday(newHolidayParam);
+            DataBase.setData(newHoliday);
+            console.logSuccess();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void listPrice(){
+        while (true){
+            console.logText("Please choose from the following ticket types");
+            ArrayList<String> subMenu = new ArrayList<>();
+            try {
+                ArrayList<TicketType> ttList = DataBase.readList(TicketType.class);
+                for (TicketType tt: ttList){
+                    subMenu.add(tt.getName());
+                }
+                subMenu.add("Back");
+                console.logMenu(subMenu);
+                int choice = console.getInt("Enter index to proceed", 1, subMenu.size());
+                if (choice == subMenu.size()){
+                    return;
+                } else {
+                    updatePriceInfo(ttList.get(choice-1));
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+                return;
+            }
+        }
+    }
+
+    private void updatePriceInfo(TicketType tt){
+        while (true){
+            console.logText("Please choose to set attribute");
+            ArrayList<String> subMenu = new ArrayList<>();
+            subMenu.add("Regular Movie Price: " + tt.getRegularPrice());
+            subMenu.add("3D Movie Price: " + tt.getThreeDPrice());
+            subMenu.add("Back");
+            console.logMenu(subMenu);
+            int choice  = console.getInt("Enter index to proceed", 1, subMenu.size());
+            if (choice == subMenu.size()){
+                return;
+            } else {
+                switch (choice) {
+                    case 1:
+                        tt.setRegularPrice(console.getPrice());
+                        break;
+                    case 2:
+                        tt.setThreeDPrice(console.getPrice());
+                        break;
+                }
+                try {
+                    DataBase.setData(tt);
+                    console.logSuccess();
+                    return;
+                } catch (Exception e){
+                    e.printStackTrace();
+                    return;
+                }
             }
         }
     }

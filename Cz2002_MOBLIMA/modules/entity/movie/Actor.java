@@ -11,4 +11,8 @@ public class Actor extends MoviePeople {
         super(paramList);
     }
 
+    @Override
+    public int getId() {
+        return super.getId();
+    }
 }

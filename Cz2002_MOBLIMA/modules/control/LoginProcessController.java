@@ -50,6 +50,7 @@ public class LoginProcessController extends BaseController {
 					};
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				console.logWarning(e.getMessage());
 				console.logWarning("Failed to load the admin list!");
 				return;

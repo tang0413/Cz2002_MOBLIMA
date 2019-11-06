@@ -7,6 +7,6 @@ id=6|name=Thursday|code=Thu|regular=9.5|3d=11
 id=7|name=Friday Before 6pm|code=Fri6|regular=9.5|3d=15
 id=8|name=Friday After 6pm|code=Fri|regular=11|3d=15
 id=9|name=Saturday|code=Sat|regular=11|3d=15
-id=10|name=Sunday|code=Sun|regular=11|3d=15
-id=10|name=Public Holiday|code=Pub|regular=11|3d=15
+id=10|name=Public Holiday|code=Pub|regular=13.0|3d=15.0
+id=10|name=Public Holiday|code=Pub|regular=13.0|3d=15.0
 id=11|name=prefercredit&loyaltycards|code=PCLC|regular=7|3d=0

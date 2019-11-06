@@ -181,13 +181,13 @@ public class TicketingController extends BaseController {
             this.console.log("");
             this.console.log("Seats: " + sc[count4]);
             this.console.log("Ticket Type: " + thisTicketTypes.get(count4).getName());
-            this.console.log("Prices: " + confirmPrice[count4]);
+            this.console.log("Prices: S$" + confirmPrice[count4]);
             totalPrice+=confirmPrice[count4];
             count4++;
             count3++;
         }
         this.console.log("");
-        this.console.logReminder("Total Prices: " + totalPrice);
+        this.console.logReminder("Total Prices: S$" + totalPrice);
 
         tId = generateTID();
 

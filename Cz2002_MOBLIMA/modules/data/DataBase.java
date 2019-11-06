@@ -78,7 +78,8 @@ public class DataBase {
             alr.add(classObject.getConstructor(ArrayList.class).newInstance(paramList)) ;
         }
         bufferList.put(className, alr);
-        bufferMaxIdList.put(classObject, alr.size());
+        Method m = alr.get(alr.size()-1).getClass().getDeclaredMethod("getId");
+        bufferMaxIdList.put(classObject, (Integer)m.invoke(alr.get(alr.size()-1)));
         return alr ;
     }
 

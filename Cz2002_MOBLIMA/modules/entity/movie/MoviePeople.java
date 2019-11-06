@@ -49,6 +49,11 @@ public class MoviePeople extends BaseEntity {
         return name;
     }
 
+    @Override
+    public int getId() {
+        return super.getId();
+    }
+
     /**
      * This is to add a new movie to this MoviePerson's participated movie list
      * @param movieId the id of the new movie that this MoviePerson is in.

@@ -80,6 +80,12 @@ public class Review extends BaseEntity {
 //    public ArrayList<String> getRatingWithReview() {
 //    }
 
+
+    @Override
+    public int getId() {
+        return super.getId();
+    }
+
     /**
      * @return the movie Id
      */

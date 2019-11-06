@@ -440,6 +440,27 @@ public class Console {
         }
     }
 
+    /**
+     * This is used to get a valid price
+     * @return a valid price e.g. with format 0.00
+     */
+    public double getPrice() {
+        while (true) {
+            try {
+                this.log(">> " + "Please indicate a price e.g. 11.00" + ": ");
+                double num = sc.nextDouble();
+                return (double) Math.round(num * 100) / 100;
+            } catch (InputMismatchException e) {
+                this.logWarning("Invalid input! Please try again.");
+            }
+        }
+    }
+
+    /**
+     * This is used to get valid seat numbers according to cinema type (the first character of cinema name)
+     * @param cinemaName the name of a cinema e.g. a1
+     * @return the user entered seat numbers, separated with comma
+     */
     public ArrayList<String> getSeat(String cinemaName) {
         String seatRegex;
         switch (cinemaName.charAt(0)){
