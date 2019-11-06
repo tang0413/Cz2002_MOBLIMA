@@ -148,7 +148,7 @@ public class Console {
             }
         }
         sc = 0;
-        int size = 20; //default
+        int size = 14; //default for c
         char temp = show.getCinemaname().charAt(0);
         switch (temp){
             case 'a':
@@ -440,7 +440,20 @@ public class Console {
         }
     }
 
-    public ArrayList<String> getSeat() {
+    public ArrayList<String> getSeat(String cinemaName) {
+        String seatRegex;
+        switch (cinemaName.charAt(0)){
+            case 'a':
+                seatRegex= "[A-H][0][0-8]";
+                break;
+            case 'b':
+                seatRegex= "[A-I][0][0-9]";
+                break;
+            case 'c':
+            default:
+                seatRegex= "[A-G][0][0-7]";
+                break;
+        }
         this.log(">> " + "Please Enter Your Seat(s) Choice e.g. 'E03,E04'" + ": ");
         while (true){
             String userInput = sc.nextLine();
@@ -448,7 +461,7 @@ public class Console {
             ArrayList<String> chosenSeats = new ArrayList<>( Arrays.asList(splittedSeats));
             Boolean valid = true;
             for (String s: chosenSeats){
-                if (s.matches("[A-Z][0-1][0-9]")){
+                if (s.matches(seatRegex)){
                     continue;
                 } else {
                     valid = false;

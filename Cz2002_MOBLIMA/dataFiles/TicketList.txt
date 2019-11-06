@@ -5,3 +5,7 @@ id=4|movieId=2|cineplexId=2|showId=2|tickettype=4|seats=E07|customerId=3|tid=b12
 id=5|movieId=1|cineplexId=1|showId=1|tickettype=1|seats=F07|customerId=2|tid=a1201912072315
 id=6|movieId=1|cineplexId=1|showId=5|tickettype=1|seats=A01|customerId=6|tid=b1201911060322
 id=7|movieId=1|cineplexId=1|showId=5|tickettype=1|seats=A02|customerId=6|tid=b1201911060322
+id=8|movieId=1|cineplexId=1|showId=5|tickettype=2|seats=D01|customerId=4|tid=b1201911061040
+id=9|movieId=1|cineplexId=1|showId=5|tickettype=5|seats=D02|customerId=4|tid=b1201911061040
+id=11|movieId=11|cineplexId=1|showId=7|tickettype=10|seats=E05|customerId=7|tid=c1201911061059
+id=12|movieId=11|cineplexId=1|showId=7|tickettype=10|seats=G07|customerId=4|tid=c1201911061115
