@@ -156,8 +156,10 @@ public class Console {
         switch (temp){
             case 'a':
                 size =  16;
+                break;
             case 'b':
                 size = 18;
+                break;
         }
         int ROWS = size/2;
         int SEATS = size/2;
