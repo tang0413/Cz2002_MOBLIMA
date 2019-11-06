@@ -4,14 +4,13 @@ import modules.boundary.Console;
 import modules.data.DataBase;
 import modules.entity.Cineplex;
 import modules.entity.movie.Movie;
-import modules.utils.Sorting;
 
 import java.util.ArrayList;
 
 /**
  * Represents a type of controller that is able to list out all cineplexs
  */
-public class ListCineplexController extends BaseController{
+public class ListCineplexController extends BaseController implements withAdminEnter {
     /**
      * A specific movie that the user chose before
      */
@@ -21,6 +20,7 @@ public class ListCineplexController extends BaseController{
      */
     private ArrayList<Cineplex> cineplexList;
 
+    public Cineplex cineplex;
     /**
      * This is to instantiate a controller specially for displaying all cineplexes
      * @param inheritedConsole the Console instance passed down from the previous controller
@@ -49,7 +49,7 @@ public class ListCineplexController extends BaseController{
      * @param isAdmin true if it's an admin request
      * @return if it's an admin request, the chosen cineplex will be returned. null if not.
      */
-    public Cineplex enter(Boolean isAdmin)  {
+    public void enter(Boolean isAdmin)  {
         while (true){
             try{
                 cineplexList = DataBase.readList(Cineplex.class);
@@ -58,27 +58,22 @@ public class ListCineplexController extends BaseController{
                 this.console.logMenu(logMenu);
                 int choice = this.console.getInt("Enter index to proceed", 1, cineplexList.size()+1);
                 if(choice == cineplexList.size()+1)
-                    return null;
+                    return;
                 else
                 {
                     if (!isAdmin){
                         ListShowController showTime = new ListShowController(console,this.movie, cineplexList.get(choice-1));
                         showTime.enter(false);
                     } else {
-                        return cineplexList.get(choice-1);
+                        cineplex = cineplexList.get(choice-1);
+                        return;
                     }
                 }
             }catch (Exception e){
                 console.logWarning(e.getMessage());
                 console.logWarning("Failed to load Cineplexes!");
-                return null;
             }
         }
-    }
-
-    @Override
-    @Deprecated
-    public void enter()  {
     }
 
     /**
@@ -91,5 +86,9 @@ public class ListCineplexController extends BaseController{
             logMenu.add(c.getCineplexName());
         }
         logMenu.add("Back");
+    }
+
+    public Cineplex getCineplex() {
+        return cineplex;
     }
 }

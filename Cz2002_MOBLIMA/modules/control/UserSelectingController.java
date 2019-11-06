@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Represents the homepage which appears after the entry of the App.
  * It allows the user to choose from "Admin Entry" or "Common User Entry"
  */
-public class UserSelectingController extends BaseController{
+public class UserSelectingController extends BaseController implements generalEnter{
     /**
      * This is to instantiate a controller with all entries in menu
      * @param inheritedConsole the Console instance passed down from the previous controller
@@ -26,7 +26,6 @@ public class UserSelectingController extends BaseController{
      * This is to enter a series of process to display the entry menu and let user to choose.
      * The user will be redirected to the corresponding page of action options after indicating the choice
      */
-    @Override
     public void enter() {
         while (true) {
             this.console.logText(logText);

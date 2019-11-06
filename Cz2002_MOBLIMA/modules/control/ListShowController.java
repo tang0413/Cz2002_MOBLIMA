@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Represents a type of controller that is able to list out show plans for a specific movie in a specific cineplex for common user, or all valid show plans for staff
  */
-public class ListShowController extends BaseController {
+public class ListShowController extends BaseController implements withAdminEnter {
     /**
      * The specific movie that user chose before. not applicable for staff
      */
@@ -95,7 +95,7 @@ public class ListShowController extends BaseController {
      * @param isAdmin true if it is for admin use
      * @return A selected list which contains all the show entries listed on screen in sequence. Used to find the user-chosen show
      */
-    public ArrayList<Show> constructLogMenu(ArrayList<Show> showList, Boolean isAdmin)
+    private ArrayList<Show> constructLogMenu(ArrayList<Show> showList, Boolean isAdmin)
     {
         ArrayList selectedShowList = new ArrayList();
         logMenu = new ArrayList<>();
@@ -124,9 +124,4 @@ public class ListShowController extends BaseController {
         return selectedShowList;
     }
 
-    @Override
-    @Deprecated
-    public void enter() {
-
-    }
 }

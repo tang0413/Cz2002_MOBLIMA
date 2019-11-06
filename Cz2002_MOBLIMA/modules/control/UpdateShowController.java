@@ -20,11 +20,6 @@ public class UpdateShowController extends BaseController {
         super(inheritedConsole);
     }
 
-    @Override
-    @Deprecated
-    public void enter() {
-    }
-
     /**
      * This is to enter a series of process to update, create or delete a Show
      * @param actionChoice 0 for creating new Show. 1 - 5 for changing a specific attribute of a existing Show. 6 for deleting the specified Show

@@ -6,9 +6,7 @@ import modules.entity.*;
 import modules.entity.movie.Movie;
 import modules.entity.MovieGoner;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
@@ -17,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a type of controller that is able to make booking according to the user's request
  */
-public class TicketingController extends BaseController {
+public class TicketingController extends BaseController implements generalEnter {
     /**
      * The specific movie that user chose before.
      */
@@ -66,7 +64,6 @@ public class TicketingController extends BaseController {
     /**
      * This is to enter a series of actions to display the detailed show information and let user to fill in booking information
      */
-    @Override
     public void enter() {
         while(true){
             try{

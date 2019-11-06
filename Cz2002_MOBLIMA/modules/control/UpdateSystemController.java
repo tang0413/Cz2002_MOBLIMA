@@ -7,14 +7,13 @@ import modules.entity.Cineplex;
 import modules.entity.Holiday;
 import modules.entity.TicketType;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
  * Represents a type of controller that is able to do manipulation on system configuration. e.g. Update, create, or delete Holiday
  */
-public class UpdateSystemController extends BaseController{
+public class UpdateSystemController extends BaseController implements generalEnter {
     /**
      * This is the amdin who asked for manipulation on system configuration
      */
@@ -41,7 +40,6 @@ public class UpdateSystemController extends BaseController{
      * This is to enter a series of process to change system configuration by firstly provide the admin with a menu
      *  including: Add New Cineplex, Add New Cinema, Edit Ticket Pricing, Edit Holiday, and Edit My Password
      */
-    @Override
     public void enter() {
         while (true){
             console.logText(logText);
@@ -264,7 +262,8 @@ public class UpdateSystemController extends BaseController{
         while (true) {
             try {
                 ListCineplexController cineplexController = new ListCineplexController(console);
-                Cineplex chosenCineplex = cineplexController.enter(true);
+                cineplexController.enter(true);
+                Cineplex chosenCineplex = cineplexController.getCineplex();
                 console.logReminder("Cinemas with your entered names will be added to: " + chosenCineplex.getCineplexName());
                 console.logReminder("Current existing cinemas: " + chosenCineplex.getCinemaList());
                 console.logWarning("This process is NOT invertible");

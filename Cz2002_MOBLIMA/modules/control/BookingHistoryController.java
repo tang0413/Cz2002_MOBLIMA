@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Represents a type of controller that is able to list out booking histories of a user specified by email
  */
-public class BookingHistoryController extends BaseController {
+public class BookingHistoryController extends BaseController implements generalEnter {
     /**
      * The whole list of all movies; loaded inside enter()
      */
@@ -42,7 +42,6 @@ public class BookingHistoryController extends BaseController {
     /**
      * This is to enter a serious of process to get the user's email and display his/her booking records accordingly
      */
-    @Override
     public void enter() {
         try {
             movieGonerList = DataBase.readList(MovieGoner.class);

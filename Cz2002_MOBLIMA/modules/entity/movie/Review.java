@@ -104,7 +104,7 @@ public class Review extends BaseEntity {
     }
 
     /**
-     * This is by ListMovieReviewController to display the review information in block
+     * This is by ListMovieInfoController to display the review information in block
      * @return A string contains the username, rating and comment information, with '|' as separator
      */
     public String getReview() {

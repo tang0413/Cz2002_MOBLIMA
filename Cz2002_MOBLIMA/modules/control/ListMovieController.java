@@ -9,13 +9,11 @@ import modules.utils.Sorting;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * Represents a type of controller that is able to list out movie names in console
  */
-public class ListMovieController extends BaseController{
+public class ListMovieController extends BaseController implements withAdminEnter {
     /**
      * This is the whole list of movies loaded from the database;
      */
@@ -34,11 +32,6 @@ public class ListMovieController extends BaseController{
     public ListMovieController(Console inheritedConsole) {
         super(inheritedConsole);
         logText = "Here are all movies";
-    }
-
-    @Override
-    @Deprecated
-    public void enter() {
     }
 
     /**

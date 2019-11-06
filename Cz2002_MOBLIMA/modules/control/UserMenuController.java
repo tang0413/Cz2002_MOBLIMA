@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a router page which provides all available Movie-goner action options and is able to proceed to the corresponding functions after the choosing
  */
-public class UserMenuController extends BaseController {
+public class UserMenuController extends BaseController implements generalEnter{
     /**
      * This is to instantiate a controller with all Movie-goner action options in menu
      * @param inheritedConsole the Console instance passed down from the previous controller
@@ -31,7 +31,6 @@ public class UserMenuController extends BaseController {
      * This is to enter a series of actions to allow the user to choose an action option from the menu
      * The user will be redirected to the corresponding functional page after indicating the action option
      */
-    @Override
     public void enter() {
         while (true) {
             this.console.logText(logText);

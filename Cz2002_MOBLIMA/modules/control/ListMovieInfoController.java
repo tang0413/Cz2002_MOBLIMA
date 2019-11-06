@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a type of controller that is able to display movie information details differently for admin or customer
  */
-public class ListMovieInfoController extends BaseController {
+public class ListMovieInfoController extends BaseController implements withAdminEnter {
 
     /**
      * This is the id of the user chosen movie
@@ -108,12 +108,6 @@ public class ListMovieInfoController extends BaseController {
         } catch (Exception e){
             this.console.log(e.getMessage());
         }
-    }
-
-    @Override
-    @Deprecated
-    public void enter() {
-
     }
 
     /**

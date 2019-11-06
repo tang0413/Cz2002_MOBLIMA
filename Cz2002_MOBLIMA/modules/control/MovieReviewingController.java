@@ -2,12 +2,9 @@ package modules.control;
 
 import modules.boundary.Console;
 import modules.data.DataBase;
-import modules.entity.Admin;
 import modules.entity.MovieGoner;
 import modules.entity.movie.Movie;
 import modules.entity.movie.Review;
-import root.App;
-import root.RunApp;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -15,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a type of controller that is able to get new review from the user and store them back to txt file
  */
-public class MovieReviewingController extends BaseController{
+public class MovieReviewingController extends BaseController implements generalEnter {
     //TODO only the users that have watched can do review. take email to find userID, and then find book record, check movie id
     //TODO see if he made a review before
     //enter email to get user, rate, review;
@@ -47,7 +44,6 @@ public class MovieReviewingController extends BaseController{
      * This is to enter a series of process to get and store new reviews
      * It includes a sub-process to get the user's name by userId
      */
-    @Override
     public void enter() {
         this.console.logText(logText);
         while (true){

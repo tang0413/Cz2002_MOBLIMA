@@ -31,9 +31,4 @@ public abstract class BaseController {
     public BaseController(Console inheritedConsole) {
         console = inheritedConsole;
     }
-
-    /**
-     * This is the basic method to enter a serious of process
-     */
-    public abstract void enter();
 }

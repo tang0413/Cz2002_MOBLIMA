@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Represents a router page which provides all available admin action options and is able to proceed to the corresponding functions after choosing
  */
-public class StaffMenuController extends BaseController {
+public class StaffMenuController extends BaseController implements generalEnter {
     /**
      * the admin who is using this menu
      */

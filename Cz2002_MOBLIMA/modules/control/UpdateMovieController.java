@@ -6,13 +6,10 @@ import modules.entity.movie.Actor;
 import modules.entity.movie.Director;
 import modules.entity.movie.Movie;
 
-import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Represents a type of controller that is able to do manipulation on Movie object. e.g. Update or create Movies
@@ -24,12 +21,6 @@ public class UpdateMovieController extends BaseController {//TODO see if any way
      */
     public UpdateMovieController(Console inheritedConsole) {
         super(inheritedConsole);
-    }
-
-    @Override
-    @Deprecated
-    public void enter() {
-
     }
 
     /**

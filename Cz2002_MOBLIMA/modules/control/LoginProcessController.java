@@ -5,13 +5,12 @@ import modules.boundary.Console;
 import modules.entity.Admin;
 import modules.data.DataBase;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
  * Represents a type of controller that is able to do log in for an admin
  */
-public class LoginProcessController extends BaseController {
+public class LoginProcessController extends BaseController implements generalEnter {
 	/**
 	 * This is the whole list of all admins
 	 */
@@ -30,7 +29,6 @@ public class LoginProcessController extends BaseController {
 	 * This is to enter a series of process to take and validate username and password input
 	 * If the credentials are valid, the user will be redirect to staff menu
 	 */
-	@Override
 	public void enter() {
 		while (true) {
 			this.console.logText(logText);

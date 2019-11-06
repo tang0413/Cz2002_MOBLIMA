@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Represents a type of controller that is able to list out detailed show information for common users to confirm before proceeding to booking, or for staff to choose from to edit.
  */
-public class ListShowInfoController extends BaseController {
+public class ListShowInfoController extends BaseController implements withAdminEnter {
     /**
      * The specific movie that user chose before. not applicable for staff
      */
@@ -141,11 +141,5 @@ public class ListShowInfoController extends BaseController {
             logMenu.add("Back");
             this.console.logMenu(logMenu);
         }
-    }
-
-    @Override
-    @Deprecated
-    public void enter() {
-
     }
 }
