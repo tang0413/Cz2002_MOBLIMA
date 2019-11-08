@@ -3,4 +3,4 @@ id=3|movieId=2|cineplexId=1|cinemaname=a1|time=10:30|date=12/12/2019
 id=4|movieId=2|cineplexId=2|cinemaname=b2|time=16:30|date=11/12/2019
 id=5|movieId=1|cineplexId=1|cinemaname=b1|time=17:30|date=11/12/2019
 id=7|movieId=13|cineplexId=4|cinemaname=c1|time=23:59|date=10/11/2019
-id=6|movieId=3|cineplexId=2|cinemaname=b2|time=09:00|date=3/11/2019
+id=6|movieId=3|cineplexId=2|cinemaname=b2|time=15:00|date=3/11/2019

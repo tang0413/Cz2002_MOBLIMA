@@ -74,7 +74,7 @@ public class UpdateShowController extends BaseController {
                     chosenShow.setTime(this.consoleUI.getTime());
                     break;
                 case 5:
-                    chosenShow.setTime(this.consoleUI.getDate());
+                    chosenShow.setDate(this.consoleUI.getDate());
                     break;
             }
             DataBase.setData(chosenShow);
