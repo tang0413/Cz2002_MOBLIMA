@@ -438,7 +438,7 @@ public class TicketingController extends BaseController implements GeneralEnter 
     {
         String TID = "";
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmm").format(Calendar.getInstance().getTime());
-        TID = show.getCinemaname() + timeStamp;
+        TID = cineplex.getId() + show.getCinemaname() + timeStamp;
         return TID;
     }
 }
