@@ -114,7 +114,7 @@ public class TicketingController extends BaseController implements generalEnter 
      */
     private void bookMovie(ArrayList<String> indicatedSeats) {
         //id=1|movieId=1|cineplexId=1|showId=1|tickettype=1|seats=F07
-        int i = 0, scc = 0, check = 0, s = 0, checkAge = 0, confirmBuy = 0,count = indicatedSeats.size(), h=0, noTicketPurchase=0;
+        int i = 0, scc = 0, check = 0, s = 0, checkAge = 0, confirmBuy = 0,count = indicatedSeats.size(), h=0, noTicketPurchase=0, ticketNumber=1;
         String[] sc = new String[100];
         Double[] confirmPrice = new Double[100];
         String email = "",code = "",name = "",phoneNumber = "",tId="";
@@ -168,7 +168,7 @@ public class TicketingController extends BaseController implements generalEnter 
         while(count!=0) //determine which ticket types (can check even if have multiple type of ticket)
         {
             contructAgeMenu();
-            checkAge = this.console.getInt("Choose your age category for ticket:" + h+1 , 1, 3);
+            checkAge = this.console.getInt("Choose your age category for ticket:" + ticketNumber , 1, 3);
             try {
                 thisTicketType = checkTicketType(code, checkAge);
                 thisTicketTypes.add(thisTicketType);
@@ -176,6 +176,7 @@ public class TicketingController extends BaseController implements generalEnter 
                 confirmPrice[h]=ticketPrice;
                 count--;
                 h++;
+                ticketNumber++;
             } catch (Exception e){
                 e.printStackTrace();
                 return;
