@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.Cineplex;
 import modules.entity.MovieGoner;
@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * Represents a type of controller that is able to list out booking histories of a user specified by email
  */
-public class BookingHistoryController extends BaseController implements generalEnter {
+public class BookingHistoryController extends BaseController implements GeneralEnter {
     /**
      * The whole list of all movies; loaded inside enter()
      */
@@ -31,10 +31,10 @@ public class BookingHistoryController extends BaseController implements generalE
     private MovieGoner user;
     /**
      * This is to instantiate a Controller specially for displaying booking histories
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
-    public BookingHistoryController(Console inheritedConsole) {
-        super(inheritedConsole);
+    public BookingHistoryController(ConsoleUI inheritedConsoleUI) {
+        super(inheritedConsoleUI);
         logText = "Your booking history";
         logMenu = new ArrayList<>();
     }
@@ -46,11 +46,11 @@ public class BookingHistoryController extends BaseController implements generalE
         try {
             movieGonerList = DataBase.readList(MovieGoner.class);
             ticketList = DataBase.readList(Ticket.class);
-            console.logText(logText);
+            consoleUI.logText(logText);
             String email;
             Boolean foundUser;
             while (true){
-                email = console.getEmail();
+                email = consoleUI.getEmail();
                 foundUser = false;
                 for (MovieGoner mg: movieGonerList){
                     if (mg.getEmail().equals(email)){
@@ -60,8 +60,8 @@ public class BookingHistoryController extends BaseController implements generalE
                     }
                 }
                 if (!foundUser){
-                    console.logWarning("No user was found with this email! Do you want to try again?");
-                    if(console.getStr("[y/n]").equals("y")){
+                    consoleUI.logWarning("No user was found with this email! Do you want to try again?");
+                    if(consoleUI.getStr("[y/n]").equals("y")){
                         continue;
                     } else {
                         return;
@@ -86,16 +86,16 @@ public class BookingHistoryController extends BaseController implements generalE
                     logMenu.add("");
                     logMenu.add("Oops, you don't have any booking records for now. Go make your first booking!");
                 }
-                console.logMenu(logMenu, true);
+                consoleUI.logMenu(logMenu, true);
                 logMenu = new ArrayList<>();
                 logMenu.add("Back");
-                console.logMenu(logMenu);
-                int choice = console.getInt("Enter 1 to return to previous page", 1, 1);
+                consoleUI.logMenu(logMenu);
+                int choice = consoleUI.getInt("Enter 1 to return to previous page", 1, 1);
                 return;
             }
         } catch (Exception e){
-            console.logWarning(e.getMessage());
-            console.logWarning("Failed to get booking history!");
+            consoleUI.logWarning(e.getMessage());
+            consoleUI.logWarning("Failed to get booking history!");
         }
     }
 

@@ -1,8 +1,7 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
-import modules.entity.BaseEntity;
 import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
@@ -11,13 +10,13 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a router page which provides all available Movie-goner action options and is able to proceed to the corresponding functions after the choosing
  */
-public class UserMenuController extends BaseController implements generalEnter{
+public class UserMenuController extends BaseController implements GeneralEnter {
     /**
      * This is to instantiate a controller with all Movie-goner action options in menu
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
-    public UserMenuController(Console inheritedConsole) {
-        super(inheritedConsole);
+    public UserMenuController(ConsoleUI inheritedConsoleUI) {
+        super(inheritedConsoleUI);
         logText = "Please choose from the following options";
         logMenu = new ArrayList<String>();
         logMenu.add("List movie");
@@ -33,24 +32,24 @@ public class UserMenuController extends BaseController implements generalEnter{
      */
     public void enter() {
         while (true) {
-            this.console.logText(logText);
-            this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to proceed", 1, 5);
+            this.consoleUI.logText(logText);
+            this.consoleUI.logMenu(logMenu);
+            int choice = this.consoleUI.getInt("Enter index to proceed", 1, 5);
             switch (choice) {
                 //TODO finish the whole menu
                 case 1:
-                    ListMovieController ls = new ListMovieController(this.console, 0);
+                    ListMovieController ls = new ListMovieController(this.consoleUI, 0);
                     ls.enter(false);
                     break;
                 case 2:
                     searchMovieByName();
                     break;
                 case 3:
-                    BookingHistoryController book = new BookingHistoryController(this.console);
+                    BookingHistoryController book = new BookingHistoryController(this.consoleUI);
                     book.enter();
                     break;
                 case 4:
-                    MovieRankingController rank = new MovieRankingController(this.console);
+                    MovieRankingController rank = new MovieRankingController(this.consoleUI);
                     rank.enter();
                     break;
                 case 5:
@@ -68,18 +67,18 @@ public class UserMenuController extends BaseController implements generalEnter{
     private void searchMovieByName(){
         try {
             ArrayList<Movie> movieList = DataBase.readList(Movie.class);
-            String movieName = console.getStr("Please enter the name of the movie:");
+            String movieName = consoleUI.getStr("Please enter the name of the movie:");
             Boolean found = false;
             for (Movie m: movieList){
                 if (m.getName().toLowerCase().equals(movieName.toLowerCase())){
                     found = true;
-                    ListMovieInfoController movieInfo = new ListMovieInfoController(console, m.getId());
+                    ListMovieInfoController movieInfo = new ListMovieInfoController(consoleUI, m.getId());
                     movieInfo.enter(false);
                     break;
                 }
             }
             if(!found){
-                console.logWarning("No movie with name: '" + movieName + "' was found! Returning to the previous page...");
+                consoleUI.logWarning("No movie with name: '" + movieName + "' was found! Returning to the previous page...");
                 TimeUnit.SECONDS.sleep(2);
             }
         } catch (Exception e){

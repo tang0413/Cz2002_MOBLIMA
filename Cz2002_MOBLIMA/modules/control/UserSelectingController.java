@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 
 import java.util.ArrayList;
 
@@ -8,13 +8,13 @@ import java.util.ArrayList;
  * Represents the homepage which appears after the entry of the App.
  * It allows the user to choose from "Admin Entry" or "Common User Entry"
  */
-public class UserSelectingController extends BaseController implements generalEnter{
+public class UserSelectingController extends BaseController implements GeneralEnter {
     /**
      * This is to instantiate a controller with all entries in menu
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
-    public UserSelectingController(Console inheritedConsole) {
-        super(inheritedConsole);
+    public UserSelectingController(ConsoleUI inheritedConsoleUI) {
+        super(inheritedConsoleUI);
         logText = "Please choose your user category";
         logMenu = new ArrayList<String>();
         logMenu.add("Admin Entry");
@@ -28,16 +28,16 @@ public class UserSelectingController extends BaseController implements generalEn
      */
     public void enter() {
         while (true) {
-            this.console.logText(logText);
-            this.console.logMenu(logMenu);
-            int choice = this.console.getInt("Enter index to proceed", 1, 3);
+            this.consoleUI.logText(logText);
+            this.consoleUI.logMenu(logMenu);
+            int choice = this.consoleUI.getInt("Enter index to proceed", 1, 3);
             switch (choice) {
                 case 1:
-                    LoginProcessController login = new LoginProcessController(console);
+                    LoginProcessController login = new LoginProcessController(consoleUI);
                     login.enter();
                     break;
                 case 2:
-                    UserMenuController user = new UserMenuController(console);
+                    UserMenuController user = new UserMenuController(consoleUI);
                     user.enter();
                     break;
                 case 3:

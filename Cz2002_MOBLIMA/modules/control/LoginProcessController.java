@@ -1,7 +1,7 @@
 package modules.control;
 //package control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.entity.Admin;
 import modules.data.DataBase;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Represents a type of controller that is able to do log in for an admin
  */
-public class LoginProcessController extends BaseController implements generalEnter {
+public class LoginProcessController extends BaseController implements GeneralEnter {
 	/**
 	 * This is the whole list of all admins
 	 */
@@ -18,10 +18,10 @@ public class LoginProcessController extends BaseController implements generalEnt
 
 	/**
 	 * This is to instantiate a log in controller
-	 * @param inheritedConsole
+	 * @param inheritedConsoleUI
 	 */
-	public LoginProcessController(Console inheritedConsole) {
-		super(inheritedConsole);
+	public LoginProcessController(ConsoleUI inheritedConsoleUI) {
+		super(inheritedConsoleUI);
 		logText = "Please enter your username and email";
 	}
 
@@ -31,26 +31,26 @@ public class LoginProcessController extends BaseController implements generalEnt
 	 */
 	public void enter() {
 		while (true) {
-			this.console.logText(logText);
-			String username = this.console.getStr("Your username");
-			String password = this.console.getStr("Your password");
+			this.consoleUI.logText(logText);
+			String username = this.consoleUI.getStr("Your username");
+			String password = this.consoleUI.getStr("Your password");
 			try {
 				adminList = DataBase.readList(Admin.class);
 				Admin thisAdmin = validate(username, password);
 				if (thisAdmin != null){
-					StaffMenuController staffMenu = new StaffMenuController(this.console, thisAdmin);
+					StaffMenuController staffMenu = new StaffMenuController(this.consoleUI, thisAdmin);
 					staffMenu.enter();
 					return;
 				} else {
-					this.console.logWarning("Invalid Credential!");
+					this.consoleUI.logWarning("Invalid Credential!");
 					if (!tryAgain()){
 						return;
 					};
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				console.logWarning(e.getMessage());
-				console.logWarning("Failed to load the admin list!");
+				consoleUI.logWarning(e.getMessage());
+				consoleUI.logWarning("Failed to load the admin list!");
 				return;
 			}
 		}
@@ -76,7 +76,7 @@ public class LoginProcessController extends BaseController implements generalEnt
 	 * @return true if the user enters "y". false if not.
 	 */
 	private Boolean tryAgain() {
-		String tryAgain = this.console.getStr("Try again?[y/n]");
+		String tryAgain = this.consoleUI.getStr("Try again?[y/n]");
 		if (tryAgain.equals("y")){
 			return true;
 		}

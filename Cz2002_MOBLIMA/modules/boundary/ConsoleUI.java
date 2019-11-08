@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * This class is used to manage input and output through the console.
  * It is instantiated when entering the app and passed down by controllers.
  */
-public class Console {
+public class ConsoleUI {
     /**
      * Used to get input from user. It will not be closed until the end of program.
      */
@@ -53,9 +53,9 @@ public class Console {
     private String styleChar = "+";
 
     /**
-     * Creates a new Console with a ueser input scanner
+     * Creates a new ConsoleUI with a user input scanner
      */
-    public Console() {
+    public ConsoleUI() {
         sc = new Scanner(System.in);
     }
 

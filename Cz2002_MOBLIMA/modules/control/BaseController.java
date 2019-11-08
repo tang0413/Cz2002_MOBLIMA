@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 
 import java.util.ArrayList;
 
@@ -10,9 +10,9 @@ import java.util.ArrayList;
  */
 public abstract class BaseController {
     /**
-     * A instance of Console that is passed down between controllers to do I/O
+     * A instance of ConsoleUI that is passed down between controllers to do I/O
      */
-    protected Console console;
+    protected ConsoleUI consoleUI;
 
     /**
      * The text that is to be shown as title to indicate different stages
@@ -26,9 +26,9 @@ public abstract class BaseController {
 
     /**
      * This is to instantiate a Controller object with I/O access
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
-    public BaseController(Console inheritedConsole) {
-        console = inheritedConsole;
+    public BaseController(ConsoleUI inheritedConsoleUI) {
+        consoleUI = inheritedConsoleUI;
     }
 }

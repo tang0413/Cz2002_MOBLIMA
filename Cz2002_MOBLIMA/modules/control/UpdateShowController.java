@@ -1,10 +1,9 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.Cineplex;
 import modules.entity.Show;
-import modules.entity.movie.Movie;
 
 import java.util.ArrayList;
 
@@ -14,10 +13,10 @@ import java.util.ArrayList;
 public class UpdateShowController extends BaseController {
     /**
      * This is to instantiate a controller with Show manipulation ability
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
-    public UpdateShowController(Console inheritedConsole) {
-        super(inheritedConsole);
+    public UpdateShowController(ConsoleUI inheritedConsoleUI) {
+        super(inheritedConsoleUI);
     }
 
     /**
@@ -40,8 +39,8 @@ public class UpdateShowController extends BaseController {
                 alterShow(chosenShow, actionChoice);
                 return;
             } catch (Exception e){
-                this.console.log(e.getMessage());
-                console.logWarning("Failed to update the show!");
+                this.consoleUI.log(e.getMessage());
+                consoleUI.logWarning("Failed to update the show!");
                 return;
             }
         }
@@ -56,32 +55,32 @@ public class UpdateShowController extends BaseController {
         try{
             switch (actionChoice){
                 case 1:
-                    chosenShow.setMovieId(this.console.getMovieId("Please enter a new movie ID"));
+                    chosenShow.setMovieId(this.consoleUI.getMovieId("Please enter a new movie ID"));
                     break;
                 case 2:
-                    int newCineplexId = this.console.getCineplexId("Please enter a new Cinplex ID");
+                    int newCineplexId = this.consoleUI.getCineplexId("Please enter a new Cinplex ID");
                     Cineplex newCineplex = (Cineplex)DataBase.getObjById(newCineplexId, Cineplex.class);
-                    console.logReminder("Please choose from the following cinemas" + newCineplex.getCinemaList());
-                    String newCinemaName = this.console.getStr("Cinema Name", newCineplex.getCinemaList());
+                    consoleUI.logReminder("Please choose from the following cinemas" + newCineplex.getCinemaList());
+                    String newCinemaName = this.consoleUI.getStr("Cinema Name", newCineplex.getCinemaList());
                     chosenShow.setCineplexId(newCineplexId);
                     chosenShow.setCinemaname(newCinemaName);
                     break;
                 case 3:
                     Cineplex chosenCineplex = (Cineplex)DataBase.getObjById(chosenShow.getCineplexId(), Cineplex.class);
-                    console.logReminder("Please choose from the following cinemas" + chosenCineplex.getCinemaList());
-                    chosenShow.setCinemaname(this.console.getStr("Cinema Name", chosenCineplex.getCinemaList()));
+                    consoleUI.logReminder("Please choose from the following cinemas" + chosenCineplex.getCinemaList());
+                    chosenShow.setCinemaname(this.consoleUI.getStr("Cinema Name", chosenCineplex.getCinemaList()));
                     break;
                 case 4:
-                    chosenShow.setTime(this.console.getTime());
+                    chosenShow.setTime(this.consoleUI.getTime());
                     break;
                 case 5:
-                    chosenShow.setTime(this.console.getDate());
+                    chosenShow.setTime(this.consoleUI.getDate());
                     break;
             }
             DataBase.setData(chosenShow);
-            console.logSuccess();
+            consoleUI.logSuccess();
         } catch (Exception e){
-            console.logWarning("Failed to update!");
+            consoleUI.logWarning("Failed to update!");
         }
 
     }
@@ -93,22 +92,22 @@ public class UpdateShowController extends BaseController {
     private void insetNewShow() {
         try{
             //id=5|movieId=1|cineplexId=1|cinemaname=b|time=17:30|date=11/12/2019
-            this.console.logText("Please key in the following necessary information");
+            this.consoleUI.logText("Please key in the following necessary information");
             ArrayList<String> newShowParam = new ArrayList();
             newShowParam.add(Integer.toString(DataBase.getNewId(Show.class)));
-            newShowParam.add(Integer.toString(this.console.getMovieId("Movie ID")));
-            int cineplexId = this.console.getCineplexId("Cineplex ID");
+            newShowParam.add(Integer.toString(this.consoleUI.getMovieId("Movie ID")));
+            int cineplexId = this.consoleUI.getCineplexId("Cineplex ID");
             newShowParam.add(Integer.toString(cineplexId));
             Cineplex chosenCineplex = (Cineplex)DataBase.getObjById(cineplexId, Cineplex.class);
-            console.logReminder("Please choose from the following cinemas" + chosenCineplex.getCinemaList());
-            newShowParam.add(this.console.getStr("Cinema Name", chosenCineplex.getCinemaList()));
-            newShowParam.add(this.console.getTime()); //TODO validate if there is a clash
-            newShowParam.add(this.console.getDate()); //TODO validate if is earlier than now
+            consoleUI.logReminder("Please choose from the following cinemas" + chosenCineplex.getCinemaList());
+            newShowParam.add(this.consoleUI.getStr("Cinema Name", chosenCineplex.getCinemaList()));
+            newShowParam.add(this.consoleUI.getTime()); //TODO validate if there is a clash
+            newShowParam.add(this.consoleUI.getDate()); //TODO validate if is earlier than now
             Show newShow = new Show(newShowParam);
             DataBase.setData(newShow);
-            console.logSuccess();
+            consoleUI.logSuccess();
         } catch (Exception e){
-            console.logWarning("Failed!");
+            consoleUI.logWarning("Failed!");
             return;
         }
     }
@@ -121,9 +120,9 @@ public class UpdateShowController extends BaseController {
         try{
             Show showToDelete = (Show)DataBase.getObjById(showId, Show.class);
             DataBase.deleteData(showToDelete);
-            console.logSuccess();
+            consoleUI.logSuccess();
         } catch (Exception e){
-            console.logWarning("Failed!");
+            consoleUI.logWarning("Failed!");
             return;
         }
     }

@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.Admin;
 import modules.entity.Cineplex;
@@ -13,18 +13,18 @@ import java.util.Arrays;
 /**
  * Represents a type of controller that is able to do manipulation on system configuration. e.g. Update, create, or delete Holiday
  */
-public class UpdateSystemController extends BaseController implements generalEnter {
+public class UpdateSystemController extends BaseController implements GeneralEnter {
     /**
      * This is the amdin who asked for manipulation on system configuration
      */
     private Admin admin;
     /**
      * This is to instantiate a Controller specially for manipulating system configuration
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      * @param thisAdmin a admin who asked for this action
      */
-    public UpdateSystemController(Console inheritedConsole, Admin thisAdmin) {
-        super(inheritedConsole);
+    public UpdateSystemController(ConsoleUI inheritedConsoleUI, Admin thisAdmin) {
+        super(inheritedConsoleUI);
         this.admin = thisAdmin;
         logText = "Here are the editable system configuration";
         logMenu = new ArrayList<>();
@@ -42,9 +42,9 @@ public class UpdateSystemController extends BaseController implements generalEnt
      */
     public void enter() {
         while (true){
-            console.logText(logText);
-            console.logMenu(logMenu);
-            int choice = console.getInt("Enter index to proceed", 1, logMenu.size());
+            consoleUI.logText(logText);
+            consoleUI.logMenu(logMenu);
+            int choice = consoleUI.getInt("Enter index to proceed", 1, logMenu.size());
             switch (choice){
                 case 1:
                     addCineplex();
@@ -72,14 +72,14 @@ public class UpdateSystemController extends BaseController implements generalEnt
      */
     private void updateHolidayOption(){
         while (true){
-            console.logText("Please choose from the following options");
+            consoleUI.logText("Please choose from the following options");
             ArrayList<String> subMenu = new ArrayList<>();
             subMenu.add("Update Current Holidays");
             subMenu.add("Delete Current Holidays");
             subMenu.add("Add New Holidays");
             subMenu.add("Back");
-            console.logMenu(subMenu);
-            int choice = console.getInt("Enter index to proceed", 1, subMenu.size());
+            consoleUI.logMenu(subMenu);
+            int choice = consoleUI.getInt("Enter index to proceed", 1, subMenu.size());
             if (choice == subMenu.size()){
                 return;
             }
@@ -101,7 +101,7 @@ public class UpdateSystemController extends BaseController implements generalEnt
      */
     private void listHoliday(int choice){
         while (true){
-            console.logText("Please choose from the following holidays");
+            consoleUI.logText("Please choose from the following holidays");
             ArrayList<String> subMenu = new ArrayList<>();
             try {
                 ArrayList<Holiday> holidayList = DataBase.readList(Holiday.class);
@@ -109,19 +109,19 @@ public class UpdateSystemController extends BaseController implements generalEnt
                     subMenu.add(h.getDate());
                 }
                 subMenu.add("Back");
-                console.logMenu(subMenu);
-                int recordChoice = console.getInt("Enter index to proceed", 1, subMenu.size());
+                consoleUI.logMenu(subMenu);
+                int recordChoice = consoleUI.getInt("Enter index to proceed", 1, subMenu.size());
                 if (recordChoice == subMenu.size()){
                     return;
                 } else {
                     Holiday holi = holidayList.get(recordChoice-1);
                     if (choice == 1){
-                        holi.setDate(console.getDate());
+                        holi.setDate(consoleUI.getDate());
                         DataBase.setData(holi);
                     } else {
                         DataBase.deleteData(holi);
                     }
-                    console.logSuccess();
+                    consoleUI.logSuccess();
                     return;
                 }
             } catch (Exception e){
@@ -138,13 +138,13 @@ public class UpdateSystemController extends BaseController implements generalEnt
     private void addHoliday(){
         try{
             int newId = DataBase.getNewId(Holiday.class);
-            String date = console.getDate();
+            String date = consoleUI.getDate();
             ArrayList<String> newHolidayParam = new ArrayList<>();
             newHolidayParam.add(Integer.toString(newId));
             newHolidayParam.add(date);
             Holiday newHoliday = new Holiday(newHolidayParam);
             DataBase.setData(newHoliday);
-            console.logSuccess();
+            consoleUI.logSuccess();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -157,7 +157,7 @@ public class UpdateSystemController extends BaseController implements generalEnt
      */
     private void listPrice(){
         while (true){
-            console.logText("Please choose from the following ticket types");
+            consoleUI.logText("Please choose from the following ticket types");
             ArrayList<String> subMenu = new ArrayList<>();
             try {
                 ArrayList<TicketType> ttList = DataBase.readList(TicketType.class);
@@ -165,8 +165,8 @@ public class UpdateSystemController extends BaseController implements generalEnt
                     subMenu.add(tt.getName());
                 }
                 subMenu.add("Back");
-                console.logMenu(subMenu);
-                int choice = console.getInt("Enter index to proceed", 1, subMenu.size());
+                consoleUI.logMenu(subMenu);
+                int choice = consoleUI.getInt("Enter index to proceed", 1, subMenu.size());
                 if (choice == subMenu.size()){
                     return;
                 } else {
@@ -185,27 +185,27 @@ public class UpdateSystemController extends BaseController implements generalEnt
      */
     private void updatePriceInfo(TicketType tt){
         while (true){
-            console.logText("Please choose to set attribute");
+            consoleUI.logText("Please choose to set attribute");
             ArrayList<String> subMenu = new ArrayList<>();
             subMenu.add("Regular Movie Price: " + tt.getRegularPrice());
             subMenu.add("3D Movie Price: " + tt.getThreeDPrice());
             subMenu.add("Back");
-            console.logMenu(subMenu);
-            int choice  = console.getInt("Enter index to proceed", 1, subMenu.size());
+            consoleUI.logMenu(subMenu);
+            int choice  = consoleUI.getInt("Enter index to proceed", 1, subMenu.size());
             if (choice == subMenu.size()){
                 return;
             } else {
                 switch (choice) {
                     case 1:
-                        tt.setRegularPrice(console.getPrice());
+                        tt.setRegularPrice(consoleUI.getPrice());
                         break;
                     case 2:
-                        tt.setThreeDPrice(console.getPrice());
+                        tt.setThreeDPrice(consoleUI.getPrice());
                         break;
                 }
                 try {
                     DataBase.setData(tt);
-                    console.logSuccess();
+                    consoleUI.logSuccess();
                     return;
                 } catch (Exception e){
                     e.printStackTrace();
@@ -221,7 +221,7 @@ public class UpdateSystemController extends BaseController implements generalEnt
      */
     private void addCineplex(){
         while (true) {
-            String cineplexName = console.getStr("Please enter a name for the new cineplex");
+            String cineplexName = consoleUI.getStr("Please enter a name for the new cineplex");
             try {
                 ArrayList<Cineplex> currentCineplexList = DataBase.readList(Cineplex.class);
                 Boolean unique = true;
@@ -232,12 +232,12 @@ public class UpdateSystemController extends BaseController implements generalEnt
                     }
                 }
                 if (!unique){
-                    console.logWarning("Name clashes with current existing cineplex! Try again?");
-                    if (!console.getStr("Type 'y' to continue").equals("y")){
+                    consoleUI.logWarning("Name clashes with current existing cineplex! Try again?");
+                    if (!consoleUI.getStr("Type 'y' to continue").equals("y")){
                         return;
                     }
                 } else {
-                    String cinemaNames = console.getCinemaNames();
+                    String cinemaNames = consoleUI.getCinemaNames();
                     String newId = Integer.toString(DataBase.getNewId(Cineplex.class));
                     ArrayList<String> newCineplexNames = new ArrayList<>();
                     newCineplexNames.add(newId);
@@ -245,11 +245,11 @@ public class UpdateSystemController extends BaseController implements generalEnt
                     newCineplexNames.add(cinemaNames);
                     Cineplex newCineplex = new Cineplex(newCineplexNames);
                     DataBase.setData(newCineplex);
-                    console.logSuccess();
+                    consoleUI.logSuccess();
                     return;
                 }
             } catch (Exception e){
-                console.logWarning("Failed to add Cineplex!");
+                consoleUI.logWarning("Failed to add Cineplex!");
                 return;
             }
         }
@@ -261,13 +261,13 @@ public class UpdateSystemController extends BaseController implements generalEnt
     private void addCinema(){
         while (true) {
             try {
-                ListCineplexController cineplexController = new ListCineplexController(console);
+                ListCineplexController cineplexController = new ListCineplexController(consoleUI);
                 cineplexController.enter(true);
                 Cineplex chosenCineplex = cineplexController.getCineplex();
-                console.logReminder("Cinemas with your entered names will be added to: " + chosenCineplex.getCineplexName());
-                console.logReminder("Current existing cinemas: " + chosenCineplex.getCinemaList());
-                console.logWarning("This process is NOT invertible");
-                String cinemaNames = console.getCinemaNames();
+                consoleUI.logReminder("Cinemas with your entered names will be added to: " + chosenCineplex.getCineplexName());
+                consoleUI.logReminder("Current existing cinemas: " + chosenCineplex.getCinemaList());
+                consoleUI.logWarning("This process is NOT invertible");
+                String cinemaNames = consoleUI.getCinemaNames();
                 String splittedNames[] = cinemaNames.split(",");
                 ArrayList<String> cinemaNamesList = new ArrayList<>( Arrays.asList(splittedNames));
                 for(String s: cinemaNamesList){
@@ -276,10 +276,10 @@ public class UpdateSystemController extends BaseController implements generalEnt
                     }
                 }
                 DataBase.setData(chosenCineplex);
-                console.logSuccess();
+                consoleUI.logSuccess();
                 return;
             } catch (Exception e){
-                console.logWarning("Failed to add Cineplex!");
+                consoleUI.logWarning("Failed to add Cineplex!");
                 return;
             }
         }
@@ -291,13 +291,13 @@ public class UpdateSystemController extends BaseController implements generalEnt
      */
     private void updateAdmin(){
         while (true){
-            String oldPassword = console.getStr("Please enter your old password");
+            String oldPassword = consoleUI.getStr("Please enter your old password");
             if (admin.checkPassword(oldPassword)){
                 setNewPassword();
                 return;
             } else {
-                console.logWarning("Incorrect Old Password! Try again?");
-                if (!console.getStr("Type 'y' to continue").equals("y")){
+                consoleUI.logWarning("Incorrect Old Password! Try again?");
+                if (!consoleUI.getStr("Type 'y' to continue").equals("y")){
                     return;
                 }
             }
@@ -309,21 +309,21 @@ public class UpdateSystemController extends BaseController implements generalEnt
      */
     private void setNewPassword(){
         while (true){
-            String newPassword = console.getStr("Please enter your new password");
-            if (newPassword.equals(console.getStr("Please enter your new password again to confirm"))){
+            String newPassword = consoleUI.getStr("Please enter your new password");
+            if (newPassword.equals(consoleUI.getStr("Please enter your new password again to confirm"))){
                 try {
                     admin.setPassword(newPassword);
                     DataBase.setData(admin);
-                    console.logSuccess();
+                    consoleUI.logSuccess();
                     return;
                 } catch (Exception e){
-                    console.logWarning("Failed to update password!");
+                    consoleUI.logWarning("Failed to update password!");
                     e.printStackTrace();
                     return;
                 }
             } else {
-                console.logWarning("Passwords doesn't match! Try again?");
-                if (!console.getStr("Type 'y' to continue").equals("y")){
+                consoleUI.logWarning("Passwords doesn't match! Try again?");
+                if (!consoleUI.getStr("Type 'y' to continue").equals("y")){
                     return;
                 }
             }

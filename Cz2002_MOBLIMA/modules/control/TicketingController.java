@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.*;
 import modules.entity.movie.Movie;
@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a type of controller that is able to make booking according to the user's request
  */
-public class TicketingController extends BaseController implements generalEnter {
+public class TicketingController extends BaseController implements GeneralEnter {
     /**
      * The specific movie that user chose before.
      */
@@ -47,14 +47,14 @@ public class TicketingController extends BaseController implements generalEnter 
 
     /**
      * To instantiate a controller specially for the whole booking process
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      * @param sh the show chosen by the user
      * @param mv the movie chosen by the user
      * @param ci the cineplex chosen by the user
      */
-    public TicketingController(Console inheritedConsole, Movie mv, Cineplex ci, Show sh)
+    public TicketingController(ConsoleUI inheritedConsoleUI, Movie mv, Cineplex ci, Show sh)
     {
-        super(inheritedConsole);
+        super(inheritedConsoleUI);
         this.movie = mv;
         this.cineplex = ci;
         this.show = sh;
@@ -72,15 +72,15 @@ public class TicketingController extends BaseController implements generalEnter 
                 ticketTypesList = DataBase.readList(TicketType.class);
                 holidayList = DataBase.readList(Holiday.class);
             }catch (Exception e){
-                this.console.logWarning(e.getMessage());
+                this.consoleUI.logWarning(e.getMessage());
             }
-            this.console.logText(logText);
-            this.console.logSeatPlan(ticketList, this.show);
+            this.consoleUI.logText(logText);
+            this.consoleUI.logSeatPlan(ticketList, this.show);
             contructLogMenu();
-            int choice = this.console.getInt("Enter index to proceed", 1, 3);
+            int choice = this.consoleUI.getInt("Enter index to proceed", 1, 3);
             if(choice == 1)
             {
-                ArrayList<String> chosenSeats = this.console.getSeat(show.getCinemaname());
+                ArrayList<String> chosenSeats = this.consoleUI.getSeat(show.getCinemaname());
                 bookMovie(chosenSeats);
             }
             else
@@ -137,15 +137,15 @@ public class TicketingController extends BaseController implements generalEnter 
                     sc[scc] = seat;
                     scc++;
                 } else {
-                    console.logWarning("You are not allowed to choose taken seats!");
-                    console.logWarning("Going back to seat availability page...");
+                    consoleUI.logWarning("You are not allowed to choose taken seats!");
+                    consoleUI.logWarning("Going back to seat availability page...");
                     TimeUnit.SECONDS.sleep(2);
                     return;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            console.logWarning("Failed to validate seats!");
+            consoleUI.logWarning("Failed to validate seats!");
             return;
         }
 
@@ -153,22 +153,22 @@ public class TicketingController extends BaseController implements generalEnter 
             code = checkCode(show.getDate());
         } catch (Exception e) {
             e.printStackTrace();
-            console.logWarning("Failed to validate date!");
+            consoleUI.logWarning("Failed to validate date!");
             return;
         }
-        email = this.console.getEmail();
+        email = this.consoleUI.getEmail();
         checkUser = checkExistsUser(email);
         if (checkUser == 0) {
-            name = this.console.getStr("Enter Your Name");
-            phoneNumber = this.console.getStr("Enter Your Phone Number");
-            this.console.logReminder("Welcome! " + name);
-            this.console.log("");
+            name = this.consoleUI.getStr("Enter Your Name");
+            phoneNumber = this.consoleUI.getStr("Enter Your Phone Number");
+            this.consoleUI.logReminder("Welcome! " + name);
+            this.consoleUI.log("");
         }
 
         while(count!=0) //determine which ticket types (can check even if have multiple type of ticket)
         {
             contructAgeMenu();
-            checkAge = this.console.getInt("Choose your age category for ticket:" + ticketNumber , 1, 3);
+            checkAge = this.consoleUI.getInt("Choose your age category for ticket:" + ticketNumber , 1, 3);
             try {
                 thisTicketType = checkTicketType(code, checkAge);
                 thisTicketTypes.add(thisTicketType);
@@ -189,42 +189,42 @@ public class TicketingController extends BaseController implements generalEnter 
             for(MovieGoner mg : movieGonersList)
             {
                 if(mg.getId() == checkUser) {
-                    this.console.log("Name:" + mg.getName());
-                    this.console.log("Email:" + mg.getEmail());
+                    this.consoleUI.log("Name:" + mg.getName());
+                    this.consoleUI.log("Email:" + mg.getEmail());
                 }
             }
         }
         else
         {
-            this.console.log("Name:" + name);
-            this.console.log("Email:" + email);
+            this.consoleUI.log("Name:" + name);
+            this.consoleUI.log("Email:" + email);
         }
-        this.console.log("Movie Name: " + movie.getName());
-        this.console.log("Movie Type: " + movie.getType());
-        this.console.log("Movie Category: " + movie.getCat());
-        this.console.log("Movie Description: " + movie.getDescription());
-        this.console.log("Cineplex Name: " + cineplex.getCineplexName());
-        this.console.log("Cinema Name: " + show.getCinemaname());
+        this.consoleUI.log("Movie Name: " + movie.getName());
+        this.consoleUI.log("Movie Type: " + movie.getType());
+        this.consoleUI.log("Movie Category: " + movie.getCat());
+        this.consoleUI.log("Movie Description: " + movie.getDescription());
+        this.consoleUI.log("Cineplex Name: " + cineplex.getCineplexName());
+        this.consoleUI.log("Cinema Name: " + show.getCinemaname());
         String cinemaType = (show.getCinemaname().charAt(0)=='c')? "Platinum Movie Suites": "Regular";
-        this.console.log("Cinema Type: " + cinemaType);
-        this.console.log("Show Time: " + show.getTime() + " " + show.getDate());
+        this.consoleUI.log("Cinema Type: " + cinemaType);
+        this.consoleUI.log("Show Time: " + show.getTime() + " " + show.getDate());
 
         while(noTicketPurchase!=indicatedSeats.size())
         {
-            this.console.log("");
-            this.console.log("Seats: " + sc[noTicketPurchase]);
-            this.console.log("Ticket Type: " + thisTicketTypes.get(noTicketPurchase).getName());
-            this.console.log("Prices: S$" + confirmPrice[noTicketPurchase]);
+            this.consoleUI.log("");
+            this.consoleUI.log("Seats: " + sc[noTicketPurchase]);
+            this.consoleUI.log("Ticket Type: " + thisTicketTypes.get(noTicketPurchase).getName());
+            this.consoleUI.log("Prices: S$" + confirmPrice[noTicketPurchase]);
             totalPrice+=confirmPrice[noTicketPurchase];
             noTicketPurchase++;
         }
-        this.console.log("");
-        this.console.logReminder("Total Prices: S$" + totalPrice);
+        this.consoleUI.log("");
+        this.consoleUI.logReminder("Total Prices: S$" + totalPrice);
 
         tId = generateTID();
 
         contructConfirmBuy();
-        confirmBuy = this.console.getInt("Confirm Purchase?:", 1, 2);
+        confirmBuy = this.consoleUI.getInt("Confirm Purchase?:", 1, 2);
 
 
         if (confirmBuy == 1) {
@@ -241,8 +241,8 @@ public class TicketingController extends BaseController implements generalEnter 
                     DataBase.setData(newUser);
                     checkUser = newUserId;
                 } catch (Exception e) {
-                    this.console.log(e.getMessage());
-                    this.console.logWarning("Failed to store user information!");
+                    this.consoleUI.log(e.getMessage());
+                    this.consoleUI.logWarning("Failed to store user information!");
                 }
             }
             while (count != 0) {
@@ -261,8 +261,8 @@ public class TicketingController extends BaseController implements generalEnter 
                     Ticket newTicket = new Ticket(newTicketParam);
                     DataBase.setData(newTicket);
                 } catch (Exception e) {
-                    this.console.log(e.getMessage());
-                    this.console.logWarning("Failed to store ticket information!");
+                    this.consoleUI.log(e.getMessage());
+                    this.consoleUI.logWarning("Failed to store ticket information!");
                     return;
                 }
                 count--;
@@ -272,7 +272,7 @@ public class TicketingController extends BaseController implements generalEnter 
             count=indicatedSeats.size();
 
             try {
-                console.logSuccess();
+                consoleUI.logSuccess();
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -317,16 +317,16 @@ public class TicketingController extends BaseController implements generalEnter 
             for(MovieGoner mg : movieGonersList)
             {
                 if(mg.getEmail().equals(Email)) {
-                    this.console.logReminder("Welcome Back! " + mg.getName());
-                    this.console.log("");
+                    this.consoleUI.logReminder("Welcome Back! " + mg.getName());
+                    this.consoleUI.log("");
                     userId = mg.getId();
                 }
             }
         }
         catch (Exception e)
         {
-                console.logWarning(e.getMessage());
-                console.logWarning("Failed to check User!");
+                consoleUI.logWarning(e.getMessage());
+                consoleUI.logWarning("Failed to check User!");
 
         }
         return userId;
@@ -404,7 +404,7 @@ public class TicketingController extends BaseController implements generalEnter 
         logMenu = new ArrayList<>();
         logMenu.add("Proceed to choose seats");
         logMenu.add("Back");
-        this.console.logMenu(logMenu);
+        this.consoleUI.logMenu(logMenu);
     }
 
     /**
@@ -416,7 +416,7 @@ public class TicketingController extends BaseController implements generalEnter 
         logMenu.add("Senior Citizen");
         logMenu.add("Student");
         logMenu.add("None");
-        this.console.logMenu(logMenu);
+        this.consoleUI.logMenu(logMenu);
     }
 
     /**
@@ -427,7 +427,7 @@ public class TicketingController extends BaseController implements generalEnter 
         logMenu = new ArrayList<>();
         logMenu.add("Confirm Purchase");
         logMenu.add("Cancel Purchase");
-        this.console.logMenu(logMenu);
+        this.consoleUI.logMenu(logMenu);
     }
 
     /**

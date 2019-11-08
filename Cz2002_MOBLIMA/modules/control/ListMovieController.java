@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.Ticket;
 import modules.entity.movie.Movie;
@@ -11,9 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a type of controller that is able to list out movie names in console
+ * Represents a type of controller that is able to list out movie names in consoleUI
  */
-public class ListMovieController extends BaseController implements withAdminEnter {
+public class ListMovieController extends BaseController implements WithAdminEnter {
     /**
      * This is the whole list of movies loaded from the database;
      */
@@ -26,21 +26,21 @@ public class ListMovieController extends BaseController implements withAdminEnte
 
     /**
      * This is to instantiate a controller with no sorting requirement
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
     @Deprecated
-    public ListMovieController(Console inheritedConsole) {
-        super(inheritedConsole);
+    public ListMovieController(ConsoleUI inheritedConsoleUI) {
+        super(inheritedConsoleUI);
         logText = "Here are all movies";
     }
 
     /**
      * This is to instantiate a controller with sorting requirement
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      * @param sortOption 1 for sort by ticket sales and 2 for sort by user rating; 0 for no sorting requirement
      */
-    public ListMovieController(Console inheritedConsole, int sortOption) {
-        super(inheritedConsole);
+    public ListMovieController(ConsoleUI inheritedConsoleUI, int sortOption) {
+        super(inheritedConsoleUI);
         this.sortOption = sortOption;
         switch (sortOption){
             case 1:
@@ -64,18 +64,18 @@ public class ListMovieController extends BaseController implements withAdminEnte
             try{
                 movieList = DataBase.readList(Movie.class);
                 movieList = this.constructLogMenu(movieList, sortOption);
-                this.console.logText(logText);
-                this.console.logMenu(logMenu);
-                int choice = this.console.getInt("Enter index to proceed", 1, movieList.size()+1);
+                this.consoleUI.logText(logText);
+                this.consoleUI.logMenu(logMenu);
+                int choice = this.consoleUI.getInt("Enter index to proceed", 1, movieList.size()+1);
                 if (choice == movieList.size()+1){
                     return;
                 } else {
-                    ListMovieInfoController movieInfo = new ListMovieInfoController(console, movieList.get(choice -1).getId());
+                    ListMovieInfoController movieInfo = new ListMovieInfoController(consoleUI, movieList.get(choice -1).getId());
                     movieInfo.enter(isAdmin);
                 }
             } catch (Exception e){
-                console.logWarning(e.getMessage());
-                console.logWarning("Failed to load Movies!");
+                consoleUI.logWarning(e.getMessage());
+                consoleUI.logWarning("Failed to load Movies!");
                 return;
             }
         }
@@ -128,7 +128,7 @@ public class ListMovieController extends BaseController implements withAdminEnte
                     }
                     break;
                 } catch (Exception e){
-                    console.logWarning("Failed to do the sorting!");
+                    consoleUI.logWarning("Failed to do the sorting!");
                 }
             case 2:
                 Movie[] array = movieList.toArray(new Movie[movieList.size()]);

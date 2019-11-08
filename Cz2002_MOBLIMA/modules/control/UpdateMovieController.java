@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.movie.Actor;
 import modules.entity.movie.Director;
@@ -17,10 +17,10 @@ import java.util.Arrays;
 public class UpdateMovieController extends BaseController {//TODO see if any way to prevent non-admin access
     /**
      * This is to instantiate a controller with Movie manipulation ability
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
-    public UpdateMovieController(Console inheritedConsole) {
-        super(inheritedConsole);
+    public UpdateMovieController(ConsoleUI inheritedConsoleUI) {
+        super(inheritedConsoleUI);
     }
 
     /**
@@ -39,8 +39,8 @@ public class UpdateMovieController extends BaseController {//TODO see if any way
                 alterMovie(chosenMovie, actionChoice);
                 return;
             } catch (Exception e){
-                this.console.log(e.getMessage());
-                console.logWarning("Failed to update the movie!");
+                this.consoleUI.log(e.getMessage());
+                consoleUI.logWarning("Failed to update the movie!");
                 return;
             }
         }
@@ -51,26 +51,26 @@ public class UpdateMovieController extends BaseController {//TODO see if any way
      * Inside this function, the user will asked to enter all necessary information for a Movie
      */
     private void insetNewMovie() {
-         this.console.logText("Please key in the following necessary information");
+         this.consoleUI.logText("Please key in the following necessary information");
          ArrayList<String> newMovieParam = new ArrayList();
          int newMovieId = DataBase.getNewId(Movie.class);
          newMovieParam.add(Integer.toString(newMovieId));
-         newMovieParam.add(this.console.getStr("Movie Name"));
-         newMovieParam.add(this.console.getStr("Description"));
-         newMovieParam.add(this.console.getMovieStatus("Status"));
-         newMovieParam.add(this.console.getStr("Movie Type"));
-         newMovieParam.add(this.console.getStr("Category"));//TODO add checking
-         this.console.logReminder("Please separate names by ',' with no space");
-         String DirectorList = this.console.getStr("Director(s)");
-         String Cast = this.console.getStr("Cast(s)");
+         newMovieParam.add(this.consoleUI.getStr("Movie Name"));
+         newMovieParam.add(this.consoleUI.getStr("Description"));
+         newMovieParam.add(this.consoleUI.getMovieStatus("Status"));
+         newMovieParam.add(this.consoleUI.getStr("Movie Type"));
+         newMovieParam.add(this.consoleUI.getStr("Category"));//TODO add checking
+         this.consoleUI.logReminder("Please separate names by ',' with no space");
+         String DirectorList = this.consoleUI.getStr("Director(s)");
+         String Cast = this.consoleUI.getStr("Cast(s)");
          try{
              alterDirector(DirectorList, newMovieId);
              alterCast(Cast, newMovieId);
              Movie newMovie = new Movie(newMovieParam);
              DataBase.setData(newMovie);
-             console.logSuccess();
+             consoleUI.logSuccess();
          } catch (Exception e){
-             this.console.log(e.getMessage());
+             this.consoleUI.log(e.getMessage());
          }
     }
 
@@ -83,38 +83,38 @@ public class UpdateMovieController extends BaseController {//TODO see if any way
         String newValue;
         switch(actionChoice){
             case 1:
-                newValue = this.console.getStr("Please enter a new Name");
+                newValue = this.consoleUI.getStr("Please enter a new Name");
                 movieToChange.setName(newValue);
                 break;
             case 2:
-                newValue = this.console.getStr("Please enter a new type");
+                newValue = this.consoleUI.getStr("Please enter a new type");
                 movieToChange.setType(newValue);
                 break;
             case 3:
-                newValue = this.console.getStr("Please enter a new category (Movie Rating)");
+                newValue = this.consoleUI.getStr("Please enter a new category (Movie Rating)");
                 movieToChange.setCat(newValue);
                 break;
             case 4:
-                newValue = this.console.getStr("Please enter a new description");
+                newValue = this.consoleUI.getStr("Please enter a new description");
                 movieToChange.setDescription(newValue);
                 break;
             case 5:
-                this.console.logReminder("Please separate names by ',' with no space");
-                newValue = this.console.getStr("Please enter new director(s)");
+                this.consoleUI.logReminder("Please separate names by ',' with no space");
+                newValue = this.consoleUI.getStr("Please enter new director(s)");
                 alterDirector(newValue, movieToChange.getId());
                 break;
             case 6:
-                this.console.logReminder("Please separate names by ',' with no space");
-                newValue = this.console.getStr("Please enter new cast");
+                this.consoleUI.logReminder("Please separate names by ',' with no space");
+                newValue = this.consoleUI.getStr("Please enter new cast");
                 alterCast(newValue, movieToChange.getId());
                 break;
             case 7:
-                newValue = this.console.getMovieStatus("Please enter a new status");
+                newValue = this.consoleUI.getMovieStatus("Please enter a new status");
                 movieToChange.setStatus(newValue);
                 break;
         }
         DataBase.setData(movieToChange);
-        console.logSuccess();
+        consoleUI.logSuccess();
     }
 
     /**

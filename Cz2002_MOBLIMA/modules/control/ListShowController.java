@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.Cineplex;
 import modules.entity.Show;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Represents a type of controller that is able to list out show plans for a specific movie in a specific cineplex for common user, or all valid show plans for staff
  */
-public class ListShowController extends BaseController implements withAdminEnter {
+public class ListShowController extends BaseController implements WithAdminEnter {
     /**
      * The specific movie that user chose before. not applicable for staff
      */
@@ -28,24 +28,24 @@ public class ListShowController extends BaseController implements withAdminEnter
     /**
      * This is for admin use. No specific movie or cineplex required.
      * To instantiate a controller specially for displaying show list
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
-    public ListShowController(Console inheritedConsole)
+    public ListShowController(ConsoleUI inheritedConsoleUI)
     {
-        super(inheritedConsole);
+        super(inheritedConsoleUI);
         logText = "Here are all the Shows";
     }
 
     /**
      * This is for common user use. specific movie or cineplex required
      * To instantiate a controller specially for displaying show list
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      * @param mv the movie chosen by the user
      * @param ci the cineplex chosen by the user
      */
-    public ListShowController(Console inheritedConsole, Movie mv, Cineplex ci)
+    public ListShowController(ConsoleUI inheritedConsoleUI, Movie mv, Cineplex ci)
     {
-        super(inheritedConsole);
+        super(inheritedConsoleUI);
         this.movie = mv;
         this.cineplex = ci;
         logText = "Here are the available shows of "+ movie.getName() + " in " + cineplex.getCineplexName() + " Cineplex";
@@ -60,30 +60,30 @@ public class ListShowController extends BaseController implements withAdminEnter
             try{
                 showList = DataBase.readList(Show.class);
                 ArrayList<Show> selectedShowList = this.constructLogMenu(showList, isAdmin);
-                this.console.logText(logText);
+                this.consoleUI.logText(logText);
                 if (selectedShowList.size()==0){
-                    this.console.log("");
-                    this.console.log("No shows are available!");
-                    this.console.log("");
+                    this.consoleUI.log("");
+                    this.consoleUI.log("No shows are available!");
+                    this.consoleUI.log("");
                 }
-                this.console.logMenu(logMenu);
-                int choice = this.console.getInt("Enter index to see show details", 1, selectedShowList.size()+1);
+                this.consoleUI.logMenu(logMenu);
+                int choice = this.consoleUI.getInt("Enter index to see show details", 1, selectedShowList.size()+1);
                 if(choice == selectedShowList.size()+1)
                     return;
                 else
                 {
                     if (!isAdmin) {
-                        ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1), this.movie, this.cineplex);
+                        ListShowInfoController showInfo = new ListShowInfoController(consoleUI, selectedShowList.get(choice-1), this.movie, this.cineplex);
                         showInfo.enter(false);
                     } else {
-                        ListShowInfoController showInfo = new ListShowInfoController(console, selectedShowList.get(choice-1).getId());
+                        ListShowInfoController showInfo = new ListShowInfoController(consoleUI, selectedShowList.get(choice-1).getId());
                         showInfo.enter(true);
                     }
 
                 }
             }catch (Exception e){
-                console.logWarning(e.getMessage());
-                console.logWarning("Failed to load the shows!");
+                consoleUI.logWarning(e.getMessage());
+                consoleUI.logWarning("Failed to load the shows!");
                 return;
             }
         }
@@ -116,7 +116,7 @@ public class ListShowController extends BaseController implements withAdminEnter
                                 + "\nTime: " + st.getTime() + "\nDate: " + st.getDate() + "\n");
                     }
                 } catch (Exception e){
-                    console.logWarning(e.getMessage());
+                    consoleUI.logWarning(e.getMessage());
                 }
             }
         }

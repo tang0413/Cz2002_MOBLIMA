@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.Cineplex;
 import modules.entity.movie.Movie;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * Represents a type of controller that is able to list out all cineplexs
  */
-public class ListCineplexController extends BaseController implements withAdminEnter {
+public class ListCineplexController extends BaseController implements WithAdminEnter {
     /**
      * A specific movie that the user chose before
      */
@@ -23,11 +23,11 @@ public class ListCineplexController extends BaseController implements withAdminE
     public Cineplex cineplex;
     /**
      * This is to instantiate a controller specially for displaying all cineplexes
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      * @param mv a user specified movie
      */
-    public ListCineplexController(Console inheritedConsole, Movie mv) {
-        super(inheritedConsole);
+    public ListCineplexController(ConsoleUI inheritedConsoleUI, Movie mv) {
+        super(inheritedConsoleUI);
         this.movie = mv;
         logText = "Here are all Cineplexes";
     }
@@ -35,10 +35,10 @@ public class ListCineplexController extends BaseController implements withAdminE
     /**
      * For admin use, not specific movie required.
      * This is to instantiate a controller specially for displaying all cineplexes
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      */
-    public ListCineplexController(Console inheritedConsole) {
-        super(inheritedConsole);
+    public ListCineplexController(ConsoleUI inheritedConsoleUI) {
+        super(inheritedConsoleUI);
         logText = "Here are all Cineplexes";
     }
 
@@ -54,15 +54,15 @@ public class ListCineplexController extends BaseController implements withAdminE
             try{
                 cineplexList = DataBase.readList(Cineplex.class);
                 this.contructLogMenu(cineplexList);
-                this.console.logText(logText);
-                this.console.logMenu(logMenu);
-                int choice = this.console.getInt("Enter index to proceed", 1, cineplexList.size()+1);
+                this.consoleUI.logText(logText);
+                this.consoleUI.logMenu(logMenu);
+                int choice = this.consoleUI.getInt("Enter index to proceed", 1, cineplexList.size()+1);
                 if(choice == cineplexList.size()+1)
                     return;
                 else
                 {
                     if (!isAdmin){
-                        ListShowController showTime = new ListShowController(console,this.movie, cineplexList.get(choice-1));
+                        ListShowController showTime = new ListShowController(consoleUI,this.movie, cineplexList.get(choice-1));
                         showTime.enter(false);
                     } else {
                         cineplex = cineplexList.get(choice-1);
@@ -70,8 +70,8 @@ public class ListCineplexController extends BaseController implements withAdminE
                     }
                 }
             }catch (Exception e){
-                console.logWarning(e.getMessage());
-                console.logWarning("Failed to load Cineplexes!");
+                consoleUI.logWarning(e.getMessage());
+                consoleUI.logWarning("Failed to load Cineplexes!");
             }
         }
     }

@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.data.DataBase;
 import modules.entity.Cineplex;
 import modules.entity.Show;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 /**
  * Represents a type of controller that is able to list out detailed show information for common users to confirm before proceeding to booking, or for staff to choose from to edit.
  */
-public class ListShowInfoController extends BaseController implements withAdminEnter {
+public class ListShowInfoController extends BaseController implements WithAdminEnter {
     /**
      * The specific movie that user chose before. not applicable for staff
      */
@@ -28,14 +28,14 @@ public class ListShowInfoController extends BaseController implements withAdminE
     /**
      * This is for common user use. specific movie, cineplex and show record required
      * To instantiate a controller specially for displaying detailed show information for users to check before booking
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      * @param sh the show chosen by the user
      * @param mv the movie chosen by the user
      * @param ci the cineplex chosen by the user
      */
-    public ListShowInfoController(Console inheritedConsole, Show sh, Movie mv, Cineplex ci)
+    public ListShowInfoController(ConsoleUI inheritedConsoleUI, Show sh, Movie mv, Cineplex ci)
     {
-        super(inheritedConsole);
+        super(inheritedConsoleUI);
         this.movie = mv;
         this.cineplex = ci;
         this.show = sh;
@@ -45,16 +45,16 @@ public class ListShowInfoController extends BaseController implements withAdminE
     /**
      * This is for admin use. Only show Id is required for dynamic loading purpose
      * To instantiate a controller specifically for displaying show information for the staff to edit
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      * @param showId the id of the show chosen by the staff
      */
-    public ListShowInfoController(Console inheritedConsole, int showId)
+    public ListShowInfoController(ConsoleUI inheritedConsoleUI, int showId)
     {
-        super(inheritedConsole);
+        super(inheritedConsoleUI);
         try{
             this.show = (Show)DataBase.getObjById(showId, Show.class);
         } catch (Exception e){
-            this.console.logWarning("No such show!");
+            this.consoleUI.logWarning("No such show!");
         }
         logText = "Please indicate one attribute to change";
     }
@@ -68,13 +68,13 @@ public class ListShowInfoController extends BaseController implements withAdminE
     public void enter(Boolean isAdmin){
         while(true){
             try{
-                this.console.logText(logText);
+                this.consoleUI.logText(logText);
                 constuctLogInfo(isAdmin, movie, cineplex, show);
-                int choice = this.console.getInt("Enter index to proceed", 1, isAdmin?7:2);
+                int choice = this.consoleUI.getInt("Enter index to proceed", 1, isAdmin?7:2);
                 switch (choice){
                     case 1:
                         if(!isAdmin){
-                            TicketingController ticket = new TicketingController(console, this.movie, this.cineplex, this.show);
+                            TicketingController ticket = new TicketingController(consoleUI, this.movie, this.cineplex, this.show);
                             ticket.enter();
                             break;
                         }
@@ -85,14 +85,14 @@ public class ListShowInfoController extends BaseController implements withAdminE
                     case 3:
                     case 4:
                     case 5:
-                        UpdateShowController show = new UpdateShowController(console);
+                        UpdateShowController show = new UpdateShowController(consoleUI);
                         show.enter(choice, this.show.getId());
                         break;
                     case 6:
-                        console.logWarning("This will completely deleted this show from the Database. You are not recommended to do so unless the show was just mis-entered. Continue?");
-                        console.logReminder("To disable users from booking, simply set a movie's status to 'End Of Showing' or 'Coming Soon' will do");
-                        if(console.getStr("Type 'YES' to continue").equals("YES")){
-                            UpdateShowController deleteShow = new UpdateShowController(console);
+                        consoleUI.logWarning("This will completely deleted this show from the Database. You are not recommended to do so unless the show was just mis-entered. Continue?");
+                        consoleUI.logReminder("To disable users from booking, simply set a movie's status to 'End Of Showing' or 'Coming Soon' will do");
+                        if(consoleUI.getStr("Type 'YES' to continue").equals("YES")){
+                            UpdateShowController deleteShow = new UpdateShowController(consoleUI);
                             deleteShow.enter(choice, this.show.getId());
                             return;
                         } else {
@@ -102,8 +102,8 @@ public class ListShowInfoController extends BaseController implements withAdminE
                         return;
                 }
             } catch (Exception e){
-                console.logWarning(e.getMessage());
-                console.logWarning("Failed to load the show information!");
+                consoleUI.logWarning(e.getMessage());
+                consoleUI.logWarning("Failed to load the show information!");
                 return;
             }
         }
@@ -127,7 +127,7 @@ public class ListShowInfoController extends BaseController implements withAdminE
             logMenu.add("Date: " + showtime.getDate());
             logMenu.add("\u001B[31mDELETE\u001B[0m");
             logMenu.add("Back");
-            this.console.logMenu(logMenu);
+            this.consoleUI.logMenu(logMenu);
         } else {
             logMenu.add("Movie Name: " + movie.getName());
             logMenu.add("Cineplex Name: " + cineplex.getCineplexName());
@@ -135,11 +135,11 @@ public class ListShowInfoController extends BaseController implements withAdminE
             String cinemaType = (show.getCinemaname().charAt(0)=='c')? "Platinum Movie Suites": "Regular";
             logMenu.add("Cinema Type: " + cinemaType);
             logMenu.add("Show Time: " + showtime.getTime() + " " + showtime.getDate());
-            this.console.logMenu(logMenu, true);
+            this.consoleUI.logMenu(logMenu, true);
             logMenu = new ArrayList<>();
             logMenu.add("Check Available Seats");
             logMenu.add("Back");
-            this.console.logMenu(logMenu);
+            this.consoleUI.logMenu(logMenu);
         }
     }
 }

@@ -1,6 +1,6 @@
 package modules.control;
 
-import modules.boundary.Console;
+import modules.boundary.ConsoleUI;
 import modules.entity.movie.Movie;
 import modules.data.DataBase;
 
@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Represents a type of controller that is able to display movie information details differently for admin or customer
  */
-public class ListMovieInfoController extends BaseController implements withAdminEnter {
+public class ListMovieInfoController extends BaseController implements WithAdminEnter {
 
     /**
      * This is the id of the user chosen movie
@@ -19,11 +19,11 @@ public class ListMovieInfoController extends BaseController implements withAdmin
 
     /**
      * This is to instantiate a controller with a specific movieID
-     * @param inheritedConsole the Console instance passed down from the previous controller
+     * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
      * @param movieId the id of the user chosen movie
      */
-    public ListMovieInfoController(Console inheritedConsole, int movieId) {
-        super(inheritedConsole);
+    public ListMovieInfoController(ConsoleUI inheritedConsoleUI, int movieId) {
+        super(inheritedConsoleUI);
         this.movieID = movieId;
     }
 
@@ -36,7 +36,7 @@ public class ListMovieInfoController extends BaseController implements withAdmin
             try{
                 Movie chosenMovie = (Movie)DataBase.getObjById(this.movieID, Movie.class);
                 constructLogInfo(isAdmin, chosenMovie);
-                int choice = this.console.getInt("Enter index to proceed", 1, logMenu.size());
+                int choice = this.consoleUI.getInt("Enter index to proceed", 1, logMenu.size());
                 switch (choice) {
                     case 1:
                         if (!isAdmin){
@@ -46,10 +46,10 @@ public class ListMovieInfoController extends BaseController implements withAdmin
                     case 2:
                         if (!isAdmin){
                             if (chosenMovie.getStatus().equals("Preview") || chosenMovie.getStatus().equals("Now Showing")){
-                                ListCineplexController available = new ListCineplexController(console, chosenMovie);
+                                ListCineplexController available = new ListCineplexController(consoleUI, chosenMovie);
                                 available.enter(false);
                             } else {
-                                console.logReminder("Oops~ Booking not available for now!");
+                                consoleUI.logReminder("Oops~ Booking not available for now!");
                                 TimeUnit.SECONDS.sleep(2);
                             }
                             break;
@@ -62,15 +62,15 @@ public class ListMovieInfoController extends BaseController implements withAdmin
                     case 5:
                     case 6:
                     case 7:
-                        UpdateMovieController update = new UpdateMovieController(this.console);
+                        UpdateMovieController update = new UpdateMovieController(this.consoleUI);
                         update.enter(choice, this.movieID);
                         break;
                     case 8:
                         return;
                 }
             } catch (Exception e){
-                console.logWarning(e.getMessage());
-                console.logWarning("Failed to load the movie information!");
+                consoleUI.logWarning(e.getMessage());
+                consoleUI.logWarning("Failed to load the movie information!");
                 return;
             }
         }
@@ -83,30 +83,30 @@ public class ListMovieInfoController extends BaseController implements withAdmin
     private void checkMovieReviews(Movie chosenMovie){
         try{
             logText = "Here is the reviews of: " + chosenMovie.getName();
-            this.console.logText(logText);
+            this.consoleUI.logText(logText);
             ArrayList<String> reviews = chosenMovie.getReview();
             if (reviews.size() >= 1){
-                this.console.logWithSeparator(reviews, "|");
+                this.consoleUI.logWithSeparator(reviews, "|");
             } else {
-                this.console.log("");
-                this.console.log("Oops, no review for now!");
-                this.console.log("");
+                this.consoleUI.log("");
+                this.consoleUI.log("Oops, no review for now!");
+                this.consoleUI.log("");
             }
             ArrayList<String> subLogMenu = new ArrayList<>();
             subLogMenu.add("Make Review");
             subLogMenu.add("Back");
-            this.console.logMenu(subLogMenu);
-            int choice = this.console.getInt("Enter index to proceed", 1, 2);
+            this.consoleUI.logMenu(subLogMenu);
+            int choice = this.consoleUI.getInt("Enter index to proceed", 1, 2);
             switch (choice){
                 case 1:
-                    MovieReviewingController mvReview = new MovieReviewingController(this.console, chosenMovie);
+                    MovieReviewingController mvReview = new MovieReviewingController(this.consoleUI, chosenMovie);
                     mvReview.enter();
                     break;
                 case 2:
                     return;
             }
         } catch (Exception e){
-            this.console.log(e.getMessage());
+            this.consoleUI.log(e.getMessage());
         }
     }
 
@@ -126,19 +126,19 @@ public class ListMovieInfoController extends BaseController implements withAdmin
         logMenu.add("Cast: " + movie.getCast());
         logMenu.add("Status: " + movie.getStatus());
         if (isAdmin) {
-            this.console.logText("Choose from the following attributes of: " + movie.getName());
-            this.console.logReminder("Movie ID: " + movie.getId());
+            this.consoleUI.logText("Choose from the following attributes of: " + movie.getName());
+            this.consoleUI.logReminder("Movie ID: " + movie.getId());
             logMenu.remove(1);
             logMenu.add("Back");
-            this.console.logMenu(logMenu);
+            this.consoleUI.logMenu(logMenu);
         } else {
-            this.console.logText("Below is the detailed information of: " + movie.getName());
-            this.console.logMenu(logMenu, true);
+            this.consoleUI.logText("Below is the detailed information of: " + movie.getName());
+            this.consoleUI.logMenu(logMenu, true);
             logMenu = new ArrayList<>();
             logMenu.add("Check Reviews");
             logMenu.add("Proceed to booking");
             logMenu.add("Back");
-            this.console.logMenu(logMenu);
+            this.consoleUI.logMenu(logMenu);
         }
     }
 }
