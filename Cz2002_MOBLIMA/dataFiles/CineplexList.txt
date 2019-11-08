@@ -1,3 +1,4 @@
 id=1|cineplexname=Jurong East|cinema=a1,b1,c1
 id=2|cineplexname=Boon Lay|cinema=a2,b2,c2
 id=3|cineplexname=Vivo City|cinema=a3,b3,c3,a4
+id=4|cineplexname=Bishan|cinema=c1,a1

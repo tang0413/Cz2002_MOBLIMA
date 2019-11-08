@@ -10,3 +10,4 @@ id=9|name=Joker|description=Super Hero|status=End Of Showing|type=Digital|cat=PG
 id=10|name=Terminator|description=good movie|status=Now Showing|type=3D|cat=NC16
 id=11|name=Disney's Maleficent: Mistress Of Evil|description=a disney movie|status=Now Showing|type=Digital|cat=PG13
 id=12|name=Abominable|description=a cartoon movie|status=Now Showing|type=Digital|cat=PG
+id=13|name=Showtimes for he Captain|description=Passengers and crew aboard a Chinese airline start to panic when the windshield shatters shortly after takeoff. As the temperature plummets and people lose consciousness, the strong-willed captain does whatever he can to land the plane safely.|status=Now Showing|type=3D|cat=PG13

@@ -18,3 +18,4 @@ id=17|name=Schwarzenegger|inMovie=10
 id=18|name=Angelina Jolie|inMovie=11
 id=19|name=Chloe|inMovie=12
 id=20|name=Albert|inMovie=12
+id=21|name=Li Xian|inMovie=13
