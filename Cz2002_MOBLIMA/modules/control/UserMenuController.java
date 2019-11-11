@@ -60,9 +60,10 @@ public class UserMenuController extends BaseController implements GeneralEnter {
     }
 
     /**
-     * This is to enter a series of actions to check if there is a movie has the same name as the one user entered
+     * This is to enter a series of actions to check if there is a movie contains the one user entered name
      * If yes, the user will be redirected to the movie information pages
      * If no, messages will be given before returning to the previous page
+     * Note when there are multiple movies meet the requirement, the first one encountered will be chosen
      */
     private void searchMovieByName(){
         try {
@@ -70,7 +71,7 @@ public class UserMenuController extends BaseController implements GeneralEnter {
             String movieName = consoleUI.getStr("Please enter the name of the movie:");
             Boolean found = false;
             for (Movie m: movieList){
-                if (m.getName().toLowerCase().equals(movieName.toLowerCase())){
+                if (m.getName().toLowerCase().contains(movieName.toLowerCase())){
                     found = true;
                     ListMovieInfoController movieInfo = new ListMovieInfoController(consoleUI, m.getId());
                     movieInfo.enter(false);
