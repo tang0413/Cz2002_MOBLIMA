@@ -23,7 +23,7 @@ public class App {
 		ConsoleUI consoleUI = new ConsoleUI();
 		consoleUI.logText("Welcome to our movie system! Version: " + version);
 		UserSelectingController user = new UserSelectingController(consoleUI);
-		user.enter(); //not implemented now.
+		user.enter();
 		consoleUI.logText("Thank you for using our APP!");
 		consoleUI.destoryScanner();
 		System.exit(0);
