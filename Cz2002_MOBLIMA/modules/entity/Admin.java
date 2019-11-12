@@ -45,6 +45,11 @@ public class Admin extends BaseEntity{
         }
     }
 
+    /**
+     * Check if the password is correct
+     * @param password the user entered password
+     * @return true if the passwords matches. false if not.
+     */
     public boolean checkPassword(String password){
         if(password.equals(this.password)){
             return true;
@@ -53,10 +58,17 @@ public class Admin extends BaseEntity{
         }
     }
 
+    /**
+     * This is to reset the password of an admin
+     * @param newPassword the new password to be set
+     */
     public void setPassword(String newPassword) {
         this.password = newPassword;
     }
 
+    /**
+     * @return the id of a admin
+     */
     @Override
     public int getId() {
         return super.getId();

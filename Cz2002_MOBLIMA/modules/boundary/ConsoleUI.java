@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
- * This class is used to manage input and output through the console.
+ * Represents an user interface that manages input and output through the console
  * It is instantiated when entering the app and passed down by controllers.
  */
 public class ConsoleUI {

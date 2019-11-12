@@ -15,7 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * This class is used to read and write data from the txt files under dataFiles folder.
+ * Represents a data base that is able to read and write data from the txt files under dataFiles folder.
  * All methods are static so easy to use whenever needed
  */
 public class DataBase {
@@ -35,7 +35,6 @@ public class DataBase {
         fileList.put(Actor.class, "ActorList.txt");
         fileList.put(Review.class, "ReviewList.txt");
         fileList.put(Cineplex.class, "CineplexList.txt");
-        fileList.put(Cinema.class, "CinemaList.txt");
         fileList.put(Show.class, "ShowList.txt");
         fileList.put(Admin.class, "AdminList.txt");
         fileList.put(Ticket.class, "TicketList.txt");

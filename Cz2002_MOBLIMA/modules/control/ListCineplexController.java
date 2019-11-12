@@ -47,7 +47,6 @@ public class ListCineplexController extends BaseController implements WithAdminE
      * After the user indicates the choice, he/she will be redirected to see the show plan of that cineplex on the movie
      * If it's an admin request, he/she will be redirected to edit the chosen cineplex
      * @param isAdmin true if it's an admin request
-     * @return if it's an admin request, the chosen cineplex will be returned. null if not.
      */
     public void enter(Boolean isAdmin)  {
         while (true){

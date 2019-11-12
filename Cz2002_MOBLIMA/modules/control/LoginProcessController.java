@@ -18,7 +18,7 @@ public class LoginProcessController extends BaseController implements GeneralEnt
 
 	/**
 	 * This is to instantiate a log in controller
-	 * @param inheritedConsoleUI
+	 * @param inheritedConsoleUI the ConsoleUI instance passed down from the previous controller
 	 */
 	public LoginProcessController(ConsoleUI inheritedConsoleUI) {
 		super(inheritedConsoleUI);

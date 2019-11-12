@@ -12,3 +12,4 @@ id=12|movieId=11|cineplexId=1|showId=7|tickettype=10|seats=G07|customerId=4|tid=
 id=13|movieId=1|cineplexId=1|showId=5|tickettype=5|seats=B02|customerId=6|tid=b1201911061819
 id=14|movieId=1|cineplexId=1|showId=5|tickettype=1|seats=G01|customerId=6|tid=b1201911061856
 id=15|movieId=1|cineplexId=1|showId=5|tickettype=2|seats=G09|customerId=6|tid=b1201911061856
+id=16|movieId=2|cineplexId=1|showId=3|tickettype=2|seats=E03|customerId=4|tid=1a1201911121929
