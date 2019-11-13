@@ -78,6 +78,12 @@ public class UpdateMovieController extends BaseController {//TODO see if any way
      * This is to change a specific attribute of a pointed movie by action code
      * @param movieToChange the movie object that is going to be changed
      * @param actionChoice the action code that is chosen by the user, ranging from 1 - 7
+     * @throws IOException thrown when failed to read/write file (store data)
+     * @throws InterruptedException thrown when failed to sleep
+     * @throws InvocationTargetException thrown when non-BaseEntity or subclass object was created
+     * @throws NoSuchMethodException thrown when non-BaseEntity or subclass object was created
+     * @throws InstantiationException thrown when non-BaseEntity or subclass object was created
+     * @throws IllegalAccessException thrown when non-BaseEntity or subclass object was created
      */
     private void alterMovie(Movie movieToChange, int actionChoice) throws IOException, InterruptedException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         String newValue;
@@ -121,6 +127,11 @@ public class UpdateMovieController extends BaseController {//TODO see if any way
      * This is to add new MovieId to the inMovie attribute of the directors
      * @param DirectorList the names of the new directors for the movie, separated by comma
      * @param movieId the id of the target movie object
+     * @throws IOException thrown when failed to read/write the file
+     * @throws InvocationTargetException thrown when non-BaseEntity or subclass object was created
+     * @throws NoSuchMethodException thrown when non-BaseEntity or subclass object was created
+     * @throws InstantiationException thrown when non-BaseEntity or subclass object was created
+     * @throws IllegalAccessException thrown when non-BaseEntity or subclass object was created
      */
     private void alterDirector(String DirectorList, int movieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String splittedInMovie[] = DirectorList.split(",");
@@ -150,6 +161,11 @@ public class UpdateMovieController extends BaseController {//TODO see if any way
      * This is to add new MovieId to the inMovie attribute of the actors. Similar to alterDirector.
      * @param Cast the names of the new cast for the movie, separated by comma
      * @param movieId the id of the target movie object
+     * @throws IOException thrown when failed to read/write the file
+     * @throws InvocationTargetException thrown when non-BaseEntity or subclass object was created
+     * @throws NoSuchMethodException thrown when non-BaseEntity or subclass object was created
+     * @throws InstantiationException thrown when non-BaseEntity or subclass object was created
+     * @throws IllegalAccessException thrown when non-BaseEntity or subclass object was created
      */
     private void alterCast(String Cast, int movieId) throws IOException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         String splittedInMovie[] = Cast.split(","); //TODO get rid off this similar code

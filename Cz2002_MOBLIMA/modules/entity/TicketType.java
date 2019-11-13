@@ -70,7 +70,7 @@ public class TicketType extends BaseEntity {
 
     /**
      * This is to (re)set the price for regular movie of this ticket type
-     * @param regularPrice
+     * @param regularPrice the new price for regular movie to be set
      */
     public void setRegularPrice(Double regularPrice) {
         this.regularPrice = regularPrice;
@@ -85,7 +85,7 @@ public class TicketType extends BaseEntity {
 
     /**
      * This is to (re)set the price for 3D movie of this ticket type
-     * @param threeDPrice
+     * @param threeDPrice the new price for 3D movie to be set
      */
     public void setThreeDPrice(Double threeDPrice) {
         this.threeDPrice = threeDPrice;

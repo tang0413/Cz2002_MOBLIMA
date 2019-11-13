@@ -87,7 +87,7 @@ public class Ticket extends BaseEntity {
 
     /**
      * This is to (re)assign the cinplex
-     * @param newCineplexId
+     * @param newCineplexId id of the new cineplex
      */
     @Deprecated
     public void setCineplexId(int newCineplexId) { this.cineplexId = newCineplexId; }

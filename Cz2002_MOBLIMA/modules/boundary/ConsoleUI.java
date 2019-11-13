@@ -227,6 +227,7 @@ public class ConsoleUI {
     /**
      * This is to print out success message and auto return to the previous page
      * A sleep time of 2.5 seconds was set to allow the users to read
+     * @throws InterruptedException thrown when failed to sleep
      */
     public void logSuccess() throws InterruptedException {
         logReminder("Updated successfully! Returning to the previous page...");

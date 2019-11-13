@@ -13,7 +13,6 @@ public class RunApp {
 
 	/**
 	 * The entrance of the program
-	 * @param args
 	 */
 	public static void main(String[] args) {
 		app = new App();

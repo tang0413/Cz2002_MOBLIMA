@@ -20,13 +20,16 @@ import java.nio.file.Paths;
  */
 public class DataBase {
     /**
-     * A HashMap to store the read and unchanged data to save efficiency
+     * A HashMap to store the read and unchanged data to improve the efficiency
      */
     private static HashMap<String, ArrayList> bufferList= new HashMap<>();
     /**
      * A HashMap to store the current maximum id of the entity classes e.g. Movie
      */
     private static HashMap<Class, Integer> bufferMaxIdList = new HashMap<>();
+    /**
+     * A HashMap to map a class to its own specific txt file
+     */
     private static HashMap<Class, String> fileList = new HashMap<>();
     static {
         fileList.put(Movie.class, "MovieList.txt");
@@ -59,6 +62,11 @@ public class DataBase {
      * Note if no file is changed since last read, it will check the bufferlist and return directly
      * @param classObject The class of the objects to be created e.g. Movie.class
      * @return an ArrayList of instantiated objects of specified class from a certain file
+     * @throws FileNotFoundException thrown when no corresponding file was found
+     * @throws NoSuchMethodException thrown when non-BaseEntity or subclass object was created
+     * @throws IllegalAccessException thrown when non-BaseEntity or subclass object was created
+     * @throws InvocationTargetException thrown when non-BaseEntity or subclass object was created
+     * @throws InstantiationException thrown when non-BaseEntity or subclass object was created
      */
     public static ArrayList readList(Class<? extends BaseEntity> classObject) throws FileNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         String className = classObject.getName();
@@ -127,7 +135,7 @@ public class DataBase {
      * This is used to read data line by line from a file
      * @param fileName The filename to read data from e.g. MovieList.txt
      * @return An ArrayList of string
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException thrown when no corresponding file was found
      */
     private static List readFile(String fileName) throws FileNotFoundException {
         List data = new ArrayList() ;
@@ -147,7 +155,7 @@ public class DataBase {
     /**
      * This is used to save updated data back into files
      * @param entityToUpdate A object of BaseEntity or its subclasses, which is newly created or modified
-     * @throws IOException
+     * @throws IOException thrown when failed to read or write the file
      */
     public static void setData(BaseEntity entityToUpdate) throws IOException {
         String fileName = fileList.get(entityToUpdate.getClass());
@@ -176,7 +184,7 @@ public class DataBase {
      * This is used to save updated data back into files
      * @param fileName The filename to change e.g. MovieList.txt
      * @param entityToUpdate A object of BaseEntity or its subclasses, which is newly created or modified
-     * @throws IOException
+     * @throws IOException thrown when failed to read or write the file
      */
     @Deprecated
     public static void setData(String fileName, BaseEntity entityToUpdate) throws IOException {
@@ -205,7 +213,7 @@ public class DataBase {
     /**
      * This is used to delete one record from a txt file
      * @param entityToDelete A object of BaseEntity or its subclasses, which is to be deleted from database
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException thrown when no corresponding file was found
      */
     public static void deleteData(BaseEntity entityToDelete) throws FileNotFoundException {
         String fileName = fileList.get(entityToDelete.getClass());
@@ -291,7 +299,7 @@ public class DataBase {
      * This is used by setData and deleteData to write to files
      * @param fileName The filename to change e.g. MovieList.txt
      * @param content A ArrayList of string that will be written into the file
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException thrown when no corresponding file was found
      */
     private static void writeFile(String fileName, ArrayList content) throws FileNotFoundException {
         try {
